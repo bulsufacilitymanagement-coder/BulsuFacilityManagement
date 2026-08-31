@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 
 import { InputField } from "../../ui/Fields/InputField";
@@ -25,7 +25,7 @@ type FormErrors = {
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const NAME_REGEX = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;
 
-const pageVariants = {
+const pageVariants: Variants = {
   hidden: {
     opacity: 0,
   },
@@ -39,7 +39,7 @@ const pageVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 14,
@@ -54,7 +54,7 @@ const itemVariants = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 20,
