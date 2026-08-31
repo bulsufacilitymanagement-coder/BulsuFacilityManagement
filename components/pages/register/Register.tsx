@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 
 import { InputField } from "../../ui/Fields/InputField";
@@ -23,6 +24,52 @@ type FormErrors = {
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const NAME_REGEX = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;
+
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.45,
+      ease: "easeOut",
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 14,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+    scale: 0.985,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 export function Register() {
   const router = useRouter();
@@ -188,82 +235,142 @@ export function Register() {
   }
 
   function togglePassword() {
-    setShowPassword((previousValue) => !previousValue);
+    setShowPassword(function (previousValue) {
+      return !previousValue;
+    });
   }
 
   function toggleConfirmPassword() {
-    setShowConfirmPassword((previousValue) => !previousValue);
+    setShowConfirmPassword(function (previousValue) {
+      return !previousValue;
+    });
   }
 
   function selectRole(selectedRole: UserRole) {
     setRole(selectedRole);
 
-    setErrors((previousErrors) => ({
-      ...previousErrors,
-      role: undefined,
-    }));
+    setErrors(function (previousErrors) {
+      return {
+        ...previousErrors,
+        role: undefined,
+      };
+    });
   }
 
   function handleFirstNameChange(value: string) {
     setFirstName(value);
 
-    setErrors((previousErrors) => ({
-      ...previousErrors,
-      firstName: undefined,
-    }));
+    setErrors(function (previousErrors) {
+      return {
+        ...previousErrors,
+        firstName: undefined,
+      };
+    });
   }
 
   function handleLastNameChange(value: string) {
     setLastName(value);
 
-    setErrors((previousErrors) => ({
-      ...previousErrors,
-      lastName: undefined,
-    }));
+    setErrors(function (previousErrors) {
+      return {
+        ...previousErrors,
+        lastName: undefined,
+      };
+    });
   }
 
   function handleEmailChange(value: string) {
     setEmail(value);
 
-    setErrors((previousErrors) => ({
-      ...previousErrors,
-      email: undefined,
-    }));
+    setErrors(function (previousErrors) {
+      return {
+        ...previousErrors,
+        email: undefined,
+      };
+    });
   }
 
   function handlePasswordChange(value: string) {
     setPassword(value);
 
-    setErrors((previousErrors) => ({
-      ...previousErrors,
-      password: undefined,
-    }));
+    setErrors(function (previousErrors) {
+      return {
+        ...previousErrors,
+        password: undefined,
+      };
+    });
   }
 
   function handleConfirmPasswordChange(value: string) {
     setConfirmPassword(value);
 
-    setErrors((previousErrors) => ({
-      ...previousErrors,
-      confirmPassword: undefined,
-    }));
+    setErrors(function (previousErrors) {
+      return {
+        ...previousErrors,
+        confirmPassword: undefined,
+      };
+    });
   }
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FAFAF8] px-4 py-8 sm:px-6 sm:py-12">
       {/* Ambient background */}
-      <div className="pointer-events-none absolute -left-32 -top-32 h-72 w-72 rounded-full bg-[#A6192E]/[0.07] blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-[#F4C430]/[0.10] blur-3xl" />
+      <motion.div
+        className="pointer-events-none absolute -left-32 -top-32 h-72 w-72 rounded-full bg-[#A6192E]/[0.07] blur-3xl"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      />
 
-      <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-[460px] items-center justify-center">
+      <motion.div
+        className="pointer-events-none absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-[#F4C430]/[0.10] blur-3xl"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 1.2,
+          delay: 0.15,
+          ease: "easeOut",
+        }}
+      />
+
+      <motion.div
+        className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-[460px] items-center justify-center"
+        variants={pageVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <section className="w-full">
           {/* Header */}
-          <header className="mb-7 text-center">
-            <div className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-[#A6192E] shadow-[0_12px_30px_rgba(166,25,46,0.20)]">
+          <motion.header variants={itemVariants} className="mb-7 text-center">
+            {/* University mark */}
+            <motion.div
+              className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-[#A6192E] shadow-[0_12px_30px_rgba(166,25,46,0.20)]"
+              initial={{ opacity: 0, scale: 0.8, rotate: -4 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{
+                duration: 0.55,
+                ease: "easeOut",
+              }}
+              whileHover={{
+                scale: 1.04,
+              }}
+              whileTap={{
+                scale: 0.97,
+              }}
+            >
               <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-[3px] border-white/90">
-                <div className="h-2.5 w-2.5 rounded-full bg-[#F4C430]" />
+                <motion.div
+                  className="h-2.5 w-2.5 rounded-full bg-[#F4C430]"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: 0.35,
+                    ease: "easeOut",
+                  }}
+                />
               </div>
-            </div>
+            </motion.div>
 
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#A6192E]">
               Bulacan State University
@@ -276,35 +383,90 @@ export function Register() {
             <p className="mx-auto mt-2 max-w-[330px] text-[14px] leading-5 text-slate-500">
               Set up your account to request and manage facility reservations.
             </p>
-          </header>
+          </motion.header>
 
           {/* Card */}
-          <div className="rounded-[26px] border border-slate-200/70 bg-white/95 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-sm sm:p-7">
+          <motion.div
+            variants={cardVariants}
+            className="rounded-[26px] border border-slate-200/70 bg-white/95 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-sm sm:p-7"
+          >
             {/* Error */}
-            {errorMsg && (
-              <div
-                role="alert"
-                className="mb-5 flex items-start gap-3 rounded-[15px] border border-red-200 bg-red-50 px-4 py-3.5 text-[13px] leading-5 text-red-700"
-              >
-                <span className="mt-[5px] h-2 w-2 shrink-0 rounded-full bg-red-500" />
-                <p>{errorMsg}</p>
-              </div>
-            )}
+            <AnimatePresence initial={false}>
+              {errorMsg && (
+                <motion.div
+                  key="error"
+                  role="alert"
+                  initial={{
+                    opacity: 0,
+                    height: 0,
+                    y: -8,
+                    marginBottom: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    height: "auto",
+                    y: 0,
+                    marginBottom: 20,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    height: 0,
+                    y: -8,
+                    marginBottom: 0,
+                  }}
+                  transition={{
+                    duration: 0.25,
+                    ease: "easeOut",
+                  }}
+                  className="flex items-start gap-3 overflow-hidden rounded-[15px] border border-red-200 bg-red-50 px-4 py-3.5 text-[13px] leading-5 text-red-700"
+                >
+                  <span className="mt-[5px] h-2 w-2 shrink-0 rounded-full bg-red-500" />
+
+                  <p>{errorMsg}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Success */}
-            {successMsg && (
-              <div
-                role="status"
-                className="mb-5 flex items-start gap-3 rounded-[15px] border border-yellow-300 bg-yellow-50 px-4 py-3.5 text-[13px] leading-5 text-yellow-900"
-              >
-                <span className="mt-[5px] h-2 w-2 shrink-0 rounded-full bg-[#F4C430]" />
-                <p>{successMsg}</p>
-              </div>
-            )}
+            <AnimatePresence initial={false}>
+              {successMsg && (
+                <motion.div
+                  key="success"
+                  role="status"
+                  initial={{
+                    opacity: 0,
+                    height: 0,
+                    y: -8,
+                    marginBottom: 0,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    height: "auto",
+                    y: 0,
+                    marginBottom: 20,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    height: 0,
+                    y: -8,
+                    marginBottom: 0,
+                  }}
+                  transition={{
+                    duration: 0.25,
+                    ease: "easeOut",
+                  }}
+                  className="flex items-start gap-3 overflow-hidden rounded-[15px] border border-yellow-300 bg-yellow-50 px-4 py-3.5 text-[13px] leading-5 text-yellow-900"
+                >
+                  <span className="mt-[5px] h-2 w-2 shrink-0 rounded-full bg-[#F4C430]" />
+
+                  <p>{successMsg}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <form onSubmit={handleRegister} noValidate className="space-y-5">
               {/* Account Type */}
-              <div>
+              <motion.div variants={itemVariants}>
                 <div className="mb-2 flex items-center justify-between">
                   <label className="text-[13px] font-semibold text-slate-700">
                     Account type
@@ -319,21 +481,29 @@ export function Register() {
                   className="grid grid-cols-2 gap-3"
                 >
                   {/* Student */}
-                  <button
+                  <motion.button
                     type="button"
                     role="radio"
                     aria-checked={role === "student"}
                     onClick={function handleStudentClick() {
                       selectRole("student");
                     }}
-                    className={`rounded-[17px] border p-4 text-left transition-all duration-200 active:scale-[0.985] ${
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.985 }}
+                    transition={{
+                      duration: 0.15,
+                    }}
+                    className={`rounded-[17px] border p-4 text-left transition-all duration-200 ${
                       role === "student"
                         ? "border-[#A6192E] bg-[#A6192E]/[0.04] shadow-[0_4px_14px_rgba(166,25,46,0.08)] ring-2 ring-[#A6192E]/10"
                         : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
                     }`}
                   >
                     <div className="flex items-start justify-between">
-                      <div
+                      <motion.div
+                        animate={{
+                          scale: role === "student" ? 1 : 0.96,
+                        }}
                         className={`flex h-9 w-9 items-center justify-center rounded-xl text-[13px] font-bold ${
                           role === "student"
                             ? "bg-[#A6192E] text-white"
@@ -341,18 +511,37 @@ export function Register() {
                         }`}
                       >
                         S
-                      </div>
+                      </motion.div>
 
                       <div
-                        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${
+                        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
                           role === "student"
                             ? "border-[#A6192E]"
                             : "border-slate-300"
                         }`}
                       >
-                        {role === "student" && (
-                          <div className="h-2.5 w-2.5 rounded-full bg-[#A6192E]" />
-                        )}
+                        <AnimatePresence>
+                          {role === "student" && (
+                            <motion.div
+                              initial={{
+                                opacity: 0,
+                                scale: 0,
+                              }}
+                              animate={{
+                                opacity: 1,
+                                scale: 1,
+                              }}
+                              exit={{
+                                opacity: 0,
+                                scale: 0,
+                              }}
+                              transition={{
+                                duration: 0.18,
+                              }}
+                              className="h-2.5 w-2.5 rounded-full bg-[#A6192E]"
+                            />
+                          )}
+                        </AnimatePresence>
                       </div>
                     </div>
 
@@ -365,24 +554,32 @@ export function Register() {
                         Reserve university facilities
                       </p>
                     </div>
-                  </button>
+                  </motion.button>
 
                   {/* Faculty */}
-                  <button
+                  <motion.button
                     type="button"
                     role="radio"
                     aria-checked={role === "faculty"}
                     onClick={function handleFacultyClick() {
                       selectRole("faculty");
                     }}
-                    className={`rounded-[17px] border p-4 text-left transition-all duration-200 active:scale-[0.985] ${
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.985 }}
+                    transition={{
+                      duration: 0.15,
+                    }}
+                    className={`rounded-[17px] border p-4 text-left transition-all duration-200 ${
                       role === "faculty"
                         ? "border-[#A6192E] bg-[#A6192E]/[0.04] shadow-[0_4px_14px_rgba(166,25,46,0.08)] ring-2 ring-[#A6192E]/10"
                         : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
                     }`}
                   >
                     <div className="flex items-start justify-between">
-                      <div
+                      <motion.div
+                        animate={{
+                          scale: role === "faculty" ? 1 : 0.96,
+                        }}
                         className={`flex h-9 w-9 items-center justify-center rounded-xl text-[13px] font-bold ${
                           role === "faculty"
                             ? "bg-[#A6192E] text-white"
@@ -390,18 +587,37 @@ export function Register() {
                         }`}
                       >
                         F
-                      </div>
+                      </motion.div>
 
                       <div
-                        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${
+                        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
                           role === "faculty"
                             ? "border-[#A6192E]"
                             : "border-slate-300"
                         }`}
                       >
-                        {role === "faculty" && (
-                          <div className="h-2.5 w-2.5 rounded-full bg-[#A6192E]" />
-                        )}
+                        <AnimatePresence>
+                          {role === "faculty" && (
+                            <motion.div
+                              initial={{
+                                opacity: 0,
+                                scale: 0,
+                              }}
+                              animate={{
+                                opacity: 1,
+                                scale: 1,
+                              }}
+                              exit={{
+                                opacity: 0,
+                                scale: 0,
+                              }}
+                              transition={{
+                                duration: 0.18,
+                              }}
+                              className="h-2.5 w-2.5 rounded-full bg-[#A6192E]"
+                            />
+                          )}
+                        </AnimatePresence>
                       </div>
                     </div>
 
@@ -414,18 +630,40 @@ export function Register() {
                         Reserve and manage facilities
                       </p>
                     </div>
-                  </button>
+                  </motion.button>
                 </div>
 
-                {errors.role && (
-                  <p className="mt-2 text-[12px] font-medium text-red-600">
-                    {errors.role}
-                  </p>
-                )}
-              </div>
+                <AnimatePresence initial={false}>
+                  {errors.role && (
+                    <motion.p
+                      initial={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      transition={{
+                        duration: 0.2,
+                      }}
+                      className="mt-2 text-[12px] font-medium text-red-600"
+                    >
+                      {errors.role}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
               {/* First + Last Name */}
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <motion.div
+                variants={itemVariants}
+                className="grid grid-cols-1 gap-5 sm:grid-cols-2"
+              >
                 <div>
                   <InputField
                     label="First Name"
@@ -437,11 +675,27 @@ export function Register() {
                     onChange={handleFirstNameChange}
                   />
 
-                  {errors.firstName && (
-                    <p className="mt-1.5 text-[12px] font-medium text-red-600">
-                      {errors.firstName}
-                    </p>
-                  )}
+                  <AnimatePresence initial={false}>
+                    {errors.firstName && (
+                      <motion.p
+                        initial={{
+                          opacity: 0,
+                          y: -4,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        exit={{
+                          opacity: 0,
+                          y: -4,
+                        }}
+                        className="mt-1.5 text-[12px] font-medium text-red-600"
+                      >
+                        {errors.firstName}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 <div>
@@ -455,16 +709,32 @@ export function Register() {
                     onChange={handleLastNameChange}
                   />
 
-                  {errors.lastName && (
-                    <p className="mt-1.5 text-[12px] font-medium text-red-600">
-                      {errors.lastName}
-                    </p>
-                  )}
+                  <AnimatePresence initial={false}>
+                    {errors.lastName && (
+                      <motion.p
+                        initial={{
+                          opacity: 0,
+                          y: -4,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                        }}
+                        exit={{
+                          opacity: 0,
+                          y: -4,
+                        }}
+                        className="mt-1.5 text-[12px] font-medium text-red-600"
+                      >
+                        {errors.lastName}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Email */}
-              <div>
+              <motion.div variants={itemVariants}>
                 <EmailField
                   label="Email"
                   name="email"
@@ -475,15 +745,31 @@ export function Register() {
                   onChange={handleEmailChange}
                 />
 
-                {errors.email && (
-                  <p className="mt-1.5 text-[12px] font-medium text-red-600">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
+                <AnimatePresence initial={false}>
+                  {errors.email && (
+                    <motion.p
+                      initial={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      className="mt-1.5 text-[12px] font-medium text-red-600"
+                    >
+                      {errors.email}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
               {/* Password */}
-              <div>
+              <motion.div variants={itemVariants}>
                 <PasswordField
                   label="Password"
                   name="password"
@@ -496,20 +782,55 @@ export function Register() {
                   onChange={handlePasswordChange}
                 />
 
-                {errors.password ? (
-                  <p className="mt-1.5 text-[12px] font-medium text-red-600">
-                    {errors.password}
-                  </p>
-                ) : (
-                  <p className="mt-1.5 text-[11px] text-slate-400">
-                    Use at least 8 characters with uppercase, lowercase, and a
-                    number.
-                  </p>
-                )}
-              </div>
+                <AnimatePresence mode="wait" initial={false}>
+                  {errors.password ? (
+                    <motion.p
+                      key="password-error"
+                      initial={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      transition={{
+                        duration: 0.2,
+                      }}
+                      className="mt-1.5 text-[12px] font-medium text-red-600"
+                    >
+                      {errors.password}
+                    </motion.p>
+                  ) : (
+                    <motion.p
+                      key="password-help"
+                      initial={{
+                        opacity: 0,
+                      }}
+                      animate={{
+                        opacity: 1,
+                      }}
+                      exit={{
+                        opacity: 0,
+                      }}
+                      transition={{
+                        duration: 0.2,
+                      }}
+                      className="mt-1.5 text-[11px] text-slate-400"
+                    >
+                      Use at least 8 characters with uppercase, lowercase, and a
+                      number.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
               {/* Confirm Password */}
-              <div>
+              <motion.div variants={itemVariants}>
                 <PasswordField
                   label="Confirm Password"
                   name="confirmPassword"
@@ -522,40 +843,90 @@ export function Register() {
                   onChange={handleConfirmPasswordChange}
                 />
 
-                {errors.confirmPassword && (
-                  <p className="mt-1.5 text-[12px] font-medium text-red-600">
-                    {errors.confirmPassword}
-                  </p>
-                )}
-              </div>
+                <AnimatePresence initial={false}>
+                  {errors.confirmPassword && (
+                    <motion.p
+                      initial={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: -4,
+                      }}
+                      transition={{
+                        duration: 0.2,
+                      }}
+                      className="mt-1.5 text-[12px] font-medium text-red-600"
+                    >
+                      {errors.confirmPassword}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
               {/* Submit */}
-              <div className="pt-1">
+              <motion.div
+                variants={itemVariants}
+                className="pt-1"
+                whileTap={{
+                  scale: 0.99,
+                }}
+              >
                 <PrimaryButton type="submit" loading={loading}>
                   Create Account
                 </PrimaryButton>
-              </div>
+              </motion.div>
             </form>
 
             {/* Login */}
-            <div className="mt-7 border-t border-slate-100 pt-5 text-center">
+            <motion.div
+              variants={itemVariants}
+              className="mt-7 border-t border-slate-100 pt-5 text-center"
+            >
               <p className="text-[14px] text-slate-500">
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="font-semibold text-[#A6192E] transition-colors hover:text-[#7D1223] hover:underline"
+                  className="font-semibold text-[#A6192E] transition-colors hover:text-[#7D1223] hover:underline focus:outline-none focus:ring-2 focus:ring-[#A6192E]/20"
                 >
                   Sign in
                 </Link>
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Footer */}
-          <div className="mt-7 text-center">
+          <motion.div variants={itemVariants} className="mt-7 text-center">
             <div className="mb-2 flex items-center justify-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#A6192E]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#F4C430]" />
+              <motion.span
+                className="h-1.5 w-1.5 rounded-full bg-[#A6192E]"
+                animate={{
+                  opacity: [0.5, 1, 0.5],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              <motion.span
+                className="h-1.5 w-1.5 rounded-full bg-[#F4C430]"
+                animate={{
+                  opacity: [1, 0.5, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
               <span className="h-1.5 w-1.5 rounded-full bg-[#A6192E]/30" />
             </div>
 
@@ -566,9 +937,9 @@ export function Register() {
             <p className="mt-1 text-[10px] text-slate-300">
               Bulacan State University
             </p>
-          </div>
+          </motion.div>
         </section>
-      </div>
+      </motion.div>
     </main>
   );
 }

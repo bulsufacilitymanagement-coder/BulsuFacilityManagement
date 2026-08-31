@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
@@ -66,44 +67,74 @@ export function Login() {
       <div className="pointer-events-none absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-[#F4C430]/[0.10] blur-3xl" />
 
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-[430px] items-center justify-center">
-        <section className="w-full">
+        <motion.section
+          className="w-full"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           {/* -------------------------------------------------------------- */}
           {/* Header                                                          */}
           {/* -------------------------------------------------------------- */}
 
           <header className="mb-8 text-center">
             {/* University mark */}
-            <div className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-[#A6192E] shadow-[0_12px_30px_rgba(166,25,46,0.20)]">
+            <motion.div
+              className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-[#A6192E] shadow-[0_12px_30px_rgba(166,25,46,0.20)]"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
+            >
               <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-[3px] border-white/90">
                 <div className="h-2.5 w-2.5 rounded-full bg-[#F4C430]" />
               </div>
-            </div>
+            </motion.div>
 
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#A6192E]">
               Bulacan State University
             </p>
 
-            <h1 className="text-[30px] font-bold tracking-[-0.8px] text-slate-950 sm:text-[32px]">
+            <motion.h1
+              className="text-[30px] font-bold tracking-[-0.8px] text-slate-950 sm:text-[32px]"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.15 }}
+            >
               Welcome back
-            </h1>
+            </motion.h1>
 
-            <p className="mx-auto mt-2 max-w-[310px] text-[14px] leading-5 text-slate-500">
+            <motion.p
+              className="mx-auto mt-2 max-w-[310px] text-[14px] leading-5 text-slate-500"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.22 }}
+            >
               Sign in to your account and continue managing your facility
               reservations.
-            </p>
+            </motion.p>
           </header>
 
           {/* -------------------------------------------------------------- */}
           {/* Login Surface                                                    */}
           {/* -------------------------------------------------------------- */}
 
-          <div className="rounded-[26px] border border-slate-200/70 bg-white/95 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-sm sm:p-7">
+          <motion.div
+            className="rounded-[26px] border border-slate-200/70 bg-white/95 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur-sm sm:p-7"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.18, ease: "easeOut" }}
+          >
             {/* Error */}
             {errorMsg && (
-              <div className="mb-5 flex items-start gap-3 rounded-[15px] border border-red-200 bg-red-50 px-4 py-3.5 text-[13px] leading-5 text-red-700">
+              <motion.div
+                initial={{ opacity: 0, height: 0, y: -5 }}
+                animate={{ opacity: 1, height: "auto", y: 0 }}
+                transition={{ duration: 0.25 }}
+                className="mb-5 flex items-start gap-3 overflow-hidden rounded-[15px] border border-red-200 bg-red-50 px-4 py-3.5 text-[13px] leading-5 text-red-700"
+              >
                 <span className="mt-[3px] h-2 w-2 shrink-0 rounded-full bg-red-500" />
                 <p>{errorMsg}</p>
-              </div>
+              </motion.div>
             )}
 
             <form onSubmit={handleLogin} className="space-y-5">
@@ -164,14 +195,20 @@ export function Login() {
                 Don&apos;t have an account?
               </p>
 
-              <Link
-                href="/register"
-                className="mt-1 inline-flex min-h-10 items-center justify-center rounded-xl px-3 text-[14px] font-semibold text-[#A6192E] transition-all hover:bg-[#A6192E]/[0.05] hover:text-[#7D1223] active:scale-[0.98]"
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex"
               >
-                Create your account
-              </Link>
+                <Link
+                  href="/register"
+                  className="mt-1 inline-flex min-h-10 items-center justify-center rounded-xl px-3 text-[14px] font-semibold text-[#A6192E] transition-colors hover:bg-[#A6192E]/[0.05] hover:text-[#7D1223]"
+                >
+                  Create your account
+                </Link>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* -------------------------------------------------------------- */}
           {/* Trust / Footer                                                   */}
@@ -192,7 +229,7 @@ export function Login() {
               Bulacan State University
             </p>
           </div>
-        </section>
+        </motion.section>
       </div>
     </main>
   );
