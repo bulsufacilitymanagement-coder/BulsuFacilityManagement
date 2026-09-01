@@ -37,6 +37,11 @@ export function Login() {
       });
 
       if (error) {
+        if (error.message === "Invalid login credentials") {
+          setErrorMsg("Invalid email or password");
+          return;
+        }
+
         setErrorMsg(error.message);
         return;
       }

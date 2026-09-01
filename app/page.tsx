@@ -7,13 +7,19 @@ import {
   CalendarDays,
   CheckCircle2,
   Clock3,
+  FileText,
+  GraduationCap,
+  HeartHandshake,
+  Landmark,
   MapPin,
   Menu,
+  Scale,
   ShieldCheck,
   Sparkles,
   Users,
   X,
 } from "lucide-react";
+
 import { useState } from "react";
 
 export default function Home() {
@@ -661,6 +667,322 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
+      </section>
+
+      {/* ================================================================ */}
+      {/* STUDENT RESOURCE HUB                                             */}
+      {/* ================================================================ */}
+
+      <section
+        id="resources"
+        className="border-t border-slate-200/60 bg-[#FAFAF8] px-4 py-20 sm:px-6 sm:py-24"
+      >
+        <div className="mx-auto max-w-6xl">
+          {/* Section heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto max-w-2xl text-center"
+          >
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-[14px] bg-[#A6192E]/[0.07]">
+              <FileText className="h-5 w-5 text-[#A6192E]" />
+            </div>
+
+            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#A6192E]">
+              Student Resources
+            </p>
+
+            <h2 className="mt-3 text-[30px] font-bold tracking-[-0.8px] text-slate-950 sm:text-[38px]">
+              Stay informed. Know your rights. Be heard.
+            </h2>
+
+            <p className="mt-5 text-[15px] leading-7 text-slate-500">
+              BulSU is dedicated to promoting openness and active communication
+              between the student council and the student body. Explore
+              important documents, reports, directories, policies, and resources
+              that help keep our school community informed.
+            </p>
+          </motion.div>
+
+          {/* Resource groups */}
+          <div className="mt-12 grid gap-4 md:grid-cols-2">
+            {/* Student Support */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45 }}
+              className="rounded-[24px] border border-slate-200/70 bg-white p-6 sm:p-7"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[#A6192E]/[0.07]">
+                  <HeartHandshake className="h-5 w-5 text-[#A6192E]" />
+                </div>
+
+                <div>
+                  <h3 className="text-[16px] font-bold text-slate-900">
+                    Student Support
+                  </h3>
+
+                  <p className="mt-0.5 text-[11px] text-slate-400">
+                    Help, contacts, and student representatives
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 divide-y divide-slate-100">
+                <a
+                  href="https://findahelpline.com/countries/ph/topics/suicidal-thoughts"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Crisis Hotlines
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://www.facebook.com/share/p/1715Rtfvpj/"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    CSSP LSC Directory
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://docs.google.com/spreadsheets/d/1iv6k2LRNHt1pJ5ODwIceRmgYrMawM-mA/edit?usp=drivesdk&ouid=107773750213416118125&rtpof=true&sd=true"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Classroom Officers Directory
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Council Governance */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, delay: 0.06 }}
+              className="rounded-[24px] border border-slate-200/70 bg-white p-6 sm:p-7"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[#F4C430]/20">
+                  <Scale className="h-5 w-5 text-[#80620D]" />
+                </div>
+
+                <div>
+                  <h3 className="text-[16px] font-bold text-slate-900">
+                    Council Governance
+                  </h3>
+
+                  <p className="mt-0.5 text-[11px] text-slate-400">
+                    Policies, rights, and governing documents
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 divide-y divide-slate-100">
+                <a
+                  href="https://drive.google.com/file/d/1MPSAnh7GRifkgpGhtUmYWAsxLgwj6OV6/view?usp=sharing"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    SG Constitution &amp; By-Laws
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://drive.google.com/file/d/1wpUSCBsGja3YFiwn-KmBh0ddJOlXplBb/view?usp=drive_link"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    CSSP LSC Code
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://drive.google.com/file/d/1oNFcUmRBdIeCoKhiEXEy_1K8rhV6oQ-L/view?usp=sharing"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    BulSU Student Handbook
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://drive.google.com/file/d/19XD4Er7i9VdZhrcDE3yduwpU12hVhTTW/view?usp=sharing"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Magna Carta of Students (MCOS)
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Council Documents */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, delay: 0.12 }}
+              className="rounded-[24px] border border-slate-200/70 bg-white p-6 sm:p-7"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-slate-900 text-white">
+                  <FileText className="h-5 w-5" />
+                </div>
+
+                <div>
+                  <h3 className="text-[16px] font-bold text-slate-900">
+                    Council Documents
+                  </h3>
+
+                  <p className="mt-0.5 text-[11px] text-slate-400">
+                    Official records and council materials
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 divide-y divide-slate-100">
+                <a
+                  href="#"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Resolutions &amp; Projects
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://drive.google.com/drive/folders/1DzkBxrmJfIKxY1114CsZyCpphhNf-ZOq"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Executive Documents
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://drive.google.com/drive/folders/1o4EMzmKZiFA49XWsYIiUT4t0dNrSgJzx?usp=sharing"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Legislative Documents
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://drive.google.com/drive/folders/1nqOiRUTk0ci9okuOgIT_RzjLfbq2JNMp?usp=drive_link"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Minutes of the Meeting
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://docs.google.com/document/d/12KX3q1DOcgF_fF5qxo2I-TWkNT12Zgio1_RYcXGUAAo/edit?usp=sharing"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Narrative Report Template
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Transparency & Planning */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, delay: 0.18 }}
+              className="rounded-[24px] border border-slate-200/70 bg-white p-6 sm:p-7"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[#A6192E]/[0.07]">
+                  <Landmark className="h-5 w-5 text-[#A6192E]" />
+                </div>
+
+                <div>
+                  <h3 className="text-[16px] font-bold text-slate-900">
+                    Transparency &amp; Planning
+                  </h3>
+
+                  <p className="mt-0.5 text-[11px] text-slate-400">
+                    Reports, schedules, and planning resources
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 divide-y divide-slate-100">
+                <a
+                  href="https://drive.google.com/drive/folders/1xFEU7vW2mLKqIZBvmvJrkRGLZu1WH5ea?usp=sharing"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    Financial Reports
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+
+                <a
+                  href="https://www.facebook.com/share/p/15vpVVmM76/?mibextid=wwXIfr"
+                  className="group flex items-center justify-between py-3.5"
+                >
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                    BulSU Academic Calendar
+                  </span>
+
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                </a>
+              </div>
+
+              {/* Small transparency callout */}
+              <div className="mt-5 rounded-[16px] bg-[#FAFAF8] p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-[#A6192E]">
+                  Our commitment
+                </p>
+
+                <p className="mt-1.5 text-[12px] leading-5 text-slate-500">
+                  These resources help promote transparency, accountability, and
+                  meaningful student participation.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* ================================================================ */}
