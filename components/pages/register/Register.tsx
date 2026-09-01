@@ -175,6 +175,7 @@ export function Register() {
       const cleanEmail = email.trim().toLowerCase();
       const fullName = `${cleanFirstName} ${cleanLastName}`;
 
+      // Create auth user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: cleanEmail,
         password,
@@ -198,11 +199,11 @@ export function Register() {
         return;
       }
 
+      // Create profile of user
       const { error: profileError } = await supabase.from("profiles").insert({
         id: authData.user.id,
         first_name: cleanFirstName,
         last_name: cleanLastName,
-        full_name: fullName,
         email: cleanEmail,
         role,
       });
