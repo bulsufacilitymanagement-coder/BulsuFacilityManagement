@@ -200,6 +200,7 @@ export function Register() {
       }
 
       // Create profile of user
+      // kulang pa ng school_id
       const { error: profileError } = await supabase.from("profiles").insert({
         id: authData.user.id,
         first_name: cleanFirstName,
@@ -209,6 +210,8 @@ export function Register() {
       });
 
       if (profileError) {
+        console.error("PROFILE INSERT ERROR:", profileError);
+
         setErrorMsg(
           "Your account was created, but your profile could not be saved. Please contact the administrator."
         );
