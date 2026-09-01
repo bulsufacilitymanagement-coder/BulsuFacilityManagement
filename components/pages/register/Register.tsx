@@ -11,7 +11,7 @@ import { EmailField } from "../../ui/Fields/EmailField";
 import { PasswordField } from "../../ui/Fields/PasswordField";
 import { PrimaryButton } from "../../ui/Buttons/PrimaryButton";
 
-type UserRole = "student" | "faculty";
+type UserRole = "College Admin" | "Student Org Admin";
 
 type FormErrors = {
   firstName?: string;
@@ -80,7 +80,7 @@ export function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState<UserRole>("student");
+  const [role, setRole] = useState<UserRole>("Student Org Admin");
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -488,9 +488,9 @@ export function Register() {
                   <motion.button
                     type="button"
                     role="radio"
-                    aria-checked={role === "student"}
+                    aria-checked={role === "Student Org Admin"}
                     onClick={function handleStudentClick() {
-                      selectRole("student");
+                      selectRole("Student Org Admin");
                     }}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.985 }}
@@ -498,7 +498,7 @@ export function Register() {
                       duration: 0.15,
                     }}
                     className={`rounded-[17px] border p-4 text-left transition-all duration-200 ${
-                      role === "student"
+                      role === "Student Org Admin"
                         ? "border-[#A6192E] bg-[#A6192E]/[0.04] shadow-[0_4px_14px_rgba(166,25,46,0.08)] ring-2 ring-[#A6192E]/10"
                         : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
                     }`}
@@ -506,10 +506,10 @@ export function Register() {
                     <div className="flex items-start justify-between">
                       <motion.div
                         animate={{
-                          scale: role === "student" ? 1 : 0.96,
+                          scale: role === "Student Org Admin" ? 1 : 0.96,
                         }}
                         className={`flex h-9 w-9 items-center justify-center rounded-xl text-[13px] font-bold ${
-                          role === "student"
+                          role === "Student Org Admin"
                             ? "bg-[#A6192E] text-white"
                             : "bg-slate-100 text-slate-500"
                         }`}
@@ -519,13 +519,13 @@ export function Register() {
 
                       <div
                         className={`flex h-5 w-5 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
-                          role === "student"
+                          role === "Student Org Admin"
                             ? "border-[#A6192E]"
                             : "border-slate-300"
                         }`}
                       >
                         <AnimatePresence>
-                          {role === "student" && (
+                          {role === "Student Org Admin" && (
                             <motion.div
                               initial={{
                                 opacity: 0,
@@ -564,9 +564,9 @@ export function Register() {
                   <motion.button
                     type="button"
                     role="radio"
-                    aria-checked={role === "faculty"}
+                    aria-checked={role === "College Admin"}
                     onClick={function handleFacultyClick() {
-                      selectRole("faculty");
+                      selectRole("College Admin");
                     }}
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.985 }}
@@ -574,7 +574,7 @@ export function Register() {
                       duration: 0.15,
                     }}
                     className={`rounded-[17px] border p-4 text-left transition-all duration-200 ${
-                      role === "faculty"
+                      role === "College Admin"
                         ? "border-[#A6192E] bg-[#A6192E]/[0.04] shadow-[0_4px_14px_rgba(166,25,46,0.08)] ring-2 ring-[#A6192E]/10"
                         : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
                     }`}
@@ -582,10 +582,10 @@ export function Register() {
                     <div className="flex items-start justify-between">
                       <motion.div
                         animate={{
-                          scale: role === "faculty" ? 1 : 0.96,
+                          scale: role === "College Admin" ? 1 : 0.96,
                         }}
                         className={`flex h-9 w-9 items-center justify-center rounded-xl text-[13px] font-bold ${
-                          role === "faculty"
+                          role === "College Admin"
                             ? "bg-[#A6192E] text-white"
                             : "bg-slate-100 text-slate-500"
                         }`}
@@ -595,13 +595,13 @@ export function Register() {
 
                       <div
                         className={`flex h-5 w-5 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
-                          role === "faculty"
+                          role === "College Admin"
                             ? "border-[#A6192E]"
                             : "border-slate-300"
                         }`}
                       >
                         <AnimatePresence>
-                          {role === "faculty" && (
+                          {role === "College Admin" && (
                             <motion.div
                               initial={{
                                 opacity: 0,

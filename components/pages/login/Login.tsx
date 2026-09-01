@@ -184,35 +184,6 @@ export function Login() {
                 </PrimaryButton>
               </div>
             </form>
-
-            {/* Divider */}
-            <div className="my-7 flex items-center gap-4">
-              <div className="h-px flex-1 bg-slate-100" />
-              <span className="text-[11px] font-medium uppercase tracking-wider text-slate-300">
-                or
-              </span>
-              <div className="h-px flex-1 bg-slate-100" />
-            </div>
-
-            {/* Register */}
-            <div className="text-center">
-              <p className="text-[14px] text-slate-500">
-                Don&apos;t have an account?
-              </p>
-
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex"
-              >
-                <Link
-                  href="/register"
-                  className="mt-1 inline-flex min-h-10 items-center justify-center rounded-xl px-3 text-[14px] font-semibold text-[#A6192E] transition-colors hover:bg-[#A6192E]/[0.05] hover:text-[#7D1223]"
-                >
-                  Create your account
-                </Link>
-              </motion.div>
-            </div>
           </motion.div>
 
           {/* -------------------------------------------------------------- */}

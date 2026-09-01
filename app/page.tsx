@@ -94,16 +94,9 @@ export default function Home() {
           <div className="hidden items-center gap-2 md:flex">
             <Link
               href="/login"
-              className="rounded-xl px-4 py-2.5 text-[13px] font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950"
-            >
-              Sign In
-            </Link>
-
-            <Link
-              href="/register"
               className="rounded-xl bg-[#A6192E] px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_5px_16px_rgba(166,25,46,0.18)] transition-all hover:bg-[#8F1728] active:scale-[0.98]"
             >
-              Get Started
+              Sign In
             </Link>
           </div>
 
@@ -159,17 +152,9 @@ export default function Home() {
                 <Link
                   href="/login"
                   onClick={closeMobileMenu}
-                  className="rounded-xl border border-slate-200 py-3 text-center text-[13px] font-semibold text-slate-700"
-                >
-                  Sign In
-                </Link>
-
-                <Link
-                  href="/register"
-                  onClick={closeMobileMenu}
                   className="rounded-xl bg-[#A6192E] py-3 text-center text-[13px] font-semibold text-white"
                 >
-                  Get Started
+                  Sign In
                 </Link>
               </div>
             </nav>
@@ -648,20 +633,21 @@ export default function Home() {
             </p>
 
             <h2 className="mx-auto mt-3 max-w-[650px] text-[30px] font-bold tracking-[-0.8px] text-white sm:text-[40px]">
-              Your next reservation starts here.
+              Need to reserve a facility?
             </h2>
 
             <p className="mx-auto mt-4 max-w-[500px] text-[14px] leading-6 text-white/65">
-              Create your account and start requesting university facilities
-              through one centralized platform.
+              To make a reservation, contact the admin of the college or
+              organization responsible for the facility you need. They’ll
+              complete and submit the reservation form on your behalf.
             </p>
 
             <div className="mt-7">
               <Link
-                href="/register"
+                href="/college-contacts"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-white px-6 text-[14px] font-bold text-[#A6192E] shadow-lg transition-all hover:bg-[#FFFDF5] active:scale-[0.98]"
               >
-                Create an Account
+                Browse facilities and find admin
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

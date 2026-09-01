@@ -1,17 +1,13 @@
 import Facilities from "@/components/pages/facilities/Facilities";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUserProfile } from "@/lib/auth/get-current-user-profile";
 import { redirect } from "next/navigation";
 
 export default async function FacilitiesPage() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUserProfile();
 
   if (!user) {
     redirect("/login");
   }
 
-  return <Facilities />;
+  return <Facilities user={user} />;
 }

@@ -1,17 +1,8 @@
 "use client";
 
-import React from "react";
-import {
-  Search,
-  Bell,
-  ChevronRight,
-  Sparkles,
-  CalendarDays,
-  Menu,
-  X,
-} from "lucide-react";
+import { useUser } from "@/app/providers/userProvider";
+import { Bell, ChevronRight, CalendarDays, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-
 interface AppHeaderProps {
   onMobileMenuToggle?: () => void;
   isMobileOpen?: boolean;
@@ -22,6 +13,9 @@ export function AppHeader({
   isMobileOpen,
 }: AppHeaderProps) {
   const pathname = usePathname();
+
+  const { user } = useUser();
+
   return (
     <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between border-b border-slate-200/80 bg-white/80 px-6 backdrop-blur-md sm:px-10">
       {/* Left: Mobile Toggle & Breadcrumb */}
@@ -40,7 +34,7 @@ export function AppHeader({
 
         {/* Breadcrumb Navigation */}
         <div className="hidden items-center gap-2 text-[13px] font-medium text-slate-400 sm:flex">
-          <span className="text-slate-500">Portal</span>
+          <span className="text-slate-500">{user?.college.name}</span>
           <ChevronRight className="h-3.5 w-3.5 text-slate-300" />
           <span className="font-semibold text-slate-900 capitalize">
             {pathname.substring(1, pathname.length)}
@@ -50,12 +44,6 @@ export function AppHeader({
 
       {/* Right: Actions & User Meta */}
       <div className="flex items-center gap-3">
-        {/* Notifications */}
-        <button className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200/80 bg-white text-slate-600 transition-all hover:border-slate-300 hover:bg-slate-50 active:scale-95">
-          <Bell className="h-4.5 w-4.5" />
-          <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-[#A6192E] ring-2 ring-white" />
-        </button>
-
         {/* Today's Date Quick View */}
         <div className="hidden items-center gap-2 rounded-xl border border-slate-100 bg-[#FAFAF8] px-3 py-2 text-[12px] font-medium text-slate-600 xl:flex">
           <CalendarDays className="h-4 w-4 text-[#A6192E]" />

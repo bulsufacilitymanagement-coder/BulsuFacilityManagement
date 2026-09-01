@@ -6,8 +6,9 @@ import { Search, Plus } from "lucide-react";
 import { AddFacilitySheet } from "./Sheets/AddFacilitySheet";
 import FacilityCard from "./FacilityCard/FacilityCard";
 import { createClient } from "@/lib/supabase/client";
-import { CreateFacility } from "./types/create-facility";
 import { ViewFacility } from "./types/view-facility";
+import { useUser } from "@/app/providers/userProvider";
+import { useRouter } from "next/navigation";
 
 // Facility Mock Data
 const type = [
@@ -18,64 +19,13 @@ const type = [
   "Sports & Grounds",
 ];
 
-/*
-const facilitiesList = [
-  {
-    name: "Valencia Hall Grand Auditorium",
-    type: "Auditorium",
-    capacity: "500",
-    status: "Available",
-    description: "Stage, Sound System, Projector, Comfortable Seating",
-    location: "Front of Pimentel Hall",
-  },
-  {
-    name: "CICT Computer Laboratory 3",
-    type: "Laboratory",
-    capacity: "45",
-    status: "Available",
-    description:
-      "Desktop Computers, High-Speed Internet, Air Conditioning, Projector",
-    location: "Pimentel Hall - 3rd Floor",
-  },
-  {
-    name: "University Executive Conference Room",
-    type: "Conference Room",
-    capacity: "30",
-    status: "Under Maintenance",
-    description:
-      "Conference Table, Video Conferencing, Display Screen, Whiteboard",
-    location: "Pimentel Hall - 3rd Floor",
-  },
-  {
-    name: "BulSU Activity Center & Gymnasium",
-    type: "Sports & Grounds",
-    capacity: "600",
-    status: "Available",
-    description: "Hardwood Court, Sound System, Bleachers, Dressing Rooms",
-    location: "Front of Pimentel Hall",
-  },
-  {
-    name: "Audio-Visual Room",
-    type: "Auditorium",
-    capacity: "120",
-    status: "Available",
-    description: "Projector, Sound System, Podium, Comfortable Seating",
-    location: "Pimentel Hall - 4th Floor",
-  },
-  {
-    name: "Hardware Innovation Lab",
-    type: "Laboratory",
-    capacity: "35",
-    status: "Under Maintenance",
-    description: "3D Printers, Soldering Stations, Oscilloscopes, Workbenches",
-    location: "Pimentel Hall - 2nd Floor",
-  },
-];
-*/
-
 const supabase = createClient();
 
 export default function Facilities() {
+  const router = useRouter();
+
+  const { user } = useUser();
+
   const [selectedCategory, setSelectedCategory] = useState("All Venues");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAddFacilitySheet, setShowAddFacilitySheet] = useState(false);
@@ -107,9 +57,17 @@ export default function Facilities() {
       })
     : [];
 
+  if (!user) {
+    router.replace("/login");
+    router.refresh();
+    return;
+  }
+
+  const isCollegeAdmin = user.role === "College Admin";
+
   return (
     <div className="relative min-h-screen bg-white p-6 sm:p-10">
-      {/* Background ambient accents */}
+      {/* Background accents */}
       <div className="pointer-events-none absolute right-10 top-32 h-80 w-80 rounded-full bg-[#F4C430]/50 blur-[200px]" />
       <div className="pointer-events-none absolute -left-50 top-5 h-96 w-96 rounded-full bg-[#A6192E]/[0.15] blur-[100px]" />
 
@@ -123,22 +81,28 @@ export default function Facilities() {
         >
           <div>
             <h1 className="text-[32px] font-bold leading-tight tracking-[-1.2px] text-slate-950 sm:text-[40px]">
-              Browse <span className="text-[#A6192E]">Facilities</span>
+              {isCollegeAdmin ? "Manage" : "Browse"}{" "}
+              <span className="text-[#A6192E]">
+                Facilities {isCollegeAdmin && "for " + user.college.code}
+              </span>
             </h1>
             <p className="text-[15px] text-slate-500">
-              Explore available university spaces and submit instant reservation
-              requests.
+              {isCollegeAdmin
+                ? "Manage university facilities, review availability, and keep spaces ready for use."
+                : "Find the right space for your next event, class, or activity and request a reservation in just a few clicks."}
             </p>
           </div>
 
-          <button
-            onClick={() => setShowAddFacilitySheet((prev) => !prev)}
-            type="button"
-            className="group cursor-pointer inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-[#A6192E] px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(166,25,46,0.20)] transition-all hover:bg-[#8F1728] active:scale-[0.98]"
-          >
-            <Plus className="h-4 w-4" />
-            Add Facility
-          </button>
+          {isCollegeAdmin && (
+            <button
+              onClick={() => setShowAddFacilitySheet((prev) => !prev)}
+              type="button"
+              className="group cursor-pointer inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-[#A6192E] px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(166,25,46,0.20)] transition-all hover:bg-[#8F1728] active:scale-[0.98]"
+            >
+              <Plus className="h-4 w-4" />
+              Add Facility
+            </button>
+          )}
         </motion.div>
 
         {/* Filter Controls Bar */}
