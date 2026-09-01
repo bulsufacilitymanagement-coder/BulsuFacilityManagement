@@ -22,7 +22,7 @@ import { createClient } from "@/lib/supabase/client";
 
 const navigation = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Browse Facilities", href: "/facilities", icon: Building2 },
+  { name: "Facilities", href: "/facilities", icon: Building2 },
   {
     name: "My Reservations",
     href: "/reservations",

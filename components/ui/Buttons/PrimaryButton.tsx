@@ -3,26 +3,32 @@ import type { ReactNode } from "react";
 type PrimaryButtonProps = {
   children: ReactNode;
   loading?: boolean;
+  loadingText?: string;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 };
 
 export function PrimaryButton({
   children,
   loading = false,
+  loadingText,
   disabled = false,
   type = "button",
+  onClick,
 }: PrimaryButtonProps) {
   return (
     <button
       type={type}
       disabled={disabled || loading}
+      onClick={onClick}
       className="
         flex
         h-[54px]
         w-full
         items-center
         justify-center
+        gap-2.5
         rounded-[15px]
         bg-[#A6192E]
         px-5
@@ -42,18 +48,21 @@ export function PrimaryButton({
       "
     >
       {loading ? (
-        <span
-          className="
-            h-5
-            w-5
-            animate-spin
-            rounded-full
-            border-2
-            border-white/30
-            border-t-white
-          "
-          aria-label="Loading"
-        />
+        <>
+          <span
+            className="
+              h-5
+              w-5
+              animate-spin
+              rounded-full
+              border-2
+              border-white/30
+              border-t-white
+            "
+            aria-label="Loading"
+          />
+          {loadingText && <span>{loadingText}</span>}
+        </>
       ) : (
         children
       )}
