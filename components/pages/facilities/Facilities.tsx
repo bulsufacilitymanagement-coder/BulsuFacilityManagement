@@ -6,6 +6,8 @@ import { Search, Plus } from "lucide-react";
 import { AddFacilitySheet } from "./Sheets/AddFacilitySheet";
 import FacilityCard from "./FacilityCard/FacilityCard";
 import { createClient } from "@/lib/supabase/client";
+import { CreateFacility } from "./types/create-facility";
+import { ViewFacility } from "./types/view-facility";
 
 // Facility Mock Data
 const type = [
@@ -71,21 +73,13 @@ const facilitiesList = [
 ];
 */
 
-interface Facility {
-  name: string;
-  type: string;
-  capacity: number;
-  location: string;
-  description: string;
-}
-
 const supabase = createClient();
 
 export default function Facilities() {
   const [selectedCategory, setSelectedCategory] = useState("All Venues");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAddFacilitySheet, setShowAddFacilitySheet] = useState(false);
-  const [facilities, setFacilities] = useState<Facility[] | null>(null);
+  const [facilities, setFacilities] = useState<ViewFacility[] | null>(null);
 
   useEffect(() => {
     async function getFacilities() {

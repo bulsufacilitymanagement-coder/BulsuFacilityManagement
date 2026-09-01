@@ -1,8 +1,9 @@
 import { CalendarCheck, MapPin, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { ViewFacility } from "../types/view-facility";
 
 interface FacilityCardProps {
-  fac: any;
+  fac: ViewFacility;
   isAvailable: boolean;
   isReserved: boolean;
 }
