@@ -201,10 +201,10 @@ export default function Home() {
               {/* CTA */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/register"
+                  href="/bulsu-facilities"
                   className="group inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-[#A6192E] px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(166,25,46,0.20)] transition-all hover:bg-[#8F1728] active:scale-[0.98]"
                 >
-                  Start a Reservation
+                  Browse Facilities
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
 
@@ -644,7 +644,7 @@ export default function Home() {
 
             <div className="mt-7">
               <Link
-                href="/college-contacts"
+                href="/bulsu-facilities"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-white px-6 text-[14px] font-bold text-[#A6192E] shadow-lg transition-all hover:bg-[#FFFDF5] active:scale-[0.98]"
               >
                 Browse facilities and find admin
