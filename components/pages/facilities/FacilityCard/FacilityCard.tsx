@@ -80,7 +80,7 @@ export default function FacilityCard({
       </div>
 
       {/* Card Actions */}
-      <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-100 pt-5">
+      <div className="mt-6 flex items-center justify-end gap-3 border-t border-slate-100 pt-5">
         <button
           type="button"
           onClick={handleShowReservationSchedule}
@@ -92,7 +92,7 @@ export default function FacilityCard({
           }`}
         >
           <CalendarCheck className="h-4 w-4" />
-          View Facility
+          View Facility and Reservations
         </button>
       </div>
     </motion.div>

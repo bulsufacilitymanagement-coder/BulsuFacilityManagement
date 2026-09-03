@@ -72,7 +72,7 @@ export default function Facilities() {
   const isCollegeAdmin = user.role === "College Admin";
 
   function handleShowReservationSchedule(facilityId: string) {
-    router.push(`/reservations/${facilityId}`);
+    router.push(`/facilities/${facilityId}`);
   }
 
   return (
