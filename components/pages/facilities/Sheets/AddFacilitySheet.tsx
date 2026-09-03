@@ -180,9 +180,9 @@ export function AddFacilitySheet({
                       "
                     >
                       <option value="">Select Type</option>
-                      <option value="Auditoriums">Auditorium</option>
-                      <option value="Laboratories">Laboratory</option>
-                      <option value="Conference Rooms">Conference Room</option>
+                      <option value="Auditorium">Auditorium</option>
+                      <option value="Laboratoriy">Laboratory</option>
+                      <option value="Conference Room">Conference Room</option>
                       <option value="Sports & Grounds">Sports & Grounds</option>
                     </select>
                   </div>
