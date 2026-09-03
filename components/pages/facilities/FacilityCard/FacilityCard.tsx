@@ -6,12 +6,14 @@ interface FacilityCardProps {
   fac: ViewFacility;
   isAvailable: boolean;
   isReserved: boolean;
+  handleShowReservationSchedule: () => void;
 }
 
 export default function FacilityCard({
   fac,
   isAvailable,
   isReserved,
+  handleShowReservationSchedule,
 }: FacilityCardProps) {
   return (
     <motion.div
@@ -88,6 +90,7 @@ export default function FacilityCard({
 
         <button
           type="button"
+          onClick={handleShowReservationSchedule}
           disabled={!isAvailable}
           className={`inline-flex h-10 items-center justify-center gap-2 rounded-[12px] px-4 text-[13px] font-semibold transition-all active:scale-[0.98] ${
             isAvailable

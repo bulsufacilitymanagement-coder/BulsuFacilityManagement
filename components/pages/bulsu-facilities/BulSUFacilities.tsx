@@ -22,6 +22,8 @@ const FACILITY_TYPES = [
 const supabase = createClient();
 
 export default function BulSUFacilities() {
+  const router = useRouter();
+
   const [selectedCategory, setSelectedCategory] = useState("All Venues");
   const [searchQuery, setSearchQuery] = useState("");
   const [facilities, setFacilities] = useState<ViewFacility[]>([]);
@@ -86,6 +88,10 @@ export default function BulSUFacilities() {
       return matchesCategory && searchableText.includes(normalizedSearch);
     });
   }, [facilities, selectedCategory, searchQuery]);
+
+  function handleShowReservationSchedule(facilityId: string) {
+    router.push(`/bulsu-facilities/${facilityId}`);
+  }
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FAFAF8] text-slate-950">
@@ -348,6 +354,9 @@ export default function BulSUFacilities() {
                       className="w-full"
                     >
                       <FacilityCard
+                        handleShowReservationSchedule={() =>
+                          handleShowReservationSchedule(facility.id)
+                        }
                         fac={facility}
                         isAvailable={isAvailable}
                         isReserved={isReserved}

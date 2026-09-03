@@ -24,3 +24,290 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ================================================================
+   BulSU FullCalendar
+   ================================================================ */
+
+.bulSU-calendar {
+  --fc-border-color: rgba(226, 232, 240, 0.75);
+  --fc-button-text-color: #475569;
+  --fc-button-bg-color: #fafaf8;
+  --fc-button-border-color: #e2e8f0;
+  --fc-button-hover-bg-color: #f1f5f9;
+  --fc-button-hover-border-color: #cbd5e1;
+  --fc-button-active-bg-color: #a6192e;
+  --fc-button-active-border-color: #a6192e;
+
+  --fc-today-bg-color: rgba(166, 25, 46, 0.035);
+
+  --fc-page-bg-color: #ffffff;
+  --fc-neutral-bg-color: #fafaf8;
+
+  --fc-list-event-hover-bg-color: #fafaf8;
+
+  color: #0f172a;
+}
+
+/* ================================================================
+   TOOLBAR
+   ================================================================ */
+
+.bulSU-calendar .fc-header-toolbar {
+  margin-bottom: 1.25rem !important;
+  gap: 1rem;
+}
+
+.bulSU-calendar .fc-toolbar-title {
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.bulSU-calendar .fc-button {
+  border-radius: 10px !important;
+  border-width: 1px !important;
+  box-shadow: none !important;
+
+  font-size: 12px !important;
+  font-weight: 600 !important;
+
+  padding: 7px 11px !important;
+
+  transition: background-color 150ms ease, border-color 150ms ease,
+    color 150ms ease;
+}
+
+.bulSU-calendar .fc-button-primary:not(:disabled):hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+.bulSU-calendar .fc-button-primary:not(:disabled).fc-button-active,
+.bulSU-calendar .fc-button-primary:not(:disabled):active {
+  background: #a6192e;
+  border-color: #a6192e;
+  color: #ffffff;
+}
+
+/* ================================================================
+   DAY HEADER
+   ================================================================ */
+
+.bulSU-calendar .fc-col-header-cell {
+  background: #fafaf8;
+}
+
+.bulSU-calendar .fc-col-header-cell-cushion {
+  padding: 10px 5px;
+
+  color: #94a3b8;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  text-decoration: none;
+}
+
+/* ================================================================
+   DAY CELLS
+   ================================================================ */
+
+.bulSU-calendar .fc-daygrid-day {
+  transition: background-color 150ms ease;
+}
+
+.bulSU-calendar .fc-daygrid-day:hover {
+  background: rgba(166, 25, 46, 0.015);
+}
+
+.bulSU-calendar .fc-daygrid-day-number {
+  padding: 9px 10px;
+
+  color: #475569;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.bulSU-calendar .fc-day-today .fc-daygrid-day-number {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin: 5px;
+
+  min-width: 26px;
+  height: 26px;
+
+  padding: 0;
+
+  border-radius: 8px;
+
+  background: #a6192e;
+  color: white;
+}
+
+/* ================================================================
+   EVENTS
+   ================================================================ */
+
+.bulSU-calendar .fc-event {
+  border: 0 !important;
+
+  border-left: 3px solid #a6192e !important;
+
+  border-radius: 7px !important;
+
+  cursor: pointer;
+
+  padding: 3px 5px !important;
+
+  transition: filter 150ms ease, transform 150ms ease;
+}
+
+.bulSU-calendar .fc-event:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+.bulSU-calendar .fc-event-title {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.bulSU-calendar .fc-event-time {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.bulSU-calendar .fc-daygrid-more-link {
+  color: #a6192e;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ================================================================
+   TIME GRID
+   ================================================================ */
+
+.bulSU-calendar .fc-timegrid-slot {
+  height: 42px;
+}
+
+.bulSU-calendar .fc-timegrid-slot-label {
+  color: #94a3b8;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.bulSU-calendar .fc-timegrid-axis-cushion {
+  color: #94a3b8;
+
+  font-size: 10px;
+}
+
+.bulSU-calendar .fc-timegrid-event {
+  border: 0 !important;
+
+  border-left: 3px solid #a6192e !important;
+
+  border-radius: 8px !important;
+}
+
+.bulSU-calendar .fc-timegrid-event .fc-event-main {
+  padding: 4px 5px;
+}
+
+/* ================================================================
+   NOW INDICATOR
+   ================================================================ */
+
+.bulSU-calendar .fc-timegrid-now-indicator-line {
+  border-color: #a6192e;
+}
+
+.bulSU-calendar .fc-timegrid-now-indicator-arrow {
+  border-color: #a6192e;
+}
+
+/* ================================================================
+   LIST / AGENDA
+   ================================================================ */
+
+.bulSU-calendar .fc-list-day-cushion {
+  background: #fafaf8 !important;
+}
+
+.bulSU-calendar .fc-list-day-text,
+.bulSU-calendar .fc-list-day-side-text {
+  color: #475569;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.bulSU-calendar .fc-list-event-title {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.bulSU-calendar .fc-list-event-time {
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+/* ================================================================
+   MOBILE
+   ================================================================ */
+
+@media (max-width: 640px) {
+  .bulSU-calendar .fc-header-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bulSU-calendar .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+  }
+
+  .bulSU-calendar .fc-toolbar-title {
+    font-size: 17px;
+  }
+
+  .bulSU-calendar .fc-button {
+    padding: 6px 9px !important;
+    font-size: 11px !important;
+  }
+
+  .bulSU-calendar .fc-daygrid-day-number {
+    padding: 7px;
+    font-size: 11px;
+  }
+
+  .bulSU-calendar .fc-event-title {
+    font-size: 10px;
+  }
+
+  .bulSU-calendar .fc-col-header-cell-cushion {
+    font-size: 9px;
+  }
+
+  .bulSU-calendar .fc-daygrid-event {
+    margin-top: 1px;
+  }
+}

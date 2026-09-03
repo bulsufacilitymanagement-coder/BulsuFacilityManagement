@@ -71,6 +71,10 @@ export default function Facilities() {
 
   const isCollegeAdmin = user.role === "College Admin";
 
+  function handleShowReservationSchedule(facilityId: string) {
+    router.push(`/reservations/${facilityId}`);
+  }
+
   return (
     <div className="relative min-h-screen bg-white p-6 sm:p-10">
       {/* Background accents */}
@@ -165,6 +169,9 @@ export default function Facilities() {
 
               return (
                 <FacilityCard
+                  handleShowReservationSchedule={() =>
+                    handleShowReservationSchedule(fac.id)
+                  }
                   key={index}
                   fac={fac}
                   isAvailable={isAvailable}
