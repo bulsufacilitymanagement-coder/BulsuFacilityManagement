@@ -12,6 +12,8 @@ import {
   LogOut,
   ShieldCheck,
   type LucideIcon,
+  ContactRound,
+  School,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -41,6 +43,12 @@ const mainNavigation: NavigationItem[] = [
     href: "/dashboard",
     icon: LayoutDashboard,
   },
+  {
+    name: "Colleges",
+    href: "/colleges",
+    icon: School,
+  },
+
   {
     name: "Facilities",
     href: "/facilities",
@@ -115,15 +123,20 @@ function SidebarSection({
   title: string;
   items: NavigationItem[];
 }) {
+  const { user } = useUser();
   return (
     <nav className="flex flex-col gap-1.5">
       <span className="mb-2 px-3 text-[10px] font-bold uppercase tracking-[0.14em] text-white/45">
         {title}
       </span>
 
-      {items.map((item) => (
-        <SidebarNavItem key={item.href} item={item} />
-      ))}
+      {items.map((item) => {
+        if (user?.role !== "Super Admin" && item.name === "Colleges") {
+          return null;
+        }
+
+        return <SidebarNavItem key={item.href} item={item} />;
+      })}
     </nav>
   );
 }

@@ -35,7 +35,7 @@ export default function Facilities() {
     async function getFacilities() {
       let query = supabase.from("facilities").select("*");
 
-      if (user?.role === "College Admin") {
+      if (isCollegeAdmin) {
         query = query.eq("college_id", user?.college?.id);
       }
 
@@ -177,11 +177,13 @@ export default function Facilities() {
       </div>
 
       {/* Facility Sheets */}
-      <AddFacilitySheet
-        collegeId={user.college.id}
-        isOpen={showAddFacilitySheet}
-        onClose={() => setShowAddFacilitySheet(false)}
-      />
+      {isCollegeAdmin && (
+        <AddFacilitySheet
+          collegeId={user.college.id}
+          isOpen={showAddFacilitySheet}
+          onClose={() => setShowAddFacilitySheet(false)}
+        />
+      )}
     </div>
   );
 }
