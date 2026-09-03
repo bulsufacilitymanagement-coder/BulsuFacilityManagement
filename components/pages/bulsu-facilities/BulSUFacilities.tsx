@@ -89,8 +89,14 @@ export default function BulSUFacilities() {
     });
   }, [facilities, selectedCategory, searchQuery]);
 
-  function handleShowReservationSchedule(facilityId: string) {
-    router.push(`/bulsu-facilities/${facilityId}`);
+  function handleShowReservationSchedule(
+    facilityId: string,
+    facilityName: string,
+    facilityLocation: string
+  ) {
+    router.push(
+      `/bulsu-facilities/${facilityId}?name=${facilityName}&location=${facilityLocation}`
+    );
   }
 
   return (
@@ -355,7 +361,11 @@ export default function BulSUFacilities() {
                     >
                       <FacilityCard
                         handleShowReservationSchedule={() =>
-                          handleShowReservationSchedule(facility.id)
+                          handleShowReservationSchedule(
+                            facility.id,
+                            facility.name,
+                            facility.location
+                          )
                         }
                         fac={facility}
                         isAvailable={isAvailable}

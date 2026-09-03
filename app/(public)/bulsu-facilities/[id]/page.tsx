@@ -22,6 +22,7 @@ import type {
 } from "@fullcalendar/core";
 
 import PublicNavbar from "@/components/ui/PublicNavbar/PublicNavbar";
+import { useSearchParams } from "next/navigation";
 
 /* ================================================================
    TYPES
@@ -286,6 +287,11 @@ function formatDateTime(date: Date | null) {
    ================================================================ */
 
 export default function BulSUCalendarPage() {
+  const searchParams = useSearchParams();
+
+  const facilityName = searchParams.get("name");
+  const facilityLocation = searchParams.get("location");
+
   const [selectedCategory, setSelectedCategory] = useState("All Venues");
 
   const [selectedEvent, setSelectedEvent] = useState<
@@ -419,10 +425,14 @@ export default function BulSUCalendarPage() {
               </span>
             </div>
 
-            <h1 className="text-[38px] font-bold leading-[1.05] tracking-[-1.5px] text-slate-950 sm:text-[48px]">
-              University
-              <span className="text-[#A6192E]"> Calendar</span>
-            </h1>
+            <div>
+              <h1 className="text-[38px] font-bold leading-[1.05] tracking-[-1.5px] text-slate-950 sm:text-[48px]">
+                {facilityName}
+              </h1>
+              <span className="text-[#A6192E] text-2xl font-semibold">
+                {facilityLocation}
+              </span>
+            </div>
 
             <p className="mt-4 max-w-[650px] text-[15px] leading-6 text-slate-500">
               View facility reservations and university activities across
@@ -539,8 +549,6 @@ export default function BulSUCalendarPage() {
               select={handleDateSelect}
               eventClick={handleEventClick}
               nowIndicator
-              navLinkDayClick
-              navLinkWeekClick
               buttonText={{
                 today: "Today",
                 month: "Month",
