@@ -33,7 +33,13 @@ export default function Facilities() {
 
   useEffect(() => {
     async function getFacilities() {
-      const { data, error } = await supabase.from("facilities").select("*");
+      let query = supabase.from("facilities").select("*");
+
+      if (user?.role === "College Admin") {
+        query = query.eq("college_id", user?.college?.id);
+      }
+
+      const { data, error } = await query;
 
       if (error) {
         console.error("Error fetching facilities:", error);
