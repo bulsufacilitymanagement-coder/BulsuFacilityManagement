@@ -10,13 +10,18 @@ import { sileo } from "sileo";
 import { createClient } from "@/lib/supabase/client";
 
 interface AddFacilitySheetProps {
+  collegeId: string;
   isOpen: boolean;
   onClose: () => void;
 }
 
 const supabase = createClient();
 
-export function AddFacilitySheet({ isOpen, onClose }: AddFacilitySheetProps) {
+export function AddFacilitySheet({
+  collegeId,
+  isOpen,
+  onClose,
+}: AddFacilitySheetProps) {
   const [formData, setFormData] = useState({
     name: "",
     type: "",
@@ -39,7 +44,7 @@ export function AddFacilitySheet({ isOpen, onClose }: AddFacilitySheetProps) {
       .from("facilities")
       .insert([
         {
-          college_id: "bbb79342-44ec-4245-a03a-7fbc01df671f",
+          college_id: collegeId,
           name: formData.name,
           type: formData.type,
           capacity: formData.capacity,

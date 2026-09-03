@@ -178,6 +178,7 @@ export default function Facilities() {
 
       {/* Facility Sheets */}
       <AddFacilitySheet
+        collegeId={user.college.id}
         isOpen={showAddFacilitySheet}
         onClose={() => setShowAddFacilitySheet(false)}
       />
