@@ -83,13 +83,6 @@ export default function FacilityCard({
       <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-100 pt-5">
         <button
           type="button"
-          className="text-[12px] font-bold text-slate-400 transition-colors hover:text-slate-700"
-        >
-          View Specs
-        </button>
-
-        <button
-          type="button"
           onClick={handleShowReservationSchedule}
           disabled={!isAvailable}
           className={`inline-flex h-10 items-center justify-center gap-2 rounded-[12px] px-4 text-[13px] font-semibold transition-all active:scale-[0.98] ${
@@ -99,7 +92,7 @@ export default function FacilityCard({
           }`}
         >
           <CalendarCheck className="h-4 w-4" />
-          Book Facility
+          View Facility
         </button>
       </div>
     </motion.div>
