@@ -3,6 +3,8 @@
 import { useUser } from "@/app/providers/userProvider";
 import { Bell, ChevronRight, CalendarDays, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { pageTitles } from "../AppSidebar/AppSidebar";
+
 interface AppHeaderProps {
   onMobileMenuToggle?: () => void;
   isMobileOpen?: boolean;
@@ -39,9 +41,9 @@ export function AppHeader({
               ? user?.college.name
               : "BulSU Main Campus"}
           </span>
-          <ChevronRight className="h-3.5 w-3.5 text-slate-300" />
+          <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
           <span className="font-semibold text-slate-900 capitalize">
-            {pathname.substring(1, pathname.length)}
+            {pageTitles[pathname]}
           </span>
         </div>
       </div>

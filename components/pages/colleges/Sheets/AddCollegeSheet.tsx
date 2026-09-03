@@ -106,10 +106,10 @@ export function AddCollegeSheet({ isOpen, onClose }: AddCollegeSheetProps) {
                   </div>
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#A6192E]">
-                      Facility Management
+                      College Management
                     </span>
                     <h2 className="text-[20px] font-bold text-slate-950">
-                      Add New Facility
+                      Add New College
                     </h2>
                   </div>
                 </div>
@@ -141,8 +141,8 @@ export function AddCollegeSheet({ isOpen, onClose }: AddCollegeSheetProps) {
                 <InputField
                   label="College Code"
                   name="CollegeCode"
-                  value={formData.name}
-                  placeholder="e.g. CICT, CSSP"
+                  value={formData.code}
+                  placeholder="e.g. CICT"
                   onChange={(val) => handleInputChange("code", val)}
                 />
 
@@ -151,7 +151,7 @@ export function AddCollegeSheet({ isOpen, onClose }: AddCollegeSheetProps) {
                   label="Location"
                   name="location"
                   value={formData.location}
-                  placeholder="e.g. Pimentel Hall, Mendoza Hall"
+                  placeholder="e.g. Pimentel Hall"
                   onChange={(val) => handleInputChange("location", val)}
                 />
 

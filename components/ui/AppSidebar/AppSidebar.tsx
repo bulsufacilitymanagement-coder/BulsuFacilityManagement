@@ -14,6 +14,7 @@ import {
   type LucideIcon,
   ContactRound,
   School,
+  Users,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -44,11 +45,15 @@ const mainNavigation: NavigationItem[] = [
     icon: LayoutDashboard,
   },
   {
+    name: "User Management",
+    href: "/user-management",
+    icon: Users,
+  },
+  {
     name: "Colleges",
     href: "/colleges",
     icon: School,
   },
-
   {
     name: "Facilities",
     href: "/facilities",
@@ -73,6 +78,16 @@ const systemNavigation: NavigationItem[] = [
     icon: HelpCircle,
   },
 ];
+
+export const pageTitles: Record<string, string> = {
+  "/dashboard": "Overview",
+  "/colleges": "Colleges",
+  "/facilities": "Facilities",
+  "/reservations": "Reservations",
+  "/user-management": "User Management",
+  "/settings": "Settings",
+  "/help": "Support & Help",
+};
 
 /* -------------------------------------------------------------------------- */
 /* Components                                                                 */
@@ -131,7 +146,10 @@ function SidebarSection({
       </span>
 
       {items.map((item) => {
-        if (user?.role !== "Super Admin" && item.name === "Colleges") {
+        if (
+          user?.role !== "Super Admin" &&
+          (item.name === "Colleges" || item.name === "User Management")
+        ) {
           return null;
         }
 
