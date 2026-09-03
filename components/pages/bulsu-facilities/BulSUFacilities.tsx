@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useUser } from "@/app/providers/userProvider";
 import { ViewFacility } from "../facilities/types/view-facility";
 import FacilityCard from "../facilities/FacilityCard/FacilityCard";
+import PublicNavbar from "@/components/ui/PublicNavbar/PublicNavbar";
 
 const FACILITY_TYPES = [
   "All Venues",
@@ -88,6 +89,11 @@ export default function BulSUFacilities() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#FAFAF8] text-slate-950">
+      {/* ================================================================ */}
+      {/* NAVBAR                                                           */}
+      {/* ================================================================ */}
+      <PublicNavbar />
+
       {/* ============================================================ */}
       {/* BACKGROUND ACCENTS                                           */}
       {/* ============================================================ */}
@@ -108,7 +114,7 @@ export default function BulSUFacilities() {
             duration: 0.55,
             ease: "easeOut",
           }}
-          className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+          className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mt-10"
         >
           {/* ========================================================== */}
           {/* HEADER                                                      */}

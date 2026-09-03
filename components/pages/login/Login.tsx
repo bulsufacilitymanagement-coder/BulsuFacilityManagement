@@ -9,6 +9,8 @@ import { createClient } from "@/lib/supabase/client";
 import { EmailField } from "../../ui/Fields/EmailField";
 import { PasswordField } from "../../ui/Fields/PasswordField";
 import { PrimaryButton } from "../../ui/Buttons/PrimaryButton";
+import Image from "next/image";
+import bulsu_logo from "@/assets/logo/bulsu_logo.png";
 
 export function Login() {
   const router = useRouter();
@@ -84,16 +86,28 @@ export function Login() {
 
           <header className="mb-8 text-center">
             {/* University mark */}
+
+            <motion.div
+              className="mx-auto mb-6 flex w-[100px] items-center justify-center"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
+            >
+              <Image src={bulsu_logo} width={100} alt="BulSU Logo" />
+            </motion.div>
+
+            {/*
             <motion.div
               className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-[#A6192E] shadow-[0_12px_30px_rgba(166,25,46,0.20)]"
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.45, ease: "easeOut" }}
             >
+          
               <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-[3px] border-white/90">
                 <div className="h-2.5 w-2.5 rounded-full bg-[#F4C430]" />
-              </div>
-            </motion.div>
+              </div> 
+            </motion.div> */}
 
             <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#A6192E]">
               Bulacan State University
