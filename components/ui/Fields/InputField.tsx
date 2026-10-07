@@ -58,9 +58,9 @@ export function InputField({
           placeholder:text-slate-400
           transition-all
           duration-200
-          focus:border-[#A6192E]
+          focus:border-bulsu
           focus:ring-4
-          focus:ring-[#A6192E]/10
+          focus:ring-bulsu/10
           disabled:bg-slate-50
           disabled:text-slate-400
         "

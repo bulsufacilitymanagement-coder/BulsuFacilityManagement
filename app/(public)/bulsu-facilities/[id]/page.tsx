@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   CalendarDays,
@@ -327,9 +327,9 @@ export default function BulSUCalendarPage() {
 
           end: reservation.end_time,
 
-          backgroundColor: isPending ? "#F4C430" : "#A6192E",
+          backgroundColor: isPending ? "#f1a926" : "#a50011",
 
-          borderColor: isPending ? "#D9A900" : "#A6192E",
+          borderColor: isPending ? "#d49521" : "#a50011",
 
           textColor: isPending ? "#5F4900" : "#FFFFFF",
 
@@ -360,6 +360,23 @@ export default function BulSUCalendarPage() {
     setSelectedEvent(clickInfo.event);
   }
 
+  // Close the event details dialog with Escape for keyboard users.
+  useEffect(() => {
+    if (!selectedEvent) {
+      return;
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setSelectedEvent(null);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedEvent]);
+
   /* ================================================================
      DATE SELECT
      ================================================================ */
@@ -381,7 +398,7 @@ export default function BulSUCalendarPage() {
      ================================================================ */
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#FAFAF8] text-slate-950">
+    <main className="relative min-h-screen overflow-hidden bg-white text-slate-950">
       {/* ========================================================== */}
       {/* NAVBAR                                                     */}
       {/* ========================================================== */}
@@ -392,9 +409,9 @@ export default function BulSUCalendarPage() {
       {/* BACKGROUND ACCENTS                                          */}
       {/* ========================================================== */}
 
-      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-[#A6192E]/[0.055] blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-bulsu/[0.055] blur-3xl" />
 
-      <div className="pointer-events-none absolute -right-40 top-40 h-96 w-96 rounded-full bg-[#F4C430]/[0.08] blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 top-40 h-96 w-96 rounded-full bg-gold/[0.08] blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         {/* ======================================================== */}
@@ -417,10 +434,10 @@ export default function BulSUCalendarPage() {
           className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
         >
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#A6192E]/10 bg-[#A6192E]/[0.05] px-3.5 py-2">
-              <CalendarDays className="h-3.5 w-3.5 text-[#A6192E]" />
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-bulsu/10 bg-bulsu/[0.05] px-3.5 py-2">
+              <CalendarDays className="h-3.5 w-3.5 text-bulsu" />
 
-              <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#A6192E]">
+              <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-bulsu">
                 Facility Schedule
               </span>
             </div>
@@ -429,7 +446,7 @@ export default function BulSUCalendarPage() {
               <h1 className="text-[38px] font-bold leading-[1.05] tracking-[-1.5px] text-slate-950 sm:text-[48px]">
                 {facilityName}
               </h1>
-              <span className="text-[#A6192E] text-2xl font-semibold">
+              <span className="text-bulsu text-2xl font-semibold">
                 {facilityLocation}
               </span>
             </div>
@@ -477,7 +494,7 @@ export default function BulSUCalendarPage() {
             {/* Filter heading */}
 
             <div className="flex items-center gap-2">
-              <SlidersHorizontal className="h-4 w-4 text-[#A6192E]" />
+              <SlidersHorizontal className="h-4 w-4 text-bulsu" />
 
               <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-slate-400">
                 Filter reservations
@@ -497,8 +514,8 @@ export default function BulSUCalendarPage() {
                     onClick={() => setSelectedCategory(category)}
                     className={`h-9 rounded-full px-4 text-[13px] font-semibold transition-all duration-200 active:scale-95 ${
                       active
-                        ? "bg-[#A6192E] text-white shadow-[0_6px_16px_rgba(166,25,46,0.22)]"
-                        : "bg-[#FAFAF8] text-slate-600 hover:bg-slate-100"
+                        ? "bg-bulsu text-white shadow-[0_6px_16px_rgba(165,0,17,0.22)]"
+                        : "bg-white text-slate-600 hover:bg-slate-100"
                     }`}
                   >
                     {category}
@@ -590,7 +607,7 @@ export default function BulSUCalendarPage() {
           </span>
 
           <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#A6192E]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-bulsu" />
 
             <span className="text-[12px] font-medium text-slate-500">
               Confirmed
@@ -598,7 +615,7 @@ export default function BulSUCalendarPage() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#F4C430]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-gold" />
 
             <span className="text-[12px] font-medium text-slate-500">
               Pending
@@ -655,8 +672,8 @@ export default function BulSUCalendarPage() {
                   <div
                     className={`mb-3 inline-flex rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] ${
                       selectedEvent.extendedProps.status === "pending"
-                        ? "bg-[#F4C430]/20 text-[#806500]"
-                        : "bg-[#A6192E]/[0.07] text-[#A6192E]"
+                        ? "bg-gold/20 text-[#806500]"
+                        : "bg-bulsu/[0.07] text-bulsu"
                     }`}
                   >
                     {selectedEvent.extendedProps.status}
@@ -684,8 +701,8 @@ export default function BulSUCalendarPage() {
               {/* Facility */}
 
               <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#A6192E]/[0.07]">
-                  <MapPin className="h-4 w-4 text-[#A6192E]" />
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bulsu/[0.07]">
+                  <MapPin className="h-4 w-4 text-bulsu" />
                 </div>
 
                 <div>
@@ -706,8 +723,8 @@ export default function BulSUCalendarPage() {
               {/* Schedule */}
 
               <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#A6192E]/[0.07]">
-                  <Clock3 className="h-4 w-4 text-[#A6192E]" />
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bulsu/[0.07]">
+                  <Clock3 className="h-4 w-4 text-bulsu" />
                 </div>
 
                 <div>
@@ -732,7 +749,7 @@ export default function BulSUCalendarPage() {
                   Purpose
                 </p>
 
-                <div className="mt-2 rounded-xl bg-[#FAFAF8] p-3">
+                <div className="mt-2 rounded-xl bg-white p-3">
                   <p className="text-[13px] leading-5 text-slate-600">
                     {selectedEvent.extendedProps.purpose}
                   </p>
@@ -754,11 +771,11 @@ export default function BulSUCalendarPage() {
 
             {/* Modal footer */}
 
-            <div className="flex gap-2 border-t border-slate-100 bg-[#FAFAF8] px-6 py-4">
+            <div className="flex gap-2 border-t border-slate-100 bg-white px-6 py-4">
               <button
                 type="button"
                 onClick={() => setSelectedEvent(null)}
-                className="flex-1 rounded-xl bg-[#A6192E] px-4 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#8F1728]"
+                className="flex-1 rounded-xl bg-bulsu px-4 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-bulsu-dark"
               >
                 Close
               </button>

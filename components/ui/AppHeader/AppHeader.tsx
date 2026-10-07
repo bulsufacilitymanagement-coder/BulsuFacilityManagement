@@ -51,8 +51,8 @@ export function AppHeader({
       {/* Right: Actions & User Meta */}
       <div className="flex items-center gap-3">
         {/* Today's Date Quick View */}
-        <div className="hidden items-center gap-2 rounded-xl border border-slate-100 bg-[#FAFAF8] px-3 py-2 text-[12px] font-medium text-slate-600 xl:flex">
-          <CalendarDays className="h-4 w-4 text-[#A6192E]" />
+        <div className="hidden items-center gap-2 rounded-xl border border-slate-100 bg-white px-3 py-2 text-[12px] font-medium text-slate-600 xl:flex">
+          <CalendarDays className="h-4 w-4 text-bulsu" />
           <span>
             {new Date().toLocaleString("en-US", {
               month: "long",

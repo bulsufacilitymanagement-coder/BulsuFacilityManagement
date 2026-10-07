@@ -25,7 +25,7 @@ import PublicNavbar from "@/components/ui/PublicNavbar/PublicNavbar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#FAFAF8] text-slate-950">
+    <main className="min-h-screen overflow-hidden bg-white text-slate-950">
       {/* ================================================================ */}
       {/* NAVBAR                                                           */}
       {/* ================================================================ */}
@@ -37,8 +37,8 @@ export default function Home() {
 
       <section className="relative px-4 pb-20 pt-32 sm:px-6 sm:pb-28 sm:pt-40">
         {/* Background accents */}
-        <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-[#A6192E]/[0.055] blur-3xl" />
-        <div className="pointer-events-none absolute -right-40 top-32 h-96 w-96 rounded-full bg-[#F4C430]/[0.08] blur-3xl" />
+        <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-bulsu/[0.055] blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 top-32 h-96 w-96 rounded-full bg-gold/[0.08] blur-3xl" />
 
         <div className="relative mx-auto max-w-6xl">
           <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
@@ -48,17 +48,17 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: "easeOut" }}
             >
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#A6192E]/10 bg-[#A6192E]/[0.05] px-3.5 py-2">
-                <Sparkles className="h-3.5 w-3.5 text-[#A6192E]" />
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-bulsu/10 bg-bulsu/[0.05] px-3.5 py-2">
+                <Sparkles className="h-3.5 w-3.5 text-bulsu" />
 
-                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#A6192E]">
+                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-bulsu">
                   University Facility Portal
                 </span>
               </div>
 
               <h1 className="max-w-[680px] text-[42px] font-bold leading-[1.05] tracking-[-1.8px] text-slate-950 sm:text-[56px] lg:text-[64px]">
                 Reserve the spaces
-                <span className="block text-[#A6192E]">you need.</span>
+                <span className="block text-bulsu">you need.</span>
               </h1>
 
               <p className="mt-6 max-w-[570px] text-[16px] leading-7 text-slate-500 sm:text-[17px]">
@@ -71,7 +71,7 @@ export default function Home() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/bulsu-facilities"
-                  className="group inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-[#A6192E] px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(166,25,46,0.20)] transition-all hover:bg-[#8F1728] active:scale-[0.98]"
+                  className="group inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-bulsu px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(165,0,17,0.20)] transition-all hover:bg-bulsu-dark active:scale-[0.98]"
                 >
                   Browse Facilities
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -88,12 +88,12 @@ export default function Home() {
               {/* Trust */}
               <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-[12px] text-slate-400">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-[#A6192E]" />
+                  <CheckCircle2 className="h-4 w-4 text-bulsu" />
                   University-wide access
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-[#A6192E]" />
+                  <ShieldCheck className="h-4 w-4 text-bulsu" />
                   Secure accounts
                 </div>
               </div>
@@ -107,7 +107,7 @@ export default function Home() {
               className="relative"
             >
               {/* Decorative yellow shape */}
-              <div className="absolute -right-5 -top-5 h-20 w-20 rounded-[24px] bg-[#F4C430]/20 blur-sm" />
+              <div className="absolute -right-5 -top-5 h-20 w-20 rounded-[24px] bg-gold/20 blur-sm" />
 
               <div className="relative rounded-[28px] border border-slate-200/70 bg-white p-4 shadow-[0_25px_70px_rgba(15,23,42,0.10)] sm:p-5">
                 {/* Window header */}
@@ -122,13 +122,13 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#A6192E]/[0.07]">
-                    <CalendarDays className="h-4 w-4 text-[#A6192E]" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-bulsu/[0.07]">
+                    <CalendarDays className="h-4 w-4 text-bulsu" />
                   </div>
                 </div>
 
                 {/* Facility */}
-                <div className="mt-5 rounded-[20px] bg-[#FAFAF8] p-4">
+                <div className="mt-5 rounded-[20px] bg-white p-4">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-[12px] font-medium text-slate-400">
@@ -183,7 +183,7 @@ export default function Home() {
                 </div>
 
                 {/* Status */}
-                <div className="mt-4 flex items-center justify-between rounded-[17px] bg-[#A6192E] px-4 py-3.5 text-white">
+                <div className="mt-4 flex items-center justify-between rounded-[17px] bg-bulsu px-4 py-3.5 text-white">
                   <div>
                     <p className="text-[10px] font-medium text-white/60">
                       Request status
@@ -194,7 +194,7 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <Clock3 className="h-4 w-4 text-[#F4C430]" />
+                  <Clock3 className="h-4 w-4 text-gold" />
                 </div>
               </div>
             </motion.div>
@@ -218,7 +218,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="max-w-[600px]"
           >
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#A6192E]">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-bulsu">
               Built for the university
             </p>
 
@@ -239,9 +239,9 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45 }}
-              className="rounded-[22px] border border-slate-200/70 bg-[#FAFAF8] p-6"
+              className="rounded-[22px] border border-slate-200/70 bg-white p-6"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-[#A6192E] text-white shadow-[0_7px_18px_rgba(166,25,46,0.16)]">
+              <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-bulsu text-white shadow-[0_7px_18px_rgba(165,0,17,0.16)]">
                 <CalendarDays className="h-5 w-5" />
               </div>
 
@@ -261,9 +261,9 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: 0.08 }}
-              className="rounded-[22px] border border-slate-200/70 bg-[#FAFAF8] p-6"
+              className="rounded-[22px] border border-slate-200/70 bg-white p-6"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-[#F4C430] text-[#6F5310] shadow-[0_7px_18px_rgba(244,196,48,0.16)]">
+              <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-gold text-[#6F5310] shadow-[0_7px_18px_rgba(241,169,38,0.16)]">
                 <Clock3 className="h-5 w-5" />
               </div>
 
@@ -283,7 +283,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: 0.16 }}
-              className="rounded-[22px] border border-slate-200/70 bg-[#FAFAF8] p-6"
+              className="rounded-[22px] border border-slate-200/70 bg-white p-6"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-slate-900 text-white shadow-[0_7px_18px_rgba(15,23,42,0.12)]">
                 <ShieldCheck className="h-5 w-5" />
@@ -309,7 +309,7 @@ export default function Home() {
       <section id="how-it-works" className="px-4 py-20 sm:px-6 sm:py-24">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#A6192E]">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-bulsu">
               How it works
             </p>
 
@@ -335,7 +335,7 @@ export default function Home() {
               transition={{ duration: 0.45 }}
               className="relative text-center"
             >
-              <div className="relative mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#A6192E] text-[14px] font-bold text-white ring-8 ring-[#FAFAF8]">
+              <div className="relative mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-bulsu text-[14px] font-bold text-white ring-8 ring-white">
                 01
               </div>
 
@@ -356,7 +356,7 @@ export default function Home() {
               transition={{ duration: 0.45, delay: 0.08 }}
               className="relative text-center"
             >
-              <div className="relative mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#F4C430] text-[14px] font-bold text-[#624B0E] ring-8 ring-[#FAFAF8]">
+              <div className="relative mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold text-[14px] font-bold text-[#624B0E] ring-8 ring-white">
                 02
               </div>
 
@@ -377,7 +377,7 @@ export default function Home() {
               transition={{ duration: 0.45, delay: 0.16 }}
               className="relative text-center"
             >
-              <div className="relative mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-[14px] font-bold text-white ring-8 ring-[#FAFAF8]">
+              <div className="relative mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-[14px] font-bold text-white ring-8 ring-white">
                 03
               </div>
 
@@ -408,7 +408,7 @@ export default function Home() {
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#A6192E]">
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-bulsu">
               One centralized system
             </p>
 
@@ -423,13 +423,13 @@ export default function Home() {
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <div className="flex items-center gap-2 rounded-xl bg-[#FAFAF8] px-3.5 py-2.5 text-[12px] font-medium text-slate-600">
-                <Users className="h-4 w-4 text-[#A6192E]" />
+              <div className="flex items-center gap-2 rounded-xl bg-white px-3.5 py-2.5 text-[12px] font-medium text-slate-600">
+                <Users className="h-4 w-4 text-bulsu" />
                 Students & Faculty
               </div>
 
-              <div className="flex items-center gap-2 rounded-xl bg-[#FAFAF8] px-3.5 py-2.5 text-[12px] font-medium text-slate-600">
-                <CalendarDays className="h-4 w-4 text-[#A6192E]" />
+              <div className="flex items-center gap-2 rounded-xl bg-white px-3.5 py-2.5 text-[12px] font-medium text-slate-600">
+                <CalendarDays className="h-4 w-4 text-bulsu" />
                 Centralized Requests
               </div>
             </div>
@@ -443,7 +443,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="grid grid-cols-2 gap-3"
           >
-            <div className="rounded-[22px] bg-[#A6192E] p-6 text-white">
+            <div className="rounded-[22px] bg-bulsu p-6 text-white">
               <p className="text-[32px] font-bold tracking-tight">01</p>
 
               <p className="mt-2 text-[12px] leading-5 text-white/65">
@@ -451,7 +451,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="rounded-[22px] bg-[#F4C430] p-6 text-[#5D470C]">
+            <div className="rounded-[22px] bg-gold p-6 text-[#5D470C]">
               <p className="text-[32px] font-bold tracking-tight">24/7</p>
 
               <p className="mt-2 text-[12px] leading-5 text-[#5D470C]/65">
@@ -459,7 +459,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="col-span-2 rounded-[22px] border border-slate-200 bg-[#FAFAF8] p-6">
+            <div className="col-span-2 rounded-[22px] border border-slate-200 bg-white p-6">
               <div className="flex items-center gap-4">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-slate-900 text-white">
                   <CheckCircle2 className="h-5 w-5" />
@@ -490,14 +490,14 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
-          className="relative mx-auto max-w-5xl overflow-hidden rounded-[28px] bg-[#A6192E] px-6 py-12 text-center shadow-[0_20px_60px_rgba(166,25,46,0.18)] sm:px-10 sm:py-16"
+          className="relative mx-auto max-w-5xl overflow-hidden rounded-[28px] bg-bulsu px-6 py-12 text-center shadow-[0_20px_60px_rgba(165,0,17,0.18)] sm:px-10 sm:py-16"
         >
           {/* Decorative shapes */}
           <div className="pointer-events-none absolute -left-20 -top-20 h-48 w-48 rounded-full bg-white/[0.05]" />
-          <div className="pointer-events-none absolute -bottom-24 -right-16 h-56 w-56 rounded-full bg-[#F4C430]/10" />
+          <div className="pointer-events-none absolute -bottom-24 -right-16 h-56 w-56 rounded-full bg-gold/10" />
 
           <div className="relative">
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F4C430]">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold">
               Ready to get started?
             </p>
 
@@ -514,7 +514,7 @@ export default function Home() {
             <div className="mt-7">
               <Link
                 href="/bulsu-facilities"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-white px-6 text-[14px] font-bold text-[#A6192E] shadow-lg transition-all hover:bg-[#FFFDF5] active:scale-[0.98]"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-white px-6 text-[14px] font-bold text-bulsu shadow-lg transition-all hover:bg-[#FFFDF5] active:scale-[0.98]"
               >
                 Browse facilities and find admin
                 <ArrowRight className="h-4 w-4" />
@@ -530,7 +530,7 @@ export default function Home() {
 
       <section
         id="resources"
-        className="border-t border-slate-200/60 bg-[#FAFAF8] px-4 py-20 sm:px-6 sm:py-24"
+        className="border-t border-slate-200/60 bg-white px-4 py-20 sm:px-6 sm:py-24"
       >
         <div className="mx-auto max-w-6xl">
           {/* Section heading */}
@@ -541,11 +541,11 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mx-auto max-w-2xl text-center"
           >
-            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-[14px] bg-[#A6192E]/[0.07]">
-              <FileText className="h-5 w-5 text-[#A6192E]" />
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-[14px] bg-bulsu/[0.07]">
+              <FileText className="h-5 w-5 text-bulsu" />
             </div>
 
-            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#A6192E]">
+            <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-bulsu">
               Student Resources
             </p>
 
@@ -572,8 +572,8 @@ export default function Home() {
               className="rounded-[24px] border border-slate-200/70 bg-white p-6 sm:p-7"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[#A6192E]/[0.07]">
-                  <HeartHandshake className="h-5 w-5 text-[#A6192E]" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-bulsu/[0.07]">
+                  <HeartHandshake className="h-5 w-5 text-bulsu" />
                 </div>
 
                 <div>
@@ -592,33 +592,33 @@ export default function Home() {
                   href="https://findahelpline.com/countries/ph/topics/suicidal-thoughts"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Crisis Hotlines
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://www.facebook.com/share/p/1715Rtfvpj/"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     CSSP LSC Directory
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://docs.google.com/spreadsheets/d/1iv6k2LRNHt1pJ5ODwIceRmgYrMawM-mA/edit?usp=drivesdk&ouid=107773750213416118125&rtpof=true&sd=true"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Classroom Officers Directory
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
               </div>
             </motion.div>
@@ -632,7 +632,7 @@ export default function Home() {
               className="rounded-[24px] border border-slate-200/70 bg-white p-6 sm:p-7"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[#F4C430]/20">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-gold/20">
                   <Scale className="h-5 w-5 text-[#80620D]" />
                 </div>
 
@@ -652,44 +652,44 @@ export default function Home() {
                   href="https://drive.google.com/file/d/1MPSAnh7GRifkgpGhtUmYWAsxLgwj6OV6/view?usp=sharing"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     SG Constitution &amp; By-Laws
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://drive.google.com/file/d/1wpUSCBsGja3YFiwn-KmBh0ddJOlXplBb/view?usp=drive_link"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     CSSP LSC Code
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://drive.google.com/file/d/1oNFcUmRBdIeCoKhiEXEy_1K8rhV6oQ-L/view?usp=sharing"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     BulSU Student Handbook
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://drive.google.com/file/d/19XD4Er7i9VdZhrcDE3yduwpU12hVhTTW/view?usp=sharing"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Magna Carta of Students (MCOS)
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
               </div>
             </motion.div>
@@ -723,55 +723,55 @@ export default function Home() {
                   href="#"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Resolutions &amp; Projects
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://drive.google.com/drive/folders/1DzkBxrmJfIKxY1114CsZyCpphhNf-ZOq"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Executive Documents
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://drive.google.com/drive/folders/1o4EMzmKZiFA49XWsYIiUT4t0dNrSgJzx?usp=sharing"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Legislative Documents
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://drive.google.com/drive/folders/1nqOiRUTk0ci9okuOgIT_RzjLfbq2JNMp?usp=drive_link"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Minutes of the Meeting
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://docs.google.com/document/d/12KX3q1DOcgF_fF5qxo2I-TWkNT12Zgio1_RYcXGUAAo/edit?usp=sharing"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Narrative Report Template
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
               </div>
             </motion.div>
@@ -785,8 +785,8 @@ export default function Home() {
               className="rounded-[24px] border border-slate-200/70 bg-white p-6 sm:p-7"
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-[#A6192E]/[0.07]">
-                  <Landmark className="h-5 w-5 text-[#A6192E]" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-bulsu/[0.07]">
+                  <Landmark className="h-5 w-5 text-bulsu" />
                 </div>
 
                 <div>
@@ -805,28 +805,28 @@ export default function Home() {
                   href="https://drive.google.com/drive/folders/1xFEU7vW2mLKqIZBvmvJrkRGLZu1WH5ea?usp=sharing"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     Financial Reports
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
 
                 <a
                   href="https://www.facebook.com/share/p/15vpVVmM76/?mibextid=wwXIfr"
                   className="group flex items-center justify-between py-3.5"
                 >
-                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-[#A6192E]">
+                  <span className="text-[13px] font-medium text-slate-600 transition-colors group-hover:text-bulsu">
                     BulSU Academic Calendar
                   </span>
 
-                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-[#A6192E]" />
+                  <ArrowRight className="h-4 w-4 text-slate-300 transition-all group-hover:translate-x-1 group-hover:text-bulsu" />
                 </a>
               </div>
 
               {/* Small transparency callout */}
-              <div className="mt-5 rounded-[16px] bg-[#FAFAF8] p-4">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-[#A6192E]">
+              <div className="mt-5 rounded-[16px] bg-white p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-bulsu">
                   Our commitment
                 </p>
 
@@ -857,22 +857,15 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#A6192E]" />
-            <span className="h-1.5 w-1.5 rounded-full bg-[#F4C430]" />
-            <span className="h-1.5 w-1.5 rounded-full bg-[#A6192E]/30" />
+            <span className="h-1.5 w-1.5 rounded-full bg-bulsu" />
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+            <span className="h-1.5 w-1.5 rounded-full bg-bulsu/30" />
           </div>
 
           <div>
             <p className="text-[10px] text-slate-400">
               © {new Date().getFullYear()} Bulacan State University
             </p>
-            <a
-              href="https://limuelcamangon.vercel.app/"
-              target="_blank"
-              className="text-[10px] text-slate-400"
-            >
-              Developed by Limuel Camangon
-            </a>
           </div>
         </div>
       </footer>

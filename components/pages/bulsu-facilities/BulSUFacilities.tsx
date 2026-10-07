@@ -100,7 +100,7 @@ export default function BulSUFacilities() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#FAFAF8] text-slate-950">
+    <main className="relative min-h-screen overflow-hidden bg-white text-slate-950">
       {/* ================================================================ */}
       {/* NAVBAR                                                           */}
       {/* ================================================================ */}
@@ -110,9 +110,9 @@ export default function BulSUFacilities() {
       {/* BACKGROUND ACCENTS                                           */}
       {/* ============================================================ */}
 
-      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-[#A6192E]/[0.055] blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-bulsu/[0.055] blur-3xl" />
 
-      <div className="pointer-events-none absolute -right-40 top-40 h-96 w-96 rounded-full bg-[#F4C430]/[0.08] blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 top-40 h-96 w-96 rounded-full bg-gold/[0.08] blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         {/* ========================================================== */}
@@ -142,17 +142,17 @@ export default function BulSUFacilities() {
             className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
           >
             <div>
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#A6192E]/10 bg-[#A6192E]/[0.05] px-3.5 py-2">
-                <Building2 className="h-3.5 w-3.5 text-[#A6192E]" />
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-bulsu/10 bg-bulsu/[0.05] px-3.5 py-2">
+                <Building2 className="h-3.5 w-3.5 text-bulsu" />
 
-                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#A6192E]">
+                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-bulsu">
                   University Facilities
                 </span>
               </div>
 
               <h1 className="text-[38px] font-bold leading-[1.05] tracking-[-1.5px] text-slate-950 sm:text-[48px]">
                 Explore
-                <span className="text-[#A6192E]"> BulSU Facilities</span>
+                <span className="text-bulsu"> BulSU Facilities</span>
               </h1>
 
               <p className="mt-4 max-w-[650px] text-[15px] leading-6 text-slate-500">
@@ -181,7 +181,7 @@ export default function BulSUFacilities() {
           <div className="flex flex-col gap-4">
             {/* Filter heading */}
             <div className="flex items-center gap-2">
-              <SlidersHorizontal className="h-4 w-4 text-[#A6192E]" />
+              <SlidersHorizontal className="h-4 w-4 text-bulsu" />
 
               <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-slate-400">
                 Find a facility
@@ -201,8 +201,8 @@ export default function BulSUFacilities() {
                       onClick={() => setSelectedCategory(category)}
                       className={`h-9 rounded-full px-4 text-[13px] font-semibold transition-all duration-200 active:scale-95 ${
                         active
-                          ? "bg-[#A6192E] text-white shadow-[0_6px_16px_rgba(166,25,46,0.22)]"
-                          : "bg-[#FAFAF8] text-slate-600 hover:bg-slate-100"
+                          ? "bg-bulsu text-white shadow-[0_6px_16px_rgba(165,0,17,0.22)]"
+                          : "bg-white text-slate-600 hover:bg-slate-100"
                       }`}
                     >
                       {category}
@@ -220,7 +220,8 @@ export default function BulSUFacilities() {
                   value={searchQuery}
                   onChange={(event) => setSearchQuery(event.target.value)}
                   placeholder="Search facilities..."
-                  className="h-10 w-full rounded-full border border-slate-200/80 bg-[#FAFAF8] pl-10 pr-4 text-[13px] text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-[#A6192E] focus:bg-white focus:ring-2 focus:ring-[#A6192E]/10"
+                  aria-label="Search facilities"
+                  className="h-10 w-full rounded-full border border-slate-200/80 bg-white pl-10 pr-4 text-[13px] text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-bulsu focus:bg-white focus:ring-2 focus:ring-bulsu/10"
                 />
               </div>
             </div>
@@ -263,7 +264,7 @@ export default function BulSUFacilities() {
                 setSelectedCategory("All Venues");
                 setSearchQuery("");
               }}
-              className="text-[12px] font-semibold text-[#A6192E] hover:underline"
+              className="text-[12px] font-semibold text-bulsu hover:underline"
             >
               Clear filters
             </button>
@@ -303,8 +304,8 @@ export default function BulSUFacilities() {
               animate={{ opacity: 1, scale: 1 }}
               className="rounded-[24px] border border-dashed border-slate-300 bg-white px-6 py-16 text-center"
             >
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[15px] bg-[#A6192E]/[0.07]">
-                <Search className="h-5 w-5 text-[#A6192E]" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[15px] bg-bulsu/[0.07]">
+                <Search className="h-5 w-5 text-bulsu" />
               </div>
 
               <h3 className="mt-5 text-[16px] font-bold text-slate-900">
@@ -322,7 +323,7 @@ export default function BulSUFacilities() {
                   setSearchQuery("");
                   setSelectedCategory("All Venues");
                 }}
-                className="mt-5 rounded-xl bg-[#A6192E] px-4 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#8F1728]"
+                className="mt-5 rounded-xl bg-bulsu px-4 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-bulsu-dark"
               >
                 Reset filters
               </button>

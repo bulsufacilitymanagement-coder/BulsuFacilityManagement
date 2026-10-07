@@ -317,17 +317,17 @@ export function Register() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#FAFAF8] px-4 py-8 sm:px-6 sm:py-12">
+    <main className="relative min-h-screen overflow-hidden bg-white px-4 py-8 sm:px-6 sm:py-12">
       {/* Ambient background */}
       <motion.div
-        className="pointer-events-none absolute -left-32 -top-32 h-72 w-72 rounded-full bg-[#A6192E]/[0.07] blur-3xl"
+        className="pointer-events-none absolute -left-32 -top-32 h-72 w-72 rounded-full bg-bulsu/[0.07] blur-3xl"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       />
 
       <motion.div
-        className="pointer-events-none absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-[#F4C430]/[0.10] blur-3xl"
+        className="pointer-events-none absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-gold/[0.10] blur-3xl"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
@@ -348,7 +348,7 @@ export function Register() {
           <motion.header variants={itemVariants} className="mb-7 text-center">
             {/* University mark */}
             <motion.div
-              className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-[#A6192E] shadow-[0_12px_30px_rgba(166,25,46,0.20)]"
+              className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-bulsu shadow-[0_12px_30px_rgba(165,0,17,0.20)]"
               initial={{ opacity: 0, scale: 0.8, rotate: -4 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{
@@ -364,7 +364,7 @@ export function Register() {
             >
               <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-[3px] border-white/90">
                 <motion.div
-                  className="h-2.5 w-2.5 rounded-full bg-[#F4C430]"
+                  className="h-2.5 w-2.5 rounded-full bg-gold"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{
@@ -376,7 +376,7 @@ export function Register() {
               </div>
             </motion.div>
 
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#A6192E]">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-bulsu">
               Bulacan State University
             </p>
 
@@ -461,7 +461,7 @@ export function Register() {
                   }}
                   className="flex items-start gap-3 overflow-hidden rounded-[15px] border border-yellow-300 bg-yellow-50 px-4 py-3.5 text-[13px] leading-5 text-yellow-900"
                 >
-                  <span className="mt-[5px] h-2 w-2 shrink-0 rounded-full bg-[#F4C430]" />
+                  <span className="mt-[5px] h-2 w-2 shrink-0 rounded-full bg-gold" />
 
                   <p>{successMsg}</p>
                 </motion.div>
@@ -499,7 +499,7 @@ export function Register() {
                     }}
                     className={`rounded-[17px] border p-4 text-left transition-all duration-200 ${
                       role === "Student Org Admin"
-                        ? "border-[#A6192E] bg-[#A6192E]/[0.04] shadow-[0_4px_14px_rgba(166,25,46,0.08)] ring-2 ring-[#A6192E]/10"
+                        ? "border-bulsu bg-bulsu/[0.04] shadow-[0_4px_14px_rgba(165,0,17,0.08)] ring-2 ring-bulsu/10"
                         : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
                     }`}
                   >
@@ -510,7 +510,7 @@ export function Register() {
                         }}
                         className={`flex h-9 w-9 items-center justify-center rounded-xl text-[13px] font-bold ${
                           role === "Student Org Admin"
-                            ? "bg-[#A6192E] text-white"
+                            ? "bg-bulsu text-white"
                             : "bg-slate-100 text-slate-500"
                         }`}
                       >
@@ -520,7 +520,7 @@ export function Register() {
                       <div
                         className={`flex h-5 w-5 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
                           role === "Student Org Admin"
-                            ? "border-[#A6192E]"
+                            ? "border-bulsu"
                             : "border-slate-300"
                         }`}
                       >
@@ -542,7 +542,7 @@ export function Register() {
                               transition={{
                                 duration: 0.18,
                               }}
-                              className="h-2.5 w-2.5 rounded-full bg-[#A6192E]"
+                              className="h-2.5 w-2.5 rounded-full bg-bulsu"
                             />
                           )}
                         </AnimatePresence>
@@ -575,7 +575,7 @@ export function Register() {
                     }}
                     className={`rounded-[17px] border p-4 text-left transition-all duration-200 ${
                       role === "College Admin"
-                        ? "border-[#A6192E] bg-[#A6192E]/[0.04] shadow-[0_4px_14px_rgba(166,25,46,0.08)] ring-2 ring-[#A6192E]/10"
+                        ? "border-bulsu bg-bulsu/[0.04] shadow-[0_4px_14px_rgba(165,0,17,0.08)] ring-2 ring-bulsu/10"
                         : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
                     }`}
                   >
@@ -586,7 +586,7 @@ export function Register() {
                         }}
                         className={`flex h-9 w-9 items-center justify-center rounded-xl text-[13px] font-bold ${
                           role === "College Admin"
-                            ? "bg-[#A6192E] text-white"
+                            ? "bg-bulsu text-white"
                             : "bg-slate-100 text-slate-500"
                         }`}
                       >
@@ -596,7 +596,7 @@ export function Register() {
                       <div
                         className={`flex h-5 w-5 items-center justify-center rounded-full border-2 transition-colors duration-200 ${
                           role === "College Admin"
-                            ? "border-[#A6192E]"
+                            ? "border-bulsu"
                             : "border-slate-300"
                         }`}
                       >
@@ -618,7 +618,7 @@ export function Register() {
                               transition={{
                                 duration: 0.18,
                               }}
-                              className="h-2.5 w-2.5 rounded-full bg-[#A6192E]"
+                              className="h-2.5 w-2.5 rounded-full bg-bulsu"
                             />
                           )}
                         </AnimatePresence>
@@ -896,7 +896,7 @@ export function Register() {
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="font-semibold text-[#A6192E] transition-colors hover:text-[#7D1223] hover:underline focus:outline-none focus:ring-2 focus:ring-[#A6192E]/20"
+                  className="font-semibold text-bulsu transition-colors hover:text-bulsu-active hover:underline focus:outline-none focus:ring-2 focus:ring-bulsu/20"
                 >
                   Sign in
                 </Link>
@@ -908,7 +908,7 @@ export function Register() {
           <motion.div variants={itemVariants} className="mt-7 text-center">
             <div className="mb-2 flex items-center justify-center gap-2">
               <motion.span
-                className="h-1.5 w-1.5 rounded-full bg-[#A6192E]"
+                className="h-1.5 w-1.5 rounded-full bg-bulsu"
                 animate={{
                   opacity: [0.5, 1, 0.5],
                 }}
@@ -920,7 +920,7 @@ export function Register() {
               />
 
               <motion.span
-                className="h-1.5 w-1.5 rounded-full bg-[#F4C430]"
+                className="h-1.5 w-1.5 rounded-full bg-gold"
                 animate={{
                   opacity: [1, 0.5, 1],
                 }}
@@ -931,7 +931,7 @@ export function Register() {
                 }}
               />
 
-              <span className="h-1.5 w-1.5 rounded-full bg-[#A6192E]/30" />
+              <span className="h-1.5 w-1.5 rounded-full bg-bulsu/30" />
             </div>
 
             <p className="text-[11px] font-medium text-slate-400">

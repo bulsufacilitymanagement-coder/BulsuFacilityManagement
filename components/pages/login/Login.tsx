@@ -68,10 +68,10 @@ export function Login() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#FAFAF8] px-4 py-8 sm:px-6">
+    <main className="relative min-h-screen overflow-hidden bg-white px-4 py-8 sm:px-6">
       {/* Ambient background */}
-      <div className="pointer-events-none absolute -left-32 -top-32 h-72 w-72 rounded-full bg-[#A6192E]/[0.07] blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-[#F4C430]/[0.10] blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 -top-32 h-72 w-72 rounded-full bg-bulsu/[0.07] blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -right-32 h-72 w-72 rounded-full bg-gold/[0.10] blur-3xl" />
 
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-[430px] items-center justify-center">
         <motion.section
@@ -98,18 +98,18 @@ export function Login() {
 
             {/*
             <motion.div
-              className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-[#A6192E] shadow-[0_12px_30px_rgba(166,25,46,0.20)]"
+              className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[22px] bg-bulsu shadow-[0_12px_30px_rgba(165,0,17,0.20)]"
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.45, ease: "easeOut" }}
             >
           
               <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-[3px] border-white/90">
-                <div className="h-2.5 w-2.5 rounded-full bg-[#F4C430]" />
+                <div className="h-2.5 w-2.5 rounded-full bg-gold" />
               </div> 
             </motion.div> */}
 
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#A6192E]">
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-bulsu">
               Bulacan State University
             </p>
 
@@ -185,7 +185,7 @@ export function Login() {
               <div className="flex justify-end pt-[-2px]">
                 <Link
                   href="/forgot-password"
-                  className="rounded-lg px-1 text-[13px] font-semibold text-[#A6192E] transition-colors hover:text-[#7D1223] hover:underline focus:outline-none focus:ring-2 focus:ring-[#A6192E]/20"
+                  className="rounded-lg px-1 text-[13px] font-semibold text-bulsu transition-colors hover:text-bulsu-active hover:underline focus:outline-none focus:ring-2 focus:ring-bulsu/20"
                 >
                   Forgot password?
                 </Link>
@@ -206,9 +206,9 @@ export function Login() {
 
           <div className="mt-7 text-center">
             <div className="mb-2 flex items-center justify-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#A6192E]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#F4C430]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#A6192E]/30" />
+              <span className="h-1.5 w-1.5 rounded-full bg-bulsu" />
+              <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+              <span className="h-1.5 w-1.5 rounded-full bg-bulsu/30" />
             </div>
 
             <p className="text-[11px] font-medium text-slate-400">

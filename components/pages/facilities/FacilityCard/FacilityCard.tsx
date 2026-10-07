@@ -51,7 +51,7 @@ export default function FacilityCard({
       </div>
 
       {/* Facility Title */}
-      <h3 className="mt-3 break-words text-[19px] font-bold text-slate-950 transition-colors group-hover:text-[#A6192E]">
+      <h3 className="mt-3 break-words text-[19px] font-bold text-slate-950 transition-colors group-hover:text-bulsu">
         {fac.name}
       </h3>
 
@@ -62,8 +62,8 @@ export default function FacilityCard({
       </div>
 
       {/* Capacity */}
-      <div className="mt-4 flex w-fit items-center gap-1.5 rounded-[14px] bg-[#FAFAF8] px-3 py-2 text-[12px] font-semibold text-slate-700">
-        <Users className="h-4 w-4 shrink-0 text-[#A6192E]" />
+      <div className="mt-4 flex w-fit items-center gap-1.5 rounded-[14px] bg-white px-3 py-2 text-[12px] font-semibold text-slate-700">
+        <Users className="h-4 w-4 shrink-0 text-bulsu" />
         <span>{fac.capacity} Seats</span>
       </div>
 
@@ -87,7 +87,7 @@ export default function FacilityCard({
           disabled={!isAvailable}
           className={`inline-flex h-10 items-center justify-center gap-2 rounded-[12px] px-4 text-[13px] font-semibold transition-all active:scale-[0.98] ${
             isAvailable
-              ? "bg-[#A6192E] text-white shadow-[0_8px_20px_rgba(166,25,46,0.20)] hover:bg-[#8F1728]"
+              ? "bg-bulsu text-white shadow-[0_8px_20px_rgba(165,0,17,0.20)] hover:bg-bulsu-dark"
               : "cursor-not-allowed bg-slate-100 text-slate-400"
           }`}
         >

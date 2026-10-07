@@ -21,7 +21,7 @@ export default function PublicNavbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/60 bg-[#FAFAF8]/85 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-200/60 bg-white/85 backdrop-blur-xl">
       <div className="mx-auto flex h-[68px] max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand */}
         <Link
@@ -32,7 +32,7 @@ export default function PublicNavbar() {
           <Image src={bulsu_logo} width={40} alt="BulSU Logo" />
 
           <div className="hidden sm:block">
-            <p className="text-[12px] font-bold leading-none tracking-tight text-[#A6192E]">
+            <p className="text-[12px] font-bold leading-none tracking-tight text-bulsu">
               BULACAN STATE UNIVERSITY
             </p>
 
@@ -46,21 +46,21 @@ export default function PublicNavbar() {
         <nav className="hidden items-center gap-8 md:flex">
           <Link
             href="/bulsu-facilities"
-            className="text-[13px] font-medium text-slate-500 transition-colors hover:text-[#A6192E]"
+            className="text-[13px] font-medium text-slate-500 transition-colors hover:text-bulsu"
           >
             Facilities
           </Link>
 
           <a
             href="#how-it-works"
-            className="text-[13px] font-medium text-slate-500 transition-colors hover:text-[#A6192E]"
+            className="text-[13px] font-medium text-slate-500 transition-colors hover:text-bulsu"
           >
             How It Works
           </a>
 
           <a
             href="#about"
-            className="text-[13px] font-medium text-slate-500 transition-colors hover:text-[#A6192E]"
+            className="text-[13px] font-medium text-slate-500 transition-colors hover:text-bulsu"
           >
             About
           </a>
@@ -70,7 +70,7 @@ export default function PublicNavbar() {
         <div className="hidden items-center gap-2 md:flex">
           <Link
             href="/login"
-            className="rounded-xl bg-[#A6192E] px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_5px_16px_rgba(166,25,46,0.18)] transition-all hover:bg-[#8F1728] active:scale-[0.98]"
+            className="rounded-xl bg-bulsu px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_5px_16px_rgba(165,0,17,0.18)] transition-all hover:bg-bulsu-dark active:scale-[0.98]"
           >
             Sign In
           </Link>
@@ -127,7 +127,7 @@ export default function PublicNavbar() {
             <Link
               href="/login"
               onClick={closeMobileMenu}
-              className="w-full rounded-xl bg-[#A6192E] mt-4 py-3 text-center text-[13px] font-semibold text-white"
+              className="w-full rounded-xl bg-bulsu mt-4 py-3 text-center text-[13px] font-semibold text-white"
             >
               Sign In
             </Link>

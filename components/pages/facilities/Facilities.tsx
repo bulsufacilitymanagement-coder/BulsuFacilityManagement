@@ -30,6 +30,7 @@ export default function Facilities() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showAddFacilitySheet, setShowAddFacilitySheet] = useState(false);
   const [facilities, setFacilities] = useState<ViewFacility[] | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getFacilities() {
@@ -43,10 +44,13 @@ export default function Facilities() {
 
       if (error) {
         console.error("Error fetching facilities:", error);
+        setFacilities([]);
+        setLoading(false);
         return;
       }
 
       setFacilities(data ?? []);
+      setLoading(false);
     }
 
     getFacilities();
@@ -75,11 +79,16 @@ export default function Facilities() {
     router.push(`/facilities/${facilityId}`);
   }
 
+  function resetFilters() {
+    setSelectedCategory("All Venues");
+    setSearchQuery("");
+  }
+
   return (
     <div className="relative min-h-screen bg-white p-6 sm:p-10">
       {/* Background accents */}
-      <div className="pointer-events-none absolute right-10 top-32 h-80 w-80 rounded-full bg-[#F4C430]/50 blur-[200px]" />
-      <div className="pointer-events-none absolute -left-50 top-5 h-96 w-96 rounded-full bg-[#A6192E]/[0.15] blur-[100px]" />
+      <div className="pointer-events-none absolute right-10 top-32 h-80 w-80 rounded-full bg-gold/50 blur-[200px]" />
+      <div className="pointer-events-none absolute -left-50 top-5 h-96 w-96 rounded-full bg-bulsu/[0.15] blur-[100px]" />
 
       <div className="relative mx-auto max-w-6xl space-y-8">
         {/* Header Section */}
@@ -92,7 +101,7 @@ export default function Facilities() {
           <div>
             <h1 className="text-[32px] font-bold leading-tight tracking-[-1.2px] text-slate-950 sm:text-[40px]">
               {isCollegeAdmin ? "Manage" : "Browse"}{" "}
-              <span className="text-[#A6192E]">
+              <span className="text-bulsu">
                 Facilities {isCollegeAdmin && "for " + user.college.code}
               </span>
             </h1>
@@ -107,7 +116,7 @@ export default function Facilities() {
             <button
               onClick={() => setShowAddFacilitySheet((prev) => !prev)}
               type="button"
-              className="group cursor-pointer inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-[#A6192E] px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(166,25,46,0.20)] transition-all hover:bg-[#8F1728] active:scale-[0.98]"
+              className="group cursor-pointer inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-bulsu px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(165,0,17,0.20)] transition-all hover:bg-bulsu-dark active:scale-[0.98]"
             >
               <Plus className="h-4 w-4" />
               Add Facility
@@ -132,8 +141,8 @@ export default function Facilities() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`h-9 rounded-full px-4 text-[13px] font-semibold transition-all duration-200 active:scale-95 ${
                     isActive
-                      ? "bg-[#A6192E] text-white shadow-[0_6px_16px_rgba(166,25,46,0.25)]"
-                      : "bg-[#FAFAF8] text-slate-600 hover:bg-slate-100"
+                      ? "bg-bulsu text-white shadow-[0_6px_16px_rgba(165,0,17,0.25)]"
+                      : "bg-white text-slate-600 hover:bg-slate-100"
                   }`}
                 >
                   {cat}
@@ -150,7 +159,8 @@ export default function Facilities() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by venue or location..."
-              className="h-10 w-full rounded-full border border-slate-200/80 bg-[#FAFAF8] pl-10 pr-4 text-[13px] text-slate-900 placeholder:text-slate-400 transition-all focus:border-[#A6192E] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A6192E]/10"
+              aria-label="Search facilities"
+              className="h-10 w-full rounded-full border border-slate-200/80 bg-white pl-10 pr-4 text-[13px] text-slate-900 placeholder:text-slate-400 transition-all focus:border-bulsu focus:bg-white focus:outline-none focus:ring-2 focus:ring-bulsu/10"
             />
           </div>
         </motion.div>
@@ -162,8 +172,47 @@ export default function Facilities() {
           transition={{ duration: 0.6, delay: 0.14, ease: "easeOut" }}
           className="flex flex-wrap items-start gap-6"
         >
+          {/* Loading skeletons keep layout stable while fetching. */}
+          {loading && (
+            <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="h-[260px] animate-pulse rounded-[24px] border border-slate-200/70 bg-white"
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Empty state with a one-tap reset. */}
+          {!loading && filteredFacilities.length === 0 && (
+            <div className="w-full rounded-[24px] border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[15px] bg-bulsu/[0.07]">
+                <Search className="h-5 w-5 text-bulsu" />
+              </div>
+
+              <h3 className="mt-5 text-[16px] font-bold text-slate-900">
+                No facilities found
+              </h3>
+
+              <p className="mx-auto mt-2 max-w-md text-[13px] leading-5 text-slate-500">
+                Try changing your search or selecting a different facility
+                category.
+              </p>
+
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="mt-5 h-11 rounded-xl bg-bulsu px-5 text-[13px] font-semibold text-white transition-colors hover:bg-bulsu-dark active:scale-[0.98]"
+              >
+                Reset filters
+              </button>
+            </div>
+          )}
+
           <AnimatePresence>
-            {filteredFacilities.map((fac, index) => {
+            {!loading &&
+              filteredFacilities.map((fac, index) => {
               const isAvailable = fac.status === "Available";
               const isReserved = fac.status === "Reserved Today";
 

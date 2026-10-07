@@ -107,13 +107,13 @@ export function AddFacilitySheet({
               className="relative flex w-screen flex-col border-l border-slate-200/80 bg-white shadow-2xl sm:w-[50vw] sm:max-w-2xl"
             >
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5 sm:px-8 shadow-[0_10px_400px_-20px_#A6192E]">
+              <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5 sm:px-8 shadow-[0_10px_400px_-20px_var(--color-bulsu)]">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#A6192E]/[0.07] text-[#A6192E]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-bulsu/[0.07] text-bulsu">
                     <Building2 className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#A6192E]">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-bulsu">
                       Facility Management
                     </span>
                     <h2 className="text-[20px] font-bold text-slate-950">
@@ -125,6 +125,7 @@ export function AddFacilitySheet({
                 <button
                   type="button"
                   onClick={onClose}
+                  aria-label="Close dialog"
                   className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700 active:scale-95"
                 >
                   <X className="h-5 w-5" />
@@ -174,9 +175,9 @@ export function AddFacilitySheet({
                         shadow-[0_1px_2px_rgba(0,0,0,0.03)]
                         transition-all
                         duration-200
-                        focus:border-[#A6192E]
+                        focus:border-bulsu
                         focus:ring-4
-                        focus:ring-[#A6192E]/10
+                        focus:ring-bulsu/10
                       "
                     >
                       <option value="">Select Type</option>
@@ -219,7 +220,7 @@ export function AddFacilitySheet({
                   <label className="block text-[13px] font-semibold text-slate-700">
                     Facility Preview Image
                   </label>
-                  <div className="flex flex-col items-center justify-center rounded-[20px] border-2 border-dashed border-slate-200 bg-[#FAFAF8] p-6 text-center transition-colors hover:border-[#A6192E]/50 hover:bg-[#A6192E]/[0.02]">
+                  <div className="flex flex-col items-center justify-center rounded-[20px] border-2 border-dashed border-slate-200 bg-white p-6 text-center transition-colors hover:border-bulsu/50 hover:bg-bulsu/[0.02]">
                     <Upload className="h-8 w-8 text-slate-400" />
                     <p className="mt-2 text-[13px] font-semibold text-slate-700">
                       Click to upload or drag image here

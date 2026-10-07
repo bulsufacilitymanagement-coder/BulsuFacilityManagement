@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/* ================================================================
+   Brand tokens (single source of truth — see AGENTS.md §5)
+   bulsu        primary actions, active states        #a50011
+   bulsu-dark   hover states, sidebar border          #8c000e
+   bulsu-active pressed states                        #7a000c
+   gold         accents, pending states               #f1a926
+   gold-dark    pending borders                       #d49521
+   ================================================================ */
+
+@theme {
+  --color-bulsu: #a50011;
+  --color-bulsu-dark: #8c000e;
+  --color-bulsu-active: #7a000c;
+  --color-gold: #f1a926;
+  --color-gold-dark: #d49521;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -32,19 +49,19 @@ body {
 .bulSU-calendar {
   --fc-border-color: rgba(226, 232, 240, 0.75);
   --fc-button-text-color: #475569;
-  --fc-button-bg-color: #fafaf8;
+  --fc-button-bg-color: #ffffff;
   --fc-button-border-color: #e2e8f0;
   --fc-button-hover-bg-color: #f1f5f9;
   --fc-button-hover-border-color: #cbd5e1;
-  --fc-button-active-bg-color: #a6192e;
-  --fc-button-active-border-color: #a6192e;
+  --fc-button-active-bg-color: #a50011;
+  --fc-button-active-border-color: #a50011;
 
-  --fc-today-bg-color: rgba(166, 25, 46, 0.035);
+  --fc-today-bg-color: rgba(165, 0, 17, 0.035);
 
   --fc-page-bg-color: #ffffff;
-  --fc-neutral-bg-color: #fafaf8;
+  --fc-neutral-bg-color: #ffffff;
 
-  --fc-list-event-hover-bg-color: #fafaf8;
+  --fc-list-event-hover-bg-color: #ffffff;
 
   color: #0f172a;
 }
@@ -87,8 +104,8 @@ body {
 
 .bulSU-calendar .fc-button-primary:not(:disabled).fc-button-active,
 .bulSU-calendar .fc-button-primary:not(:disabled):active {
-  background: #a6192e;
-  border-color: #a6192e;
+  background: #a50011;
+  border-color: #a50011;
   color: #ffffff;
 }
 
@@ -97,7 +114,7 @@ body {
    ================================================================ */
 
 .bulSU-calendar .fc-col-header-cell {
-  background: #fafaf8;
+  background: #ffffff;
 }
 
 .bulSU-calendar .fc-col-header-cell-cushion {
@@ -123,7 +140,7 @@ body {
 }
 
 .bulSU-calendar .fc-daygrid-day:hover {
-  background: rgba(166, 25, 46, 0.015);
+  background: rgba(165, 0, 17, 0.015);
 }
 
 .bulSU-calendar .fc-daygrid-day-number {
@@ -152,7 +169,7 @@ body {
 
   border-radius: 8px;
 
-  background: #a6192e;
+  background: #a50011;
   color: white;
 }
 
@@ -163,7 +180,7 @@ body {
 .bulSU-calendar .fc-event {
   border: 0 !important;
 
-  border-left: 3px solid #a6192e !important;
+  border-left: 3px solid #a50011 !important;
 
   border-radius: 7px !important;
 
@@ -190,7 +207,7 @@ body {
 }
 
 .bulSU-calendar .fc-daygrid-more-link {
-  color: #a6192e;
+  color: #a50011;
 
   font-size: 10px;
   font-weight: 700;
@@ -220,7 +237,7 @@ body {
 .bulSU-calendar .fc-timegrid-event {
   border: 0 !important;
 
-  border-left: 3px solid #a6192e !important;
+  border-left: 3px solid #a50011 !important;
 
   border-radius: 8px !important;
 }
@@ -234,11 +251,11 @@ body {
    ================================================================ */
 
 .bulSU-calendar .fc-timegrid-now-indicator-line {
-  border-color: #a6192e;
+  border-color: #a50011;
 }
 
 .bulSU-calendar .fc-timegrid-now-indicator-arrow {
-  border-color: #a6192e;
+  border-color: #a50011;
 }
 
 /* ================================================================
@@ -246,7 +263,7 @@ body {
    ================================================================ */
 
 .bulSU-calendar .fc-list-day-cushion {
-  background: #fafaf8 !important;
+  background: #ffffff !important;
 }
 
 .bulSU-calendar .fc-list-day-text,
@@ -309,5 +326,57 @@ body {
 
   .bulSU-calendar .fc-daygrid-event {
     margin-top: 1px;
+  }
+}
+
+/* ================================================================
+   iOS-feel + WCAG foundation (see AGENTS.md §5)
+   ================================================================ */
+
+/* Smooth in-page navigation (landing anchors). */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Remove the gray tap flash on iOS Safari. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Brand-tinted text selection. */
+::selection {
+  background: rgba(165, 0, 17, 0.12);
+}
+
+/* Pointer cursor on pressable elements (Tailwind v4 defaults to default). */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/*
+ * Visible keyboard focus for every interactive element. Form fields already
+ * define their own focus ring, so exclude them to avoid a doubled ring.
+ */
+:focus-visible:not(input):not(textarea):not(select) {
+  outline: 2px solid var(--color-bulsu);
+  outline-offset: 2px;
+}
+
+/* Respect reduced-motion preferences (WCAG 2.2.2). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

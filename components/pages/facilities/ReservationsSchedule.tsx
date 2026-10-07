@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CalendarDays,
@@ -326,17 +326,10 @@ export default function ReservationsSchedule() {
   >(null);
 
   /* ================================================================
-     AUTHENTICATION
+     AUTHENTICATION (guard runs after hooks — see below)
      ================================================================ */
 
-  if (!user) {
-    router.replace("/login");
-    router.refresh();
-
-    return null;
-  }
-
-  const isCollegeAdmin = user.role === "College Admin";
+  const isCollegeAdmin = user?.role === "College Admin";
 
   /* ================================================================
      FILTER RESERVATIONS
@@ -357,7 +350,7 @@ export default function ReservationsSchedule() {
         ---------------------------------------------------------- */
 
       if (isCollegeAdmin) {
-        if (reservation.facilities.college_id !== user.college?.id) {
+        if (reservation.facilities.college_id !== user?.college?.id) {
           return false;
         }
       }
@@ -429,14 +422,14 @@ export default function ReservationsSchedule() {
         backgroundColor: isCancelled
           ? "#CBD5E1"
           : isPending
-          ? "#F4C430"
-          : "#A6192E",
+          ? "#f1a926"
+          : "#a50011",
 
         borderColor: isCancelled
           ? "#94A3B8"
           : isPending
-          ? "#D9A900"
-          : "#A6192E",
+          ? "#d49521"
+          : "#a50011",
 
         textColor: isCancelled ? "#475569" : isPending ? "#5F4900" : "#FFFFFF",
 
@@ -462,6 +455,30 @@ export default function ReservationsSchedule() {
       };
     });
   }, [filteredReservations]);
+
+  // Close the event details dialog with Escape for keyboard users.
+  useEffect(() => {
+    if (!selectedEvent) {
+      return;
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setSelectedEvent(null);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedEvent]);
+
+  // Auth guard sits after every hook so hook order never changes per render.
+  if (!user) {
+    router.replace("/login");
+
+    return null;
+  }
 
   /* ================================================================
      EVENT CLICK
@@ -518,9 +535,9 @@ export default function ReservationsSchedule() {
       {/* BACKGROUND ACCENTS                                          */}
       {/* ========================================================== */}
 
-      <div className="pointer-events-none absolute right-10 top-32 h-80 w-80 rounded-full bg-[#F4C430]/50 blur-[200px]" />
+      <div className="pointer-events-none absolute right-10 top-32 h-80 w-80 rounded-full bg-gold/50 blur-[200px]" />
 
-      <div className="pointer-events-none absolute -left-50 top-5 h-96 w-96 rounded-full bg-[#A6192E]/[0.15] blur-[100px]" />
+      <div className="pointer-events-none absolute -left-50 top-5 h-96 w-96 rounded-full bg-bulsu/[0.15] blur-[100px]" />
 
       <div className="relative mx-auto max-w-7xl space-y-8">
         {/* ======================================================== */}
@@ -543,17 +560,17 @@ export default function ReservationsSchedule() {
           className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#A6192E]/10 bg-[#A6192E]/[0.05] px-3.5 py-2">
-              <CalendarDays className="h-3.5 w-3.5 text-[#A6192E]" />
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-bulsu/10 bg-bulsu/[0.05] px-3.5 py-2">
+              <CalendarDays className="h-3.5 w-3.5 text-bulsu" />
 
-              <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#A6192E]">
+              <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-bulsu">
                 Reservation Schedule
               </span>
             </div>
 
             <h1 className="text-[32px] font-bold leading-tight tracking-[-1.2px] text-slate-950 sm:text-[40px]">
               {isCollegeAdmin ? "Manage" : "Browse"}{" "}
-              <span className="text-[#A6192E]">
+              <span className="text-bulsu">
                 Reservations
                 {isCollegeAdmin &&
                   user.college?.code &&
@@ -576,7 +593,7 @@ export default function ReservationsSchedule() {
                 Showing
               </p>
 
-              <p className="mt-0.5 text-[20px] font-bold text-[#A6192E]">
+              <p className="mt-0.5 text-[20px] font-bold text-bulsu">
                 {calendarEvents.length}
               </p>
             </div>
@@ -607,7 +624,7 @@ export default function ReservationsSchedule() {
             {/* Filter heading */}
 
             <div className="flex items-center gap-2">
-              <SlidersHorizontal className="h-4 w-4 text-[#A6192E]" />
+              <SlidersHorizontal className="h-4 w-4 text-bulsu" />
 
               <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-slate-400">
                 Filter reservations
@@ -628,8 +645,8 @@ export default function ReservationsSchedule() {
                       onClick={() => setSelectedCategory(category)}
                       className={`h-9 rounded-full px-4 text-[13px] font-semibold transition-all duration-200 active:scale-95 ${
                         active
-                          ? "bg-[#A6192E] text-white shadow-[0_6px_16px_rgba(166,25,46,0.25)]"
-                          : "bg-[#FAFAF8] text-slate-600 hover:bg-slate-100"
+                          ? "bg-bulsu text-white shadow-[0_6px_16px_rgba(165,0,17,0.25)]"
+                          : "bg-white text-slate-600 hover:bg-slate-100"
                       }`}
                     >
                       {category}
@@ -648,7 +665,8 @@ export default function ReservationsSchedule() {
                   value={searchQuery}
                   onChange={(event) => setSearchQuery(event.target.value)}
                   placeholder="Search reservation..."
-                  className="h-10 w-full rounded-full border border-slate-200/80 bg-[#FAFAF8] pl-10 pr-4 text-[13px] text-slate-900 placeholder:text-slate-400 transition-all focus:border-[#A6192E] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#A6192E]/10"
+                  aria-label="Search reservations"
+                  className="h-10 w-full rounded-full border border-slate-200/80 bg-white pl-10 pr-4 text-[13px] text-slate-900 placeholder:text-slate-400 transition-all focus:border-bulsu focus:bg-white focus:outline-none focus:ring-2 focus:ring-bulsu/10"
                 />
               </div>
             </div>
@@ -683,7 +701,7 @@ export default function ReservationsSchedule() {
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="ml-auto text-[11px] font-semibold text-[#A6192E] hover:underline"
+                  className="ml-auto text-[11px] font-semibold text-bulsu hover:underline"
                 >
                   Clear filters
                 </button>
@@ -761,7 +779,7 @@ export default function ReservationsSchedule() {
           </span>
 
           <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#A6192E]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-bulsu" />
 
             <span className="text-[12px] font-medium text-slate-500">
               Confirmed
@@ -769,7 +787,7 @@ export default function ReservationsSchedule() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#F4C430]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-gold" />
 
             <span className="text-[12px] font-medium text-slate-500">
               Pending
@@ -835,10 +853,10 @@ export default function ReservationsSchedule() {
                     <div
                       className={`mb-3 inline-flex rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] ${
                         selectedEvent.extendedProps.status === "pending"
-                          ? "bg-[#F4C430]/20 text-[#806500]"
+                          ? "bg-gold/20 text-[#806500]"
                           : selectedEvent.extendedProps.status === "cancelled"
                           ? "bg-slate-100 text-slate-500"
-                          : "bg-[#A6192E]/[0.07] text-[#A6192E]"
+                          : "bg-bulsu/[0.07] text-bulsu"
                       }`}
                     >
                       {selectedEvent.extendedProps.status}
@@ -852,6 +870,7 @@ export default function ReservationsSchedule() {
                   <button
                     type="button"
                     onClick={() => setSelectedEvent(null)}
+                    aria-label="Close details"
                     className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
                   >
                     <X className="h-4 w-4" />
@@ -865,8 +884,8 @@ export default function ReservationsSchedule() {
                 {/* Facility */}
 
                 <div className="flex items-start gap-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#A6192E]/[0.07]">
-                    <MapPin className="h-4 w-4 text-[#A6192E]" />
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bulsu/[0.07]">
+                    <MapPin className="h-4 w-4 text-bulsu" />
                   </div>
 
                   <div>
@@ -887,8 +906,8 @@ export default function ReservationsSchedule() {
                 {/* Schedule */}
 
                 <div className="flex items-start gap-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#A6192E]/[0.07]">
-                    <Clock3 className="h-4 w-4 text-[#A6192E]" />
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bulsu/[0.07]">
+                    <Clock3 className="h-4 w-4 text-bulsu" />
                   </div>
 
                   <div>
@@ -913,7 +932,7 @@ export default function ReservationsSchedule() {
                     Purpose
                   </p>
 
-                  <div className="mt-2 rounded-xl bg-[#FAFAF8] p-3">
+                  <div className="mt-2 rounded-xl bg-white p-3">
                     <p className="text-[13px] leading-5 text-slate-600">
                       {selectedEvent.extendedProps.purpose}
                     </p>
@@ -947,11 +966,11 @@ export default function ReservationsSchedule() {
 
               {/* Footer */}
 
-              <div className="border-t border-slate-100 bg-[#FAFAF8] px-6 py-4">
+              <div className="border-t border-slate-100 bg-white px-6 py-4">
                 <button
                   type="button"
                   onClick={() => setSelectedEvent(null)}
-                  className="w-full rounded-xl bg-[#A6192E] px-4 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#8F1728]"
+                  className="w-full rounded-xl bg-bulsu px-4 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-bulsu-dark"
                 >
                   Close
                 </button>

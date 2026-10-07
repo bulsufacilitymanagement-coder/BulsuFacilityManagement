@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard,
@@ -21,6 +22,7 @@ import Image from "next/image";
 import bulsu_logo from "@/assets/logo/bulsu_logo.png";
 import { createClient } from "@/lib/supabase/client";
 import { useUser } from "@/app/providers/userProvider";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog/ConfirmDialog";
 
 const supabase = createClient();
 
@@ -104,14 +106,14 @@ function SidebarNavItem({ item }: { item: NavigationItem }) {
       href={item.href}
       className={`group relative flex h-11 items-center gap-3 rounded-[14px] px-3.5 text-[13px] font-semibold transition-all duration-200 active:scale-[0.98] ${
         isActive
-          ? "bg-white text-[#A6192E] shadow-[0_8px_20px_rgba(0,0,0,0.10)]"
+          ? "bg-white text-bulsu shadow-[0_8px_20px_rgba(0,0,0,0.10)]"
           : "text-white/75 hover:bg-white/10 hover:text-white"
       }`}
     >
       {isActive && (
         <motion.div
           layoutId="sidebar-active-indicator"
-          className="absolute left-0 top-2.5 h-6 w-1 rounded-r-full bg-[#F4C430]"
+          className="absolute left-0 top-2.5 h-6 w-1 rounded-r-full bg-gold"
           transition={{
             type: "spring",
             stiffness: 350,
@@ -122,7 +124,7 @@ function SidebarNavItem({ item }: { item: NavigationItem }) {
 
       <Icon
         className={`h-4 w-4 transition-colors ${
-          isActive ? "text-[#A6192E]" : "text-white/50 group-hover:text-white"
+          isActive ? "text-bulsu" : "text-white/50 group-hover:text-white"
         }`}
       />
 
@@ -173,7 +175,7 @@ function SidebarBrand() {
 
       <div className="flex flex-col">
         <span className="text-[15px] font-bold tracking-tight text-white">
-          BulSU <span className="text-[#F4C430]">Main</span>
+          BulSU <span className="text-gold">Main</span>
         </span>
 
         <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">
@@ -187,8 +189,15 @@ function SidebarBrand() {
 function SidebarUser() {
   const router = useRouter();
   const { user } = useUser();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   async function handleLogout() {
+    if (isLoggingOut) {
+      return;
+    }
+
+    setIsLoggingOut(true);
     await supabase.auth.signOut();
 
     router.push("/login");
@@ -208,10 +217,10 @@ function SidebarUser() {
       <div className="flex items-center justify-between rounded-[18px] border border-white/10 bg-black/10 p-3">
         <div className="flex min-w-0 items-center gap-3">
           {/* Avatar */}
-          <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-[11px] font-bold text-[#A6192E] shadow-sm">
+          <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-[11px] font-bold text-bulsu shadow-sm">
             {initials}
 
-            <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#A6192E] bg-emerald-400" />
+            <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-bulsu bg-emerald-400" />
           </div>
 
           {/* User information */}
@@ -221,7 +230,7 @@ function SidebarUser() {
             </span>
 
             <span className="flex min-w-0 items-center gap-1 text-[10px] font-medium text-white/55">
-              <ShieldCheck className="h-3 w-3 shrink-0 text-[#F4C430]" />
+              <ShieldCheck className="h-3 w-3 shrink-0 text-gold" />
 
               <span className="truncate">{user?.role ?? "-"}</span>
             </span>
@@ -230,7 +239,7 @@ function SidebarUser() {
 
         {/* Logout */}
         <button
-          onClick={handleLogout}
+          onClick={() => setShowLogoutConfirm(true)}
           type="button"
           title="Log out"
           aria-label="Log out"
@@ -239,6 +248,18 @@ function SidebarUser() {
           <LogOut className="h-4 w-4" />
         </button>
       </div>
+
+      {/* Logout confirmation (destructive actions always confirm). */}
+      <ConfirmDialog
+        isOpen={showLogoutConfirm}
+        title="Log out?"
+        description="Are you sure you want to log out?"
+        confirmLabel="Log out"
+        loadingLabel="Logging out..."
+        loading={isLoggingOut}
+        onConfirm={handleLogout}
+        onClose={() => setShowLogoutConfirm(false)}
+      />
     </div>
   );
 }
@@ -249,7 +270,7 @@ function SidebarUser() {
 
 export function AppSidebar() {
   return (
-    <aside className="relative flex h-screen w-72 shrink-0 flex-col justify-between overflow-hidden border-r border-[#8F1728] bg-[#A6192E] p-5 select-none">
+    <aside className="relative flex h-screen w-72 shrink-0 flex-col justify-between overflow-hidden border-r border-bulsu-dark bg-bulsu p-5 select-none">
       {/* Ambient glow */}
       <div className="pointer-events-none absolute -left-25 top-0 h-64 w-64 rounded-full bg-white/15 blur-[100px]" />
 

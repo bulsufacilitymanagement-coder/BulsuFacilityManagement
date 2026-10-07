@@ -23,8 +23,8 @@ const stats = [
     value: "03",
     subtext: "2 Pending Approval",
     icon: CalendarDays,
-    color: "text-[#A6192E]",
-    bg: "bg-[#A6192E]/[0.07]",
+    color: "text-bulsu",
+    bg: "bg-bulsu/[0.07]",
   },
   {
     label: "Approved Requests",
@@ -40,7 +40,7 @@ const stats = [
     subtext: "Main & Annex",
     icon: Building2,
     color: "text-amber-600",
-    bg: "bg-[#F4C430]/20",
+    bg: "bg-gold/20",
   },
 ];
 

@@ -99,13 +99,13 @@ export function AddCollegeSheet({ isOpen, onClose }: AddCollegeSheetProps) {
               className="relative flex w-screen flex-col border-l border-slate-200/80 bg-white shadow-2xl sm:w-[50vw] sm:max-w-2xl"
             >
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5 sm:px-8 shadow-[0_10px_400px_-20px_#A6192E]">
+              <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5 sm:px-8 shadow-[0_10px_400px_-20px_var(--color-bulsu)]">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#A6192E]/[0.07] text-[#A6192E]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-bulsu/[0.07] text-bulsu">
                     <Building2 className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#A6192E]">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-bulsu">
                       College Management
                     </span>
                     <h2 className="text-[20px] font-bold text-slate-950">
@@ -117,6 +117,7 @@ export function AddCollegeSheet({ isOpen, onClose }: AddCollegeSheetProps) {
                 <button
                   type="button"
                   onClick={onClose}
+                  aria-label="Close dialog"
                   className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700 active:scale-95"
                 >
                   <X className="h-5 w-5" />

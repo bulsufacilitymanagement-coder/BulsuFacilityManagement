@@ -25,14 +25,14 @@ export default function CollegeCard({ college }: CollegeCardProps) {
       "
     >
       {/* Background Accent */}
-      <div className="pointer-events-none absolute -left-10 -top-10 h-20 w-40 rounded-full bg-[#A6192E]/[0.7] blur-[100px]" />
+      <div className="pointer-events-none absolute -left-10 -top-10 h-20 w-40 rounded-full bg-bulsu/[0.7] blur-[100px]" />
 
       <span className="min-w-0 truncate text-[11px] font-bold uppercase tracking-wider text-slate-400">
         {college.code}
       </span>
 
       {/* Facility Title */}
-      <h3 className="mt-3 break-words text-[19px] font-bold text-slate-950 transition-colors group-hover:text-[#A6192E]">
+      <h3 className="mt-3 break-words text-[19px] font-bold text-slate-950 transition-colors group-hover:text-bulsu">
         {college.name}
       </h3>
 
@@ -61,7 +61,7 @@ export default function CollegeCard({ college }: CollegeCardProps) {
         <button
           type="button"
           className={`inline-flex h-10 items-center justify-center gap-2 rounded-[12px] px-4 text-[13px] font-semibold transition-all active:scale-[0.98]
-            bg-[#A6192E] text-white shadow-[0_8px_20px_rgba(166,25,46,0.20)] hover:bg-[#8F1728]`}
+            bg-bulsu text-white shadow-[0_8px_20px_rgba(165,0,17,0.20)] hover:bg-bulsu-dark`}
         >
           <CalendarCheck className="h-4 w-4" />
           View Facilities

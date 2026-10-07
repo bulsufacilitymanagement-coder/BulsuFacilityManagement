@@ -17,8 +17,8 @@ const stats = [
     value: "3",
     subtext: "Currently active",
     icon: CalendarDays,
-    bg: "bg-[#A6192E]/[0.07]",
-    color: "text-[#A6192E]",
+    bg: "bg-bulsu/[0.07]",
+    color: "text-bulsu",
   },
   {
     label: "Pending Requests",
@@ -76,8 +76,8 @@ export default function Dashboard({ user }: DashboardProps) {
   return (
     <div className="relative min-h-screen overflow-hidden bg-white p-6 sm:p-10">
       {/* Background ambient accents */}
-      <div className="pointer-events-none absolute right-10 top-32 h-80 w-80 rounded-full bg-[#F4C430]/50 blur-[200px]" />
-      <div className="pointer-events-none absolute -left-50 top-5 h-96 w-96 rounded-full bg-[#A6192E]/[0.15] blur-[100px]" />
+      <div className="pointer-events-none absolute right-10 top-32 h-80 w-80 rounded-full bg-gold/50 blur-[200px]" />
+      <div className="pointer-events-none absolute -left-50 top-5 h-96 w-96 rounded-full bg-bulsu/[0.15] blur-[100px]" />
 
       <div className="relative mx-auto max-w-6xl space-y-10">
         {/* Header / Welcome Section */}
@@ -90,7 +90,7 @@ export default function Dashboard({ user }: DashboardProps) {
           <div>
             <h1 className="text-[32px] font-bold leading-tight -tracking-[2px] text-slate-950 sm:text-[40px]">
               Welcome back,{" "}
-              <span className="text-[#A6192E]">{user.full_name}</span>
+              <span className="text-bulsu">{user.full_name}</span>
             </h1>
 
             <p className="text-[15px] text-slate-500">
@@ -101,7 +101,7 @@ export default function Dashboard({ user }: DashboardProps) {
 
           <button
             type="button"
-            className="group inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-[#A6192E] px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(166,25,46,0.20)] transition-all hover:bg-[#8F1728] active:scale-[0.98]"
+            className="group inline-flex h-12 items-center justify-center gap-2 rounded-[14px] bg-bulsu px-6 text-[14px] font-semibold text-white shadow-[0_10px_25px_rgba(165,0,17,0.20)] transition-all hover:bg-bulsu-dark active:scale-[0.98]"
           >
             <Plus className="h-4 w-4" />
             New Reservation
@@ -179,7 +179,7 @@ export default function Dashboard({ user }: DashboardProps) {
 
               <button
                 type="button"
-                className="text-[13px] font-semibold text-[#A6192E] hover:underline"
+                className="text-[13px] font-semibold text-bulsu hover:underline"
               >
                 View All
               </button>
@@ -189,7 +189,7 @@ export default function Dashboard({ user }: DashboardProps) {
               {activeReservations.map((item) => (
                 <div
                   key={item.id}
-                  className="group rounded-[20px] border border-slate-100 bg-[#FAFAF8] p-5 transition-all hover:border-slate-200 hover:bg-white hover:shadow-md"
+                  className="group rounded-[20px] border border-slate-100 bg-white p-5 transition-all hover:border-slate-200 hover:bg-white hover:shadow-md"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -220,12 +220,12 @@ export default function Dashboard({ user }: DashboardProps) {
 
                   <div className="mt-4 flex flex-wrap items-center gap-4 border-t border-slate-200/50 pt-3.5 text-[12px] font-medium text-slate-600">
                     <div className="flex items-center gap-1.5">
-                      <CalendarDays className="h-3.5 w-3.5 text-[#A6192E]" />
+                      <CalendarDays className="h-3.5 w-3.5 text-bulsu" />
                       {item.date}
                     </div>
 
                     <div className="flex items-center gap-1.5">
-                      <Clock3 className="h-3.5 w-3.5 text-[#A6192E]" />
+                      <Clock3 className="h-3.5 w-3.5 text-bulsu" />
                       {item.time}
                     </div>
                   </div>
@@ -235,12 +235,12 @@ export default function Dashboard({ user }: DashboardProps) {
           </div>
 
           {/* Side Feature / Announcement Card */}
-          <div className="relative flex flex-col justify-between overflow-hidden rounded-[28px] border border-slate-200/70 bg-[#A6192E] p-7 text-white shadow-[0_25px_70px_rgba(166,25,46,0.25)]">
+          <div className="relative flex flex-col justify-between overflow-hidden rounded-[28px] border border-slate-200/70 bg-bulsu p-7 text-white shadow-[0_25px_70px_rgba(165,0,17,0.25)]">
             {/* Gold Accent */}
-            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[#F4C430]/30 blur-2xl" />
+            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gold/30 blur-2xl" />
 
             <div className="relative">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#F4C430] backdrop-blur-md">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-gold backdrop-blur-md">
                 <Sparkles className="h-3 w-3" />
                 University Policy Reminder
               </div>
@@ -262,7 +262,7 @@ export default function Dashboard({ user }: DashboardProps) {
 
               <a
                 href="#guidelines"
-                className="group inline-flex items-center gap-1.5 text-[13px] font-bold text-[#F4C430] hover:underline"
+                className="group inline-flex items-center gap-1.5 text-[13px] font-bold text-gold hover:underline"
               >
                 Read Policy
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
