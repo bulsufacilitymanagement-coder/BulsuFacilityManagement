@@ -12,7 +12,7 @@ import { PrimaryButton } from "../../ui/Buttons/PrimaryButton";
 import Image from "next/image";
 import bulsu_logo from "@/assets/logo/bulsu_logo.png";
 
-export function Login() {
+export function Login({ linkError = null }: { linkError?: string | null }) {
   const router = useRouter();
   const supabase = createClient();
 
@@ -143,8 +143,8 @@ export function Login() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18, ease: "easeOut" }}
           >
-            {/* Error */}
-            {errorMsg && (
+            {/* Error (form errors take precedence over link errors) */}
+            {(errorMsg ?? linkError) && (
               <motion.div
                 initial={{ opacity: 0, height: 0, y: -5 }}
                 animate={{ opacity: 1, height: "auto", y: 0 }}
@@ -152,7 +152,7 @@ export function Login() {
                 className="mb-5 flex items-start gap-3 overflow-hidden rounded-[15px] border border-red-200 bg-red-50 px-4 py-3.5 text-[13px] leading-5 text-red-700"
               >
                 <span className="mt-[3px] h-2 w-2 shrink-0 rounded-full bg-red-500" />
-                <p>{errorMsg}</p>
+                <p>{errorMsg ?? linkError}</p>
               </motion.div>
             )}
 
