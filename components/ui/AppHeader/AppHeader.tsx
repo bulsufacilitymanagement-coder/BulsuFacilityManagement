@@ -37,8 +37,8 @@ export function AppHeader({
         {/* Breadcrumb Navigation */}
         <div className="hidden items-center gap-2 text-[13px] font-medium text-slate-400 sm:flex">
           <span className="text-slate-500">
-            {user?.role === "College Admin"
-              ? user?.college.name
+            {user?.role === "College Admin" && user?.college
+              ? user.college.name
               : "BulSU Main Campus"}
           </span>
           <ChevronRight className="h-3.5 w-3.5 text-slate-500" />

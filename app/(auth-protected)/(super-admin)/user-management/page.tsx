@@ -1,9 +1,5 @@
-import React from "react";
+import UserManagement from "@/components/pages/user-management/UserManagement";
 
-export default function UserManagement() {
-  return (
-    <div>
-      UserManagementUserManagementUserManagementUserManagementUserManagement
-    </div>
-  );
+export default function UserManagementPage() {
+  return <UserManagement />;
 }

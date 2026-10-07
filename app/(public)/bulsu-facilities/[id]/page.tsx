@@ -1,271 +1,49 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
+  ArrowLeft,
   CalendarDays,
   Clock3,
   MapPin,
   SlidersHorizontal,
   X,
 } from "lucide-react";
+import Link from "next/link";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 
-import type {
-  DateSelectArg,
-  EventClickArg,
-  EventInput,
-} from "@fullcalendar/core";
+import type { EventClickArg, EventInput } from "@fullcalendar/core";
 
 import PublicNavbar from "@/components/ui/PublicNavbar/PublicNavbar";
-import { useSearchParams } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+
+const supabase = createClient();
 
 /* ================================================================
    TYPES
    ================================================================ */
 
-type DummyReservation = {
+interface FacilityDetails {
+  id: string;
+  name: string;
+  type: string;
+  location: string | null;
+  status: string;
+}
+
+interface ReservationRow {
   id: number;
   purpose: string;
-  status: "confirmed" | "pending" | "cancelled" | string;
+  status: string;
   start_time: string;
   end_time: string;
-  user_id: string;
-  facility_id: string;
-  created_at: string;
-
-  facilities: {
-    id: string;
-    name: string;
-    type: "Auditorium" | "Laboratory" | "Conference Room" | "Sports & Grounds";
-  };
-};
-
-/* ================================================================
-   FACILITY TYPES
-   ================================================================ */
-
-const FACILITY_TYPES = [
-  "All Venues",
-  "Auditorium",
-  "Laboratory",
-  "Conference Room",
-  "Sports & Grounds",
-];
-
-/* ================================================================
-   DUMMY RESERVATIONS
-   ================================================================ */
-
-const DUMMY_RESERVATIONS: DummyReservation[] = [
-  {
-    id: 1,
-    purpose: "Engineering Orientation",
-    status: "confirmed",
-    start_time: "2026-09-04T08:00:00+08:00",
-    end_time: "2026-09-04T11:00:00+08:00",
-    user_id: "11111111-1111-1111-1111-111111111111",
-    facility_id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-    created_at: "2026-08-25T10:00:00+08:00",
-
-    facilities: {
-      id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-      name: "BulSU Auditorium",
-      type: "Auditorium",
-    },
-  },
-
-  {
-    id: 2,
-    purpose: "Faculty Meeting",
-    status: "confirmed",
-    start_time: "2026-09-05T13:00:00+08:00",
-    end_time: "2026-09-05T15:00:00+08:00",
-    user_id: "22222222-2222-2222-2222-222222222222",
-    facility_id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-    created_at: "2026-08-27T09:30:00+08:00",
-
-    facilities: {
-      id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-      name: "Conference Room A",
-      type: "Conference Room",
-    },
-  },
-
-  {
-    id: 3,
-    purpose: "Chemistry Laboratory Class",
-    status: "confirmed",
-    start_time: "2026-09-07T09:00:00+08:00",
-    end_time: "2026-09-07T12:00:00+08:00",
-    user_id: "33333333-3333-3333-3333-333333333333",
-    facility_id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
-    created_at: "2026-08-28T14:20:00+08:00",
-
-    facilities: {
-      id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
-      name: "Science Laboratory 2",
-      type: "Laboratory",
-    },
-  },
-
-  {
-    id: 4,
-    purpose: "Student Organization Fair",
-    status: "confirmed",
-    start_time: "2026-09-09T08:00:00+08:00",
-    end_time: "2026-09-09T17:00:00+08:00",
-    user_id: "44444444-4444-4444-4444-444444444444",
-    facility_id: "dddddddd-dddd-dddd-dddd-dddddddddddd",
-    created_at: "2026-08-29T11:15:00+08:00",
-
-    facilities: {
-      id: "dddddddd-dddd-dddd-dddd-dddddddddddd",
-      name: "University Grounds",
-      type: "Sports & Grounds",
-    },
-  },
-
-  {
-    id: 5,
-    purpose: "Computer Science Seminar",
-    status: "confirmed",
-    start_time: "2026-09-12T10:00:00+08:00",
-    end_time: "2026-09-12T13:00:00+08:00",
-    user_id: "55555555-5555-5555-5555-555555555555",
-    facility_id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-    created_at: "2026-08-30T08:45:00+08:00",
-
-    facilities: {
-      id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-      name: "BulSU Auditorium",
-      type: "Auditorium",
-    },
-  },
-
-  {
-    id: 6,
-    purpose: "Research Presentation",
-    status: "pending",
-    start_time: "2026-09-15T14:00:00+08:00",
-    end_time: "2026-09-15T17:00:00+08:00",
-    user_id: "66666666-6666-6666-6666-666666666666",
-    facility_id: "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
-    created_at: "2026-09-01T13:00:00+08:00",
-
-    facilities: {
-      id: "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
-      name: "Conference Room B",
-      type: "Conference Room",
-    },
-  },
-
-  {
-    id: 7,
-    purpose: "Physical Education Class",
-    status: "confirmed",
-    start_time: "2026-09-18T07:00:00+08:00",
-    end_time: "2026-09-18T09:00:00+08:00",
-    user_id: "77777777-7777-7777-7777-777777777777",
-    facility_id: "ffffffff-ffff-ffff-ffff-ffffffffffff",
-    created_at: "2026-09-01T15:30:00+08:00",
-
-    facilities: {
-      id: "ffffffff-ffff-ffff-ffff-ffffffffffff",
-      name: "University Gymnasium",
-      type: "Sports & Grounds",
-    },
-  },
-
-  {
-    id: 8,
-    purpose: "College Assembly",
-    status: "confirmed",
-    start_time: "2026-09-21T08:00:00+08:00",
-    end_time: "2026-09-21T12:00:00+08:00",
-    user_id: "88888888-8888-8888-8888-888888888888",
-    facility_id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-    created_at: "2026-09-02T09:00:00+08:00",
-
-    facilities: {
-      id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-      name: "BulSU Auditorium",
-      type: "Auditorium",
-    },
-  },
-
-  {
-    id: 9,
-    purpose: "Thesis Defense",
-    status: "pending",
-    start_time: "2026-09-23T13:00:00+08:00",
-    end_time: "2026-09-23T16:00:00+08:00",
-    user_id: "99999999-9999-9999-9999-999999999999",
-    facility_id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-    created_at: "2026-09-02T10:30:00+08:00",
-
-    facilities: {
-      id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-      name: "Conference Room A",
-      type: "Conference Room",
-    },
-  },
-
-  {
-    id: 10,
-    purpose: "Basketball Training",
-    status: "confirmed",
-    start_time: "2026-09-25T16:00:00+08:00",
-    end_time: "2026-09-25T19:00:00+08:00",
-    user_id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-    facility_id: "ffffffff-ffff-ffff-ffff-ffffffffffff",
-    created_at: "2026-09-02T14:00:00+08:00",
-
-    facilities: {
-      id: "ffffffff-ffff-ffff-ffff-ffffffffffff",
-      name: "University Gymnasium",
-      type: "Sports & Grounds",
-    },
-  },
-
-  {
-    id: 11,
-    purpose: "Faculty Development Workshop",
-    status: "confirmed",
-    start_time: "2026-09-28T09:00:00+08:00",
-    end_time: "2026-09-28T16:00:00+08:00",
-    user_id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-    facility_id: "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
-    created_at: "2026-09-02T16:00:00+08:00",
-
-    facilities: {
-      id: "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
-      name: "Conference Room B",
-      type: "Conference Room",
-    },
-  },
-
-  {
-    id: 12,
-    purpose: "Physics Laboratory",
-    status: "cancelled",
-    start_time: "2026-09-30T09:00:00+08:00",
-    end_time: "2026-09-30T12:00:00+08:00",
-    user_id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
-    facility_id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
-    created_at: "2026-09-02T17:00:00+08:00",
-
-    facilities: {
-      id: "cccccccc-cccc-cccc-cccc-cccccccccccc",
-      name: "Science Laboratory 2",
-      type: "Laboratory",
-    },
-  },
-];
+}
 
 /* ================================================================
    HELPERS
@@ -282,83 +60,117 @@ function formatDateTime(date: Date | null) {
   }).format(date);
 }
 
+// Event colors follow the app status language (see AGENTS.md §5).
+function eventColors(status: string) {
+  const normalized = status.toLowerCase();
+
+  if (normalized === "pending") {
+    return {
+      backgroundColor: "#f1a926",
+      borderColor: "#d49521",
+      textColor: "#5F4900",
+    };
+  }
+
+  return {
+    backgroundColor: "#a50011",
+    borderColor: "#a50011",
+    textColor: "#FFFFFF",
+  };
+}
+
 /* ================================================================
-   PAGE
+   PAGE — public read-only facility schedule
    ================================================================ */
 
 export default function BulSUCalendarPage() {
+  const router = useRouter();
+  const params = useParams();
   const searchParams = useSearchParams();
 
-  const facilityName = searchParams.get("name");
-  const facilityLocation = searchParams.get("location");
+  const facilityId = typeof params.id === "string" ? params.id : "";
+  // Query params remain as a header fallback for shared links.
+  const fallbackName = searchParams.get("name");
+  const fallbackLocation = searchParams.get("location");
 
-  const [selectedCategory, setSelectedCategory] = useState("All Venues");
+  const [facility, setFacility] = useState<FacilityDetails | null>(null);
+  const [reservations, setReservations] = useState<ReservationRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   const [selectedEvent, setSelectedEvent] = useState<
     EventClickArg["event"] | null
   >(null);
 
-  /* ================================================================
-     FILTER + TRANSFORM RESERVATIONS
-     ================================================================ */
+  // Pure fetch (no state writes) for the public read-only schedule.
+  const fetchSchedule = useCallback(async () => {
+    if (!facilityId) {
+      return { facility: null, reservations: [] as ReservationRow[] };
+    }
 
-  const calendarEvents = useMemo<EventInput[]>(() => {
-    return DUMMY_RESERVATIONS.filter((reservation) => {
-      // Don't display cancelled reservations.
-      return reservation.status !== "cancelled";
-    })
-      .filter((reservation) => {
-        // Facility category filter.
-        if (selectedCategory === "All Venues") {
-          return true;
-        }
+    const [facilityRes, reservationRes] = await Promise.all([
+      supabase
+        .from("facilities")
+        .select("id, name, type, location, status")
+        .eq("id", facilityId)
+        .single(),
+      supabase
+        .from("reservations")
+        .select("id, purpose, status, start_time, end_time")
+        .eq("facility_id", facilityId)
+        .neq("status", "cancelled")
+        .order("start_time", { ascending: true }),
+    ]);
 
-        return reservation.facilities.type === selectedCategory;
-      })
-      .map((reservation) => {
-        const isPending = reservation.status === "pending";
+    if (facilityRes.error) {
+      console.error("Error fetching facility:", facilityRes.error);
+    }
 
-        return {
-          id: String(reservation.id),
+    if (reservationRes.error) {
+      console.error("Error fetching reservations:", reservationRes.error);
+    }
 
-          title: reservation.purpose,
+    return {
+      facility:
+        facilityRes.error || !facilityRes.data
+          ? null
+          : (facilityRes.data as FacilityDetails),
+      reservations: (reservationRes.error
+        ? []
+        : (reservationRes.data ?? [])) as ReservationRow[],
+    };
+  }, [facilityId]);
 
-          start: reservation.start_time,
+  // Applies fetch results to state; invoked from async continuations only.
+  const applySchedule = useCallback(
+    (result: Awaited<ReturnType<typeof fetchSchedule>>) => {
+      if (!result.facility) {
+        setNotFound(true);
+      } else {
+        setFacility(result.facility);
+      }
 
-          end: reservation.end_time,
+      setReservations(result.reservations);
+      setLoading(false);
+    },
+    []
+  );
 
-          backgroundColor: isPending ? "#f1a926" : "#a50011",
+  // Public view shows live bookings; cancelled ones stay hidden.
+  // Initial load (loading starts true via useState).
+  useEffect(() => {
+    let ignore = false;
 
-          borderColor: isPending ? "#d49521" : "#a50011",
+    fetchSchedule().then((result) => {
+      if (!ignore) {
+        applySchedule(result);
+      }
+    });
 
-          textColor: isPending ? "#5F4900" : "#FFFFFF",
-
-          extendedProps: {
-            purpose: reservation.purpose,
-
-            status: reservation.status,
-
-            facilityId: reservation.facility_id,
-
-            facilityName: reservation.facilities.name,
-
-            facilityType: reservation.facilities.type,
-
-            userId: reservation.user_id,
-
-            createdAt: reservation.created_at,
-          },
-        };
-      });
-  }, [selectedCategory]);
-
-  /* ================================================================
-     EVENT CLICK
-     ================================================================ */
-
-  function handleEventClick(clickInfo: EventClickArg) {
-    setSelectedEvent(clickInfo.event);
-  }
+    return () => {
+      ignore = true;
+    };
+  }, [fetchSchedule, applySchedule]);
 
   // Close the event details dialog with Escape for keyboard users.
   useEffect(() => {
@@ -378,59 +190,74 @@ export default function BulSUCalendarPage() {
   }, [selectedEvent]);
 
   /* ================================================================
-     DATE SELECT
+     CALENDAR EVENTS (live data only)
      ================================================================ */
 
-  function handleDateSelect(selectInfo: DateSelectArg) {
-    console.log("Selected date/time:", {
-      start: selectInfo.start,
-      end: selectInfo.end,
-    });
+  const calendarEvents = useMemo<EventInput[]>(() => {
+    return reservations.map((reservation) => ({
+      id: String(reservation.id),
+      title: reservation.purpose,
+      start: reservation.start_time,
+      end: reservation.end_time,
+      ...eventColors(reservation.status),
+      extendedProps: {
+        purpose: reservation.purpose,
+        status: reservation.status,
+      },
+    }));
+  }, [reservations]);
 
-    /*
-     * Later, this is where you can open your
-     * reservation form/modal.
-     */
+  function handleEventClick(clickInfo: EventClickArg) {
+    setSelectedEvent(clickInfo.event);
   }
 
   /* ================================================================
      RENDER
      ================================================================ */
 
+  if (!loading && (notFound || !facility)) {
+    return (
+      <main className="relative min-h-screen overflow-hidden bg-white text-slate-950">
+        <PublicNavbar />
+
+        <div className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-4 text-center">
+          <h1 className="text-[24px] font-bold text-slate-950">
+            Facility not found
+          </h1>
+
+          <p className="mt-2 text-[14px] text-slate-500">
+            This schedule link may be outdated. Browse all facilities instead.
+          </p>
+
+          <button
+            type="button"
+            onClick={() => router.push("/bulsu-facilities")}
+            className="mt-6 inline-flex h-11 items-center gap-2 rounded-xl bg-bulsu px-5 text-[13px] font-semibold text-white transition-colors hover:bg-bulsu-dark"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Browse Facilities
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  const displayName = facility?.name ?? fallbackName ?? "Facility Schedule";
+  const displayLocation = facility?.location ?? fallbackLocation ?? "";
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-white text-slate-950">
-      {/* ========================================================== */}
-      {/* NAVBAR                                                     */}
-      {/* ========================================================== */}
-
       <PublicNavbar />
 
-      {/* ========================================================== */}
-      {/* BACKGROUND ACCENTS                                          */}
-      {/* ========================================================== */}
-
       <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-bulsu/[0.055] blur-3xl" />
-
       <div className="pointer-events-none absolute -right-40 top-40 h-96 w-96 rounded-full bg-gold/[0.08] blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        {/* ======================================================== */}
-        {/* HEADER                                                     */}
-        {/* ======================================================== */}
-
+        {/* Header */}
         <motion.section
-          initial={{
-            opacity: 0,
-            y: 18,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.55,
-            ease: "easeOut",
-          }}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
           className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
         >
           <div>
@@ -444,16 +271,19 @@ export default function BulSUCalendarPage() {
 
             <div>
               <h1 className="text-[38px] font-bold leading-[1.05] tracking-[-1.5px] text-slate-950 sm:text-[48px]">
-                {facilityName}
+                {loading ? "Loading…" : displayName}
               </h1>
-              <span className="text-bulsu text-2xl font-semibold">
-                {facilityLocation}
-              </span>
+
+              {displayLocation !== "" && (
+                <span className="text-2xl font-semibold text-bulsu">
+                  {displayLocation}
+                </span>
+              )}
             </div>
 
             <p className="mt-4 max-w-[650px] text-[15px] leading-6 text-slate-500">
-              View facility reservations and university activities across
-              Bulacan State University.
+              View live reservations for this facility. Sign in to request a
+              booking.
             </p>
           </div>
 
@@ -464,142 +294,72 @@ export default function BulSUCalendarPage() {
               </p>
 
               <p className="mt-0.5 text-[16px] font-bold text-slate-900">
-                {calendarEvents.length}
+                {loading ? "…" : calendarEvents.length}
               </p>
             </div>
+
+            <Link
+              href="/login"
+              className="inline-flex h-[52px] items-center rounded-xl bg-bulsu px-5 text-[13px] font-semibold text-white shadow-[0_10px_25px_rgba(165,0,17,0.20)] transition-all hover:bg-bulsu-dark active:scale-[0.98]"
+            >
+              Sign In to Reserve
+            </Link>
           </div>
         </motion.section>
 
-        {/* ======================================================== */}
-        {/* FILTER BAR                                                 */}
-        {/* ======================================================== */}
-
+        {/* Calendar */}
         <motion.section
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.55,
-            delay: 0.08,
-            ease: "easeOut",
-          }}
-          className="mt-10 rounded-[24px] border border-slate-200/70 bg-white p-4 shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.14, ease: "easeOut" }}
+          className="mt-10 rounded-[24px] border border-slate-200/70 bg-white p-3 shadow-[0_10px_30px_rgba(15,23,42,0.04)] sm:p-5"
         >
-          <div className="flex flex-col gap-4">
-            {/* Filter heading */}
-
-            <div className="flex items-center gap-2">
-              <SlidersHorizontal className="h-4 w-4 text-bulsu" />
-
-              <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-slate-400">
-                Filter reservations
-              </span>
+          {loading ? (
+            <div className="h-[480px] animate-pulse rounded-2xl bg-slate-100" />
+          ) : (
+            <div className="bulSU-calendar">
+              <FullCalendar
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                initialView="dayGridMonth"
+                headerToolbar={{
+                  left: "prev,next today",
+                  center: "title",
+                  right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                }}
+                events={calendarEvents}
+                selectable={false}
+                dayMaxEvents={3}
+                weekends
+                height="auto"
+                contentHeight="auto"
+                eventDisplay="block"
+                eventClick={handleEventClick}
+                nowIndicator
+                buttonText={{
+                  today: "Today",
+                  month: "Month",
+                  week: "Week",
+                  day: "Day",
+                  list: "Agenda",
+                }}
+                slotMinTime="06:00:00"
+                slotMaxTime="22:00:00"
+                allDayText="All day"
+                eventTimeFormat={{
+                  hour: "numeric",
+                  minute: "2-digit",
+                  meridiem: "short",
+                }}
+              />
             </div>
-
-            {/* Categories */}
-
-            <div className="flex flex-wrap gap-2">
-              {FACILITY_TYPES.map((category) => {
-                const active = selectedCategory === category;
-
-                return (
-                  <button
-                    key={category}
-                    type="button"
-                    onClick={() => setSelectedCategory(category)}
-                    className={`h-9 rounded-full px-4 text-[13px] font-semibold transition-all duration-200 active:scale-95 ${
-                      active
-                        ? "bg-bulsu text-white shadow-[0_6px_16px_rgba(165,0,17,0.22)]"
-                        : "bg-white text-slate-600 hover:bg-slate-100"
-                    }`}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          )}
         </motion.section>
 
-        {/* ======================================================== */}
-        {/* CALENDAR                                                   */}
-        {/* ======================================================== */}
-
+        {/* Legend */}
         <motion.section
-          initial={{
-            opacity: 0,
-            y: 22,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.6,
-            delay: 0.14,
-            ease: "easeOut",
-          }}
-          className="mt-5 rounded-[24px] border border-slate-200/70 bg-white p-3 shadow-[0_10px_30px_rgba(15,23,42,0.04)] sm:p-5"
-        >
-          <div className="bulSU-calendar">
-            <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              initialView="dayGridMonth"
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-              }}
-              events={calendarEvents}
-              selectable
-              selectMirror
-              dayMaxEvents={3}
-              weekends
-              height="auto"
-              contentHeight="auto"
-              eventDisplay="block"
-              select={handleDateSelect}
-              eventClick={handleEventClick}
-              nowIndicator
-              buttonText={{
-                today: "Today",
-                month: "Month",
-                week: "Week",
-                day: "Day",
-                list: "Agenda",
-              }}
-              slotMinTime="06:00:00"
-              slotMaxTime="22:00:00"
-              allDayText="All day"
-              eventTimeFormat={{
-                hour: "numeric",
-                minute: "2-digit",
-                meridiem: "short",
-              }}
-            />
-          </div>
-        </motion.section>
-
-        {/* ======================================================== */}
-        {/* LEGEND                                                     */}
-        {/* ======================================================== */}
-
-        <motion.section
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          transition={{
-            duration: 0.4,
-            delay: 0.25,
-          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.25 }}
           className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 px-1"
         >
           <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400">
@@ -621,168 +381,139 @@ export default function BulSUCalendarPage() {
               Pending
             </span>
           </div>
-
-          <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
-
-            <span className="text-[12px] font-medium text-slate-500">
-              Cancelled
-            </span>
-          </div>
         </motion.section>
+
+        {/* Filter context note */}
+        <div className="mt-5 flex items-center gap-2 px-1 text-[12px] text-slate-400">
+          <SlidersHorizontal className="h-3.5 w-3.5" />
+          Showing live bookings for this facility only.
+        </div>
       </div>
 
-      {/* ========================================================== */}
-      {/* EVENT DETAILS MODAL                                        */}
-      {/* ========================================================== */}
-
-      {selectedEvent && (
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/20 px-4 backdrop-blur-sm"
-          onClick={() => setSelectedEvent(null)}
-        >
+      {/* Event details modal */}
+      <AnimatePresence>
+        {selectedEvent && (
           <motion.div
-            initial={{
-              opacity: 0,
-              y: 18,
-              scale: 0.97,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            transition={{
-              duration: 0.2,
-            }}
-            onClick={(event) => event.stopPropagation()}
-            className="w-full max-w-md overflow-hidden rounded-[24px] border border-slate-200/70 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.15)]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/20 px-4 backdrop-blur-sm"
+            onClick={() => setSelectedEvent(null)}
           >
-            {/* Modal header */}
+            <motion.div
+              initial={{ opacity: 0, y: 18, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              onClick={(event) => event.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${selectedEvent.title} details`}
+              className="w-full max-w-md overflow-hidden rounded-[24px] border border-slate-200/70 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.15)]"
+            >
+              <div className="border-b border-slate-100 px-6 py-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="mb-3 inline-flex rounded-full bg-bulsu/[0.07] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-bulsu">
+                      {String(selectedEvent.extendedProps.status ?? "")}
+                    </div>
 
-            <div className="border-b border-slate-100 px-6 py-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div
-                    className={`mb-3 inline-flex rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] ${
-                      selectedEvent.extendedProps.status === "pending"
-                        ? "bg-gold/20 text-[#806500]"
-                        : "bg-bulsu/[0.07] text-bulsu"
-                    }`}
-                  >
-                    {selectedEvent.extendedProps.status}
+                    <h2 className="text-[20px] font-bold leading-tight tracking-[-0.4px] text-slate-950">
+                      {selectedEvent.title}
+                    </h2>
                   </div>
 
-                  <h2 className="text-[20px] font-bold leading-tight tracking-[-0.4px] text-slate-950">
-                    {selectedEvent.title}
-                  </h2>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedEvent(null)}
+                    aria-label="Close"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="space-y-5 px-6 py-5">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bulsu/[0.07]">
+                    <MapPin className="h-4 w-4 text-bulsu" />
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                      Facility
+                    </p>
+
+                    <p className="mt-1 text-[13px] font-semibold text-slate-800">
+                      {displayName}
+                    </p>
+                  </div>
                 </div>
 
+                <div className="flex items-start gap-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bulsu/[0.07]">
+                    <Clock3 className="h-4 w-4 text-bulsu" />
+                  </div>
+
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                      Schedule
+                    </p>
+
+                    <p className="mt-1 text-[13px] font-semibold text-slate-800">
+                      {formatDateTime(selectedEvent.start)}
+                    </p>
+
+                    <p className="mt-0.5 text-[11px] text-slate-400">
+                      until {formatDateTime(selectedEvent.end)}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                    Purpose
+                  </p>
+
+                  <div className="mt-2 rounded-xl bg-slate-50 p-3">
+                    <p className="text-[13px] leading-5 text-slate-600">
+                      {String(selectedEvent.extendedProps.purpose ?? "")}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between border-t border-slate-100 pt-4">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                    Reservation ID
+                  </span>
+
+                  <span className="font-mono text-[11px] font-medium text-slate-500">
+                    #{selectedEvent.id}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex gap-2 border-t border-slate-100 bg-slate-50 px-6 py-4">
                 <button
                   type="button"
                   onClick={() => setSelectedEvent(null)}
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
-                  aria-label="Close"
+                  className="h-11 flex-1 rounded-xl border border-slate-200 bg-white text-[12px] font-semibold text-slate-700 transition-colors hover:bg-slate-100"
                 >
-                  <X className="h-4 w-4" />
+                  Close
                 </button>
+
+                <Link
+                  href="/login"
+                  className="flex h-11 flex-1 items-center justify-center rounded-xl bg-bulsu text-[12px] font-semibold text-white transition-colors hover:bg-bulsu-dark"
+                >
+                  Sign In to Reserve
+                </Link>
               </div>
-            </div>
-
-            {/* Modal body */}
-
-            <div className="space-y-5 px-6 py-5">
-              {/* Facility */}
-
-              <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bulsu/[0.07]">
-                  <MapPin className="h-4 w-4 text-bulsu" />
-                </div>
-
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
-                    Facility
-                  </p>
-
-                  <p className="mt-1 text-[13px] font-semibold text-slate-800">
-                    {selectedEvent.extendedProps.facilityName}
-                  </p>
-
-                  <p className="mt-0.5 text-[11px] text-slate-400">
-                    {selectedEvent.extendedProps.facilityType}
-                  </p>
-                </div>
-              </div>
-
-              {/* Schedule */}
-
-              <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-bulsu/[0.07]">
-                  <Clock3 className="h-4 w-4 text-bulsu" />
-                </div>
-
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
-                    Schedule
-                  </p>
-
-                  <p className="mt-1 text-[13px] font-semibold text-slate-800">
-                    {formatDateTime(selectedEvent.start)}
-                  </p>
-
-                  <p className="mt-0.5 text-[11px] text-slate-400">
-                    until {formatDateTime(selectedEvent.end)}
-                  </p>
-                </div>
-              </div>
-
-              {/* Purpose */}
-
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
-                  Purpose
-                </p>
-
-                <div className="mt-2 rounded-xl bg-white p-3">
-                  <p className="text-[13px] leading-5 text-slate-600">
-                    {selectedEvent.extendedProps.purpose}
-                  </p>
-                </div>
-              </div>
-
-              {/* Reservation ID */}
-
-              <div className="flex items-center justify-between border-t border-slate-100 pt-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
-                  Reservation ID
-                </span>
-
-                <span className="font-mono text-[11px] font-medium text-slate-500">
-                  #{selectedEvent.id}
-                </span>
-              </div>
-            </div>
-
-            {/* Modal footer */}
-
-            <div className="flex gap-2 border-t border-slate-100 bg-white px-6 py-4">
-              <button
-                type="button"
-                onClick={() => setSelectedEvent(null)}
-                className="flex-1 rounded-xl bg-bulsu px-4 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-bulsu-dark"
-              >
-                Close
-              </button>
-            </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </main>
   );
 }

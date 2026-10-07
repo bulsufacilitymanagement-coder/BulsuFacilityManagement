@@ -71,6 +71,7 @@ Required env (`./.env.local`, never commit):
 ```text
 NEXT_PUBLIC_SUPABASE_URL=…
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=…
+SUPABASE_SERVICE_ROLE_KEY=…   # server-only: Super Admin user creation (never expose to the browser)
 ```
 
 Scripts: `npm run dev` · `npm run build` · `npm run start` · `npm run lint`.

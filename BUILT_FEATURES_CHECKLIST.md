@@ -33,23 +33,31 @@
 | System-generated QR per facility, printable | MISSING | No QR lib in `package.json`, no `qr` string in code |
 | Scan → facility live schedule + booking form | MISSING | Deep link pattern (`/bulsu-facilities/[id]`) exists and could host it, but no QR generation/linkage |
 
-## D. Module 3 — Interactive Availability Calendar
+## D. Module 3 — Interactive Availability Calendar (NOW LIVE)
 
-| Requirement | Status | Evidence |
-|---|---|---|
-| Day/Week/Month calendar per facility | DONE (UI only, dummy data) | FullCalendar wired in `ReservationsSchedule.tsx:716` and `bulsu-facilities/[id]/page.tsx:533` (dayGridMonth, timeGridWeek, timeGridDay, listWeek) |
-| Live booked vs open slots from DB | MISSING | Both calendars use hardcoded `DUMMY_RESERVATIONS[12]` (`ReservationsSchedule.tsx:76`, `bulsu-facilities/[id]/page.tsx:64`); zero queries to `reservations` table (verified by grep) |
-| Color-coded: open / confirmed / pending / maintenance | PARTIAL (UI colors, no open/maintenance) | Confirmed=#A6192E, pending=#F4C430, cancelled=grey (`ReservationsSchedule.tsx:429-441`); no "open slot" or "maintenance" rendering |
-| Click/drag open slot → auto-filled reservation form | MISSING | `handleDateSelect` only `console.log` (`ReservationsSchedule.tsx:478`, `bulsu-facilities/[id]/page.tsx:367`) |
+- Day/Week/Month calendar per facility with real `reservations` rows:
+  auth view `ReservationsSchedule.tsx` (scoped to the facility in the URL,
+  with status filter + search, loading skeleton, not-found state),
+  public view `bulsu-facilities/[id]/page.tsx` (read-only, cancelled hidden).
+- Color legend: confirmed bulsu, pending gold, cancelled grey.
+- Click/drag an open slot (eligible roles, available facilities only) opens
+  `AddReservationSheet` prefilled with the selected range.
 
-## E. Module 4 — Reservation Engine & Conflict Prevention
+## E. Module 4 — Reservation Engine & Conflict Prevention (NOW LIVE)
 
-| Requirement | Status | Evidence |
-|---|---|---|
-| Submit reservation request | MISSING | No `reservations.insert` anywhere; no booking form component |
-| Automated conflict blocking (overlap check) | MISSING | No overlap query/logic |
-| Personal dashboard: upcoming / history / cancel | MISSING (dummy) | `Dashboard.tsx:14,41` hardcodes `3/2/12` + `RES-2026-001..003`; `New Reservation` button + `View All` have no handler; `page.tsx:20,47` holds second unused dummy copy |
-| Cancel reservation | MISSING | No `reservations.update/delete` |
+- Submit reservation request: `AddReservationSheet` inserts into
+  `reservations` with `status: "pending"` (College Admin + Student Org Admin
+  only, via `canReserveFacility`; Super Admins are read-only).
+- Validation: purpose ≥ 5 chars, future slot, end > start, ≥ 30 min, within
+  06:00–22:00, instant overlap check + live re-check at submit.
+- Confirmation dialog precedes every insert; receipt modal follows with
+  reservation ID, facility, date/time, purpose, and status.
+- Conflict blocking: overlapping non-cancelled bookings are rejected both in
+  the form and with a fresh query at submit time.
+- Reservations tab (`/reservations`, linked in the sidebar): role-scoped
+  one-liner list with status pills, search, and click-to-view details modal.
+- Dashboard reads live `reservations` (counts, donut, trend, recent list).
+- Still missing: cancel-own-booking button, approve/reject, check-in/no-show.
 
 ## F. Module 5 — Admin Management & Check-In Workflow
 
@@ -68,7 +76,7 @@
 | `profiles` | READ + INSERT live | register insert, `getCurrentUserProfile` select with college join |
 | `colleges` | READ + INSERT live | list + AddCollegeSheet |
 | `facilities` | READ + INSERT live | public + auth lists, AddFacilitySheet |
-| `reservations` | NOT USED | Schema exists (`id/purpose/status/start_time/end_time/user_id/facility_id`) but zero reads/writes in code |
+| `reservations` | READ + INSERT live | submit flow, both calendars, Reservations tab, dashboard |
 
 ## H. Broken / Dead Links to Fix Before UAT
 

@@ -9,8 +9,6 @@ import { createClient } from "@/lib/supabase/client";
 import { ViewFacility } from "./types/view-facility";
 import { useUser } from "@/app/providers/userProvider";
 import { useRouter } from "next/navigation";
-
-// Facility Mock Data
 const type = [
   "All Venues",
   "Auditorium",
@@ -102,7 +100,12 @@ export default function Facilities() {
             <h1 className="text-[32px] font-bold leading-tight tracking-[-1.2px] text-slate-950 sm:text-[40px]">
               {isCollegeAdmin ? "Manage" : "Browse"}{" "}
               <span className="text-bulsu">
-                Facilities {isCollegeAdmin && "for " + user.college.code}
+                Facilities for{" "}
+                {isCollegeAdmin && user.college ? (
+                  <span className="text-gold">{` ${user.college.code}`}</span>
+                ) : (
+                  ""
+                )}
               </span>
             </h1>
             <p className="text-[15px] text-slate-500">
@@ -213,27 +216,27 @@ export default function Facilities() {
           <AnimatePresence>
             {!loading &&
               filteredFacilities.map((fac, index) => {
-              const isAvailable = fac.status === "Available";
-              const isReserved = fac.status === "Reserved Today";
+                const isAvailable = fac.status === "Available";
+                const isReserved = fac.status === "Reserved Today";
 
-              return (
-                <FacilityCard
-                  handleShowReservationSchedule={() =>
-                    handleShowReservationSchedule(fac.id)
-                  }
-                  key={index}
-                  fac={fac}
-                  isAvailable={isAvailable}
-                  isReserved={isReserved}
-                />
-              );
-            })}
+                return (
+                  <FacilityCard
+                    handleShowReservationSchedule={() =>
+                      handleShowReservationSchedule(fac.id)
+                    }
+                    key={index}
+                    fac={fac}
+                    isAvailable={isAvailable}
+                    isReserved={isReserved}
+                  />
+                );
+              })}
           </AnimatePresence>
         </motion.div>
       </div>
 
       {/* Facility Sheets */}
-      {isCollegeAdmin && (
+      {isCollegeAdmin && user.college && (
         <AddFacilitySheet
           collegeId={user.college.id}
           isOpen={showAddFacilitySheet}

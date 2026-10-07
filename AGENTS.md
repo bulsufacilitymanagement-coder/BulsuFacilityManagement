@@ -13,7 +13,9 @@
 - Path alias: `@/*` maps to repo root (`tsconfig.json`).
 - Commands: `npm run dev` / `npm run build` / `npm run start` / `npm run lint`.
 - Env (see `.env.local`, never commit it):
-  `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+  `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`,
+  `SUPABASE_SERVICE_ROLE_KEY` (server-only — admin user creation; never add a
+  `NEXT_PUBLIC_` prefix to it).
 
 ## 2. Project Structure (do not reorganize without discussion)
 
@@ -166,11 +168,10 @@ createClient()` at module scope is the current convention — keep it, but do
 - `Register.tsx`: missing `college_id`/`school_id` capture; UI role labels
   (`Student`/`Faculty`) mismatch stored roles (`Student Org Admin`/
   `College Admin`).
-- `Dashboard.tsx` + `dashboard/page.tsx`: hardcoded stats/reservations; buttons
-  without handlers.
-- Both schedule calendars: `DUMMY_RESERVATIONS`, `handleDateSelect` only logs.
-  `reservations` table has zero reads/writes repo-wide.
-- Dead routes referenced but missing: `/reservations`, `/settings`, `/help`,
+- `Dashboard.tsx`: policy-reminder card is static copy (stats/charts are live).
+- Reservation workflow has no approve/reject, check-in, or no-show revoke yet;
+  `reservations` status transitions are insert (pending) + read only.
+- Dead routes referenced but missing: `/settings`, `/help`,
   `/forgot-password`. `UserManagement` is a stub.
 
 <!-- BEGIN:nextjs-agent-rules -->
