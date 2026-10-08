@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; message?: string }>;
 }) {
   const supabase = await createClient();
 
@@ -17,15 +17,15 @@ export default async function LoginPage({
     redirect("/dashboard");
   }
 
-  const { error } = await searchParams;
+  const { error, message } = await searchParams;
 
-  return (
-    <Login
-      linkError={
-        error === "link-expired"
-          ? "This invite link is invalid or expired. Ask your admin to send a new invite."
-          : null
-      }
-    />
-  );
+  // Specific backend reason wins; otherwise the generic expired message.
+  const linkError =
+    error === "link-invalid" && message
+      ? message
+      : error === "link-expired" || error === "link-invalid"
+        ? "This invite link is invalid or expired. Ask your admin to send a new invite."
+        : null;
+
+  return <Login linkError={linkError} />;
 }

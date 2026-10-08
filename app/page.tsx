@@ -74,7 +74,11 @@ export default function Home() {
       }
 
       if (error) {
-        router.replace("/login?error=link-expired");
+        // Forward the real reason (already-used, expired, malformed) so the
+        // login page can show it instead of a generic message.
+        router.replace(
+          `/login?error=link-invalid&message=${encodeURIComponent(error.message)}`
+        );
         return;
       }
 

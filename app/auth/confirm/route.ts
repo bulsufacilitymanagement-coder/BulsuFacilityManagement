@@ -23,6 +23,10 @@ export async function GET(request: NextRequest) {
 
       redirect(next);
     }
+
+    redirect(
+      `/login?error=link-invalid&message=${encodeURIComponent(error.message)}`
+    );
   }
 
   redirect("/login?error=link-expired");
