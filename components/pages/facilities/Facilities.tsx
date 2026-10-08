@@ -173,7 +173,6 @@ export default function Facilities() {
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.14, ease: "easeOut" }}
-          className="flex flex-wrap items-start gap-6"
         >
           {/* Loading skeletons keep layout stable while fetching. */}
           {loading && (
@@ -213,25 +212,28 @@ export default function Facilities() {
             </div>
           )}
 
-          <AnimatePresence>
-            {!loading &&
-              filteredFacilities.map((fac, index) => {
-                const isAvailable = fac.status === "Available";
-                const isReserved = fac.status === "Reserved Today";
+          {/* Grid stretches each row so cards share one height. */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <AnimatePresence>
+              {!loading &&
+                filteredFacilities.map((fac, index) => {
+                  const isAvailable = fac.status === "Available";
+                  const isReserved = fac.status === "Reserved Today";
 
-                return (
-                  <FacilityCard
-                    handleShowReservationSchedule={() =>
-                      handleShowReservationSchedule(fac.id)
-                    }
-                    key={index}
-                    fac={fac}
-                    isAvailable={isAvailable}
-                    isReserved={isReserved}
-                  />
-                );
-              })}
-          </AnimatePresence>
+                  return (
+                    <FacilityCard
+                      handleShowReservationSchedule={() =>
+                        handleShowReservationSchedule(fac.id)
+                      }
+                      key={index}
+                      fac={fac}
+                      isAvailable={isAvailable}
+                      isReserved={isReserved}
+                    />
+                  );
+                })}
+            </AnimatePresence>
+          </div>
         </motion.div>
       </div>
 
