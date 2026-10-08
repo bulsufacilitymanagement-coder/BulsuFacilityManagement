@@ -20,10 +20,62 @@ import {
   X,
 } from "lucide-react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import PublicNavbar from "@/components/ui/PublicNavbar/PublicNavbar";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Home() {
+  const router = useRouter();
+
+  // Accepts implicit-flow email links (Site URL + #access_token=…&type=invite)
+  // that templates may still generate; PKCE links use /auth/confirm instead.
+  // Tokens are cleared from the address bar before anything else runs.
+  useEffect(() => {
+    const hash = window.location.hash;
+
+    if (!hash.includes("access_token")) {
+      return;
+    }
+
+    let cancelled = false;
+
+    (async () => {
+      const params = new URLSearchParams(hash.slice(1));
+      const access_token = params.get("access_token");
+      const refresh_token = params.get("refresh_token");
+      const linkType = params.get("type");
+
+      window.history.replaceState(null, "", window.location.pathname);
+
+      if (!access_token || !refresh_token) {
+        router.replace("/login?error=link-expired");
+        return;
+      }
+
+      const supabase = createClient();
+      const { error } = await supabase.auth.setSession({
+        access_token,
+        refresh_token,
+      });
+
+      if (cancelled) {
+        return;
+      }
+
+      if (error) {
+        router.replace("/login?error=link-expired");
+        return;
+      }
+
+      router.replace(linkType === "invite" ? "/auth/set-password" : "/dashboard");
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [router]);
+
   return (
     <main className="min-h-screen overflow-hidden bg-white text-slate-950">
       {/* ================================================================ */}
