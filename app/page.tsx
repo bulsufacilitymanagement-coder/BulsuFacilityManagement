@@ -28,27 +28,37 @@ import { createClient } from "@/lib/supabase/client";
 export default function Home() {
   const router = useRouter();
 
-  // Accepts implicit-flow email links (Site URL + #access_token=…&type=invite)
-  // that templates may still generate; PKCE links use /auth/confirm instead.
-  // Tokens are cleared from the address bar before anything else runs.
+  // Accepts implicit-flow email links (Site URL + access_token in the hash
+  // OR query string, with type=invite) that templates may still generate;
+  // PKCE links use /auth/confirm instead. Tokens are cleared from the
+  // address bar before anything else runs.
   useEffect(() => {
-    const hash = window.location.hash;
+    const url = new URL(window.location.href);
+    const hashParams = new URLSearchParams(window.location.hash.slice(1));
 
-    if (!hash.includes("access_token")) {
+    const access_token =
+      hashParams.get("access_token") ?? url.searchParams.get("access_token");
+    const refresh_token =
+      hashParams.get("refresh_token") ??
+      url.searchParams.get("refresh_token");
+    const linkType =
+      hashParams.get("type") ?? url.searchParams.get("type");
+    // Supabase appends ?error=… when its own verify step rejects the token.
+    const urlError = url.searchParams.get("error");
+
+    const hasTokens =
+      hashParams.has("access_token") || url.searchParams.has("access_token");
+
+    if (!hasTokens && !urlError) {
       return;
     }
 
     let cancelled = false;
 
     (async () => {
-      const params = new URLSearchParams(hash.slice(1));
-      const access_token = params.get("access_token");
-      const refresh_token = params.get("refresh_token");
-      const linkType = params.get("type");
-
       window.history.replaceState(null, "", window.location.pathname);
 
-      if (!access_token || !refresh_token) {
+      if (urlError || !access_token || !refresh_token) {
         router.replace("/login?error=link-expired");
         return;
       }
@@ -68,7 +78,9 @@ export default function Home() {
         return;
       }
 
-      router.replace(linkType === "invite" ? "/auth/set-password" : "/dashboard");
+      router.replace(
+        linkType === "invite" ? "/auth/set-password" : "/dashboard"
+      );
     })();
 
     return () => {
@@ -100,14 +112,6 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: "easeOut" }}
             >
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-bulsu/10 bg-bulsu/[0.05] px-3.5 py-2">
-                <Sparkles className="h-3.5 w-3.5 text-bulsu" />
-
-                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-bulsu">
-                  University Facility Portal
-                </span>
-              </div>
-
               <h1 className="max-w-[680px] text-[42px] font-bold leading-[1.05] tracking-[-1.8px] text-slate-950 sm:text-[56px] lg:text-[64px]">
                 Reserve the spaces
                 <span className="block text-bulsu">you need.</span>
