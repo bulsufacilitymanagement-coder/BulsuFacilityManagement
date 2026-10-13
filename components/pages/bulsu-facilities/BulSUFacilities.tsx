@@ -24,7 +24,7 @@ const supabase = createClient();
 export default function BulSUFacilities() {
   const router = useRouter();
 
-  const [selectedCategory, setSelectedCategory] = useState("All Venues");
+  const [selectedCategory, setSelectedCategory ] = useState("All Venues");
   const [searchQuery, setSearchQuery] = useState("");
   const [facilities, setFacilities] = useState<ViewFacility[]>([]);
   const [loading, setLoading] = useState(true);
