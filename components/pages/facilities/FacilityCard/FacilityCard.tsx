@@ -15,6 +15,12 @@ export default function FacilityCard({
   isReserved,
   handleShowReservationSchedule,
 }: FacilityCardProps) {
+  // description is a comma-separated list; drop blanks so no empty chip renders.
+  const tags = (fac.description ?? "")
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -22,7 +28,7 @@ export default function FacilityCard({
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.3 }}
       className="
-        group relative flex w-[365px] shrink-0 self-start flex-col
+        group relative flex h-full w-full flex-col
         rounded-[28px] border border-slate-200/70 bg-white p-6
         shadow-[0_15px_40px_rgba(15,23,42,0.04)]
         transition-all duration-300
@@ -42,8 +48,8 @@ export default function FacilityCard({
             isAvailable
               ? "border-emerald-200/60 bg-emerald-50 text-emerald-700"
               : isReserved
-              ? "border-amber-200/60 bg-amber-50 text-amber-700"
-              : "border-slate-200 bg-slate-100 text-slate-600"
+                ? "border-amber-200/60 bg-amber-50 text-amber-700"
+                : "border-slate-200 bg-slate-100 text-slate-600"
           }`}
         >
           {fac.status}
@@ -62,38 +68,43 @@ export default function FacilityCard({
       </div>
 
       {/* Capacity */}
-      <div className="mt-4 flex w-fit items-center gap-1.5 rounded-[14px] bg-white px-3 py-2 text-[12px] font-semibold text-slate-700">
-        <Users className="h-4 w-4 shrink-0 text-bulsu" />
+      <div className="mt-3 flex items-center gap-1.5 text-[12px] font-semibold text-slate-700">
+        <Users className="h-3.5 w-3.5 shrink-0 text-bulsu" />
         <span>{fac.capacity} Seats</span>
       </div>
 
       {/* Description */}
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        {fac.description.split(",").map((desc: string, index: number) => (
-          <span
-            key={index}
-            className="rounded-lg bg-slate-100/70 px-2.5 py-1 text-[11px] font-medium text-slate-600"
-          >
-            {desc.trim()}
-          </span>
-        ))}
-      </div>
+      {tags.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className="rounded-lg bg-slate-100/70 px-2.5 py-1 text-[11px] font-medium text-slate-600"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
 
-      {/* Card Actions */}
-      <div className="mt-6 flex items-center justify-end gap-3 border-t border-slate-100 pt-5">
-        <button
-          type="button"
-          onClick={handleShowReservationSchedule}
-          disabled={!isAvailable}
-          className={`inline-flex h-10 items-center justify-center gap-2 rounded-[12px] px-4 text-[13px] font-semibold transition-all active:scale-[0.98] ${
-            isAvailable
-              ? "bg-bulsu text-white shadow-[0_8px_20px_rgba(165,0,17,0.20)] hover:bg-bulsu-dark"
-              : "cursor-not-allowed bg-slate-100 text-slate-400"
-          }`}
-        >
-          <CalendarCheck className="h-4 w-4" />
-          View Facility and Reservations
-        </button>
+      {/* Card Actions: mt-auto pins the button row to the card bottom so
+          every card in a grid row lines up regardless of content height. */}
+      <div className="mt-auto pt-6">
+        <div className="border-t border-slate-100 pt-5">
+          <button
+            type="button"
+            onClick={handleShowReservationSchedule}
+            disabled={!isAvailable}
+            className={`inline-flex h-11 w-full items-center justify-center gap-2 rounded-[12px] px-4 text-[13px] font-semibold transition-all active:scale-[0.98] ${
+              isAvailable
+                ? "bg-bulsu text-white shadow-[0_8px_20px_rgba(165,0,17,0.20)] hover:bg-bulsu-dark"
+                : "cursor-not-allowed bg-slate-100 text-slate-400"
+            }`}
+          >
+            <CalendarCheck className="h-4 w-4" />
+            View Facility and Reservations
+          </button>
+        </div>
       </div>
     </motion.div>
   );

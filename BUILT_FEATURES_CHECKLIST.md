@@ -19,12 +19,16 @@
 | Requirement | Status | Evidence |
 |---|---|---|
 | Search + filter by Facility Type | DONE (both public + auth) | `BulSUFacilities.tsx:67`, `Facilities.tsx:55`; types: Auditorium, Laboratory, Conference Room, Sports & Grounds |
-| Filter by College/Unit (e.g. CICT, COE) | MISSING | No college filter dropdown exists; auth view auto-scopes instead, public view has no college filter |
+| Filter by College/Unit (e.g. CICT, COE) | PARTIAL (public, via campus map) | Public catalog: pick a building on the map, then a college in `Modals/CollegePickerModal.tsx`; no standalone college dropdown, auth view auto-scopes instead |
+| 2D campus map → building → college → facility cards | DONE (public catalog, added 2026-10-08) | `bulsu-facilities/CampusMap/CampusMap.tsx` (SVG map + building chip list, count badges), layout in `CampusMap/campus-buildings.ts` (19 named places, snapped to shared edges/gaps), filter in `BulSUFacilities.tsx` (`selectedBuilding` + `selectedCollegeId`); filter bar + cards stay hidden behind a prompt until a building and college are picked, facilities fetched with `college:colleges` join |
+| Facility cards align in a grid row | DONE (2026-10-08) | `FacilityCard.tsx` is `h-full w-full` with the action row pinned by `mt-auto`, full-width button, no empty description chip; `Facilities.tsx` list is now a grid |
 | Facility profile: location, capacity, status, description | DONE (read-only) | `FacilityCard.tsx:36-80` renders `type/status/name/location/capacity/description` from `facilities` table |
 | Equipment details, usage guidelines | MISSING | `facilities` table has no `equipment`/`guidelines` columns; `description` text only |
 | Status values Available / Under Maintenance / Deactivated | PARTIAL | Code checks `Available` / `Reserved Today` (`Facilities.tsx:167`); DB `status:text` free-form, no maintenance/deactivated workflow |
 | Mobile-responsive views | DONE (layout-level) | Tailwind responsive classes throughout (`grid sm:`, `lg:`), mobile sidebar drawer in `LayoutShell.tsx:25-46` |
 | Colleges management (Super Admin) | DONE (create + list) | `Colleges.tsx:26` (`colleges.select`), `AddCollegeSheet.tsx:37` (`colleges.insert`) |
+
+**Gap (campus map):** a facility is matched to a building by finding the building name inside the free-text `facilities.location` (e.g. `Pimentel Hall - 4th Floor`), so a misspelled or missing building name leaves it off the map. `AddFacilitySheet` still takes location as free text. The map is on the public catalog only, not the auth `/facilities` page.
 
 ## C. Module 2 — QR Code Quick-Scan
 
