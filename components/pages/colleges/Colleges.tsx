@@ -15,8 +15,8 @@ const supabase = createClient();
 export default function Colleges() {
   const router = useRouter();
 
-  const { user } = useUser();
-
+  const { user } = useUser( );
+ 
   const [searchQuery, setSearchQuery] = useState("");
   const [showAddCollegeSheet, setShowAddCollegeSheet] = useState(false);
   const [colleges, setColleges] = useState<ViewCollege[] | null>(null);
